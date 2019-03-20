@@ -1,0 +1,37 @@
+email_receiver: {
+    Bob:{
+        receiver: 10406043@163.com,
+        #cc: 48090730@qq.com;bo.jiang@activenetwork.com,
+        cc:
+    },
+}
+
+report: {
+    access_address:  ,    
+    version: v1.0,
+    ui_test: 0,
+    app_test: 0,
+}
+
+env: {
+    QA: {
+        users: {
+            Users_1: {
+                email_address: automation@byincd.com,
+                password: Password@1234
+            },
+        },
+        https: 1,
+        process_num: 1,
+        host: 192.168.3.117,
+        port: 443,
+        test_db: {
+            host: 127.0.0.1,
+            username: root,
+            password: root,
+            dbname: test,
+            port: 3306,
+            charset: utf8
+        },
+    },
+}
