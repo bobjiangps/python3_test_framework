@@ -7,41 +7,47 @@ from utils.yaml_helper import YamlHelper
 
 
 class FileConfig:
+
+    def __init__(self, file_path=None):
+        self.file_config_path = file_path
     
-    def get_running_parameter_from_file(self, filepath=None):
-        if filepath:
-            config_file = filepath
+    def get_running_parameter_from_file(self):
+        if self.file_config_path:
+            config_file = self.file_config_path
         else:
-            config_file = os.path.join(os.getcwd(),"Running_Config.ini")
+            config_file = os.path.join(os.getcwd(), "Running_Config.ini")
         cf = configparser.ConfigParser()
         cf.read(config_file)
         return dict(cf.items("Run Test"))
 
     
 class CMDConfig:
+
+    def __init__(self):
+        self.command_args = None
     
     def set_command_parameter(self):
         parser = argparse.ArgumentParser()
         
-        parser.add_argument("-pr", "--project", metavar = "Example", type = str, default = "Example", choices=["TEMP","Android_BaiduMap","Example_Android","Example_API_Restful","Example_Web"], 
-                    help = "a string that indicates which project it will run with (Example)")
-        parser.add_argument("-e", "--environment", metavar = "QA", type = str, default = "QA", choices=["INT","QA","Staging","PROD"],
-                    help = "a string that indicates which environment to test (INT, QA, Staging, PROD)")
-        parser.add_argument("-b", "--browser", metavar = "Chrome", type = str, default = "Chrome", choices=["IE","Safari","Chrome","Firefox"],
-                    help = "a string that indicates which browser to run web test")
-        parser.add_argument("-m", "--mobile", metavar = "Android", type = str, default = "Android", choices=["Android","iOS"],
-                    help = "a string that indicates which mobile system to run mobile app test")
+        parser.add_argument("-pr", "--project", metavar="Example", type=str, default="Example", choices=["TEMP", "Android_BaiduMap", "Example_Android", "Example_API_Restful", "Example_Web"],
+                            help="a string that indicates which project it will run with (Example)")
+        parser.add_argument("-e", "--environment", metavar="QA", type=str, default="QA", choices=["INT", "QA", "Staging", "PROD"],
+                            help="a string that indicates which environment to test (INT, QA, Staging, PROD)")
+        parser.add_argument("-b", "--browser", metavar="Chrome", type=str, default="Chrome", choices=["IE", "Safari", "Chrome", "Firefox"],
+                            help="a string that indicates which browser to run web test")
+        parser.add_argument("-m", "--mobile", metavar="Android", type=str, default="Android", choices=["Android", "iOS"],
+                            help="a string that indicates which mobile system to run mobile app test")
         # test_group = parser.add_mutually_exclusive_group()
-        parser.add_argument("-t", "--test", metavar = "test_class_name test_class_name.method_name", type = str, nargs = "+",
-                    help = "a list of test classes or test methods which you want to run")
-        parser.add_argument("-et", "--exclude_test", metavar = "test_class_name test_class_name.method_name", type = str, nargs = "+",
-                    help = "a list of test classes or test methods which not run")
-        parser.add_argument("-p", "--profile", metavar = "tester", type = str,default = "Bob",
-                    help = "a string about the peoples to receive test result by email")
-        parser.add_argument("-T", "--tag", metavar = "Happy_Path", type = str,default = "All", choices=["All","Happy_Path","Bad_Path","Sad_Path"],
-                    help = "a string about the tag to define which cases to run")
-        parser.add_argument("-ll", "--log_level", metavar = "DEBUG", type = str,default = "DEBUG", choices=["CRITICAL","ERROR","WARNING","INFO","DEBUG","NOTEST"],
-                    help = "a string about log level to show log")
+        parser.add_argument("-t", "--test", metavar="test_class_name test_class_name.method_name", type=str, nargs="+",
+                            help="a list of test classes or test methods which you want to run")
+        parser.add_argument("-et", "--exclude_test", metavar="test_class_name test_class_name.method_name", type=str, nargs="+",
+                            help="a list of test classes or test methods which not run")
+        parser.add_argument("-p", "--profile", metavar="tester", type=str, default="Bob",
+                            help="a string about the peoples to receive test result by email")
+        parser.add_argument("-T", "--tag", metavar="Happy_Path", type=str, default="All", choices=["All", "Happy_Path", "Bad_Path", "Sad_Path"],
+                            help="a string about the tag to define which cases to run")
+        parser.add_argument("-ll", "--log_level", metavar="DEBUG", type=str, default="DEBUG", choices=["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTEST"],
+                            help="a string about log level to show log")
         
         self.command_args = parser.parse_args()
         return self.command_args.__dict__
