@@ -17,7 +17,7 @@ class Application:
         report_folder_path = os.path.join(os.getcwd(), "projects", self._config["project"], "test_reports")
         if not os.path.exists(report_folder_path):
             os.mkdir(report_folder_path)
-        report_path = os.path.join(report_folder_path, "AutoTest-%s-%s-%s.html" % (self._config["project"], self._config["environment"], datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")))
+        report_path = os.path.join(report_folder_path, "AutoTest-%s-%s-%s.html" % (self._config["project"], self._config["environment"], datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
         print(report_path)
         # pytest.main("--html=%s" % report_path) # show warning
 

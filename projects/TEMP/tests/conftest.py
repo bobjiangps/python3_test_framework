@@ -24,5 +24,5 @@ def pytest_runtest_makereport(item, call):
         elif rep.skipped:
             skip_sum += 1
         print("\nCurrent Status: Pass - %d, Fail - %d, Skip - %d" % (pass_sum, fail_sum, skip_sum))
-    with open(stat_file, "w") as f:
-        f.write("Pass,%d\nFail,%d\nSkip,%d\nEndTime,%s" % (pass_sum, fail_sum, skip_sum, datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")))
+        with open(stat_file, "w") as f:
+            f.write("Pass,%d\nFail,%d\nSkip,%d\nEndTime,%s" % (pass_sum, fail_sum, skip_sum, datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")))
