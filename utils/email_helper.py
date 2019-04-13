@@ -18,7 +18,7 @@ def send_email(content, subject, email_setting, filename=None):
         attachment_file.add_header("Content-Disposition", "attachment", filename=filename.replace("\\","/").split("/")[-1])
         msg.attach(attachment_file) 
         msg.attach(MIMEText(content, "html", _charset="utf-8"))    
-    smtp = smtplib.SMTP(email_setting["smtp_server"], 25)
+    smtp = smtplib.SMTP_SSL(email_setting["smtp_server"])
     smtp.login(email_setting["sender_username"], email_setting["sender_password"])
     smtp.sendmail(email_setting["sender"], (email_setting["receiver"].split(";")) + (email_setting["cc"].split(";") if email_setting["cc"] is not None else []), msg.as_string())
     smtp.quit()
