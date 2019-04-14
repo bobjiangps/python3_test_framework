@@ -20,9 +20,9 @@
 | | SOAP | TBD |
 
 
-list:
-- running by commandline, by config file
-- pytest + allure
+todo list:
+- running by commandline, by config file --> Done
+- pytest
 - select any test case or test suite to run, or make your own group, not run something,etc
 - run by tag
 - logging
@@ -43,3 +43,11 @@ list:
 - distributed
 - web UI page to run test / show statistics by many kinds of types(module, time, etc)/show trend/give warning prompt
 - resource control
+
+
+environment:
+- run "pip install -r requirement.txt" to install python libraries
+
+
+note:
+- allure is beautiful but not choose it to show report. because it is not a single file, cannot send in email; the report is able to view by starting a server, but I don't think this is good for distributed test. I have a another web server to show same data and charts.

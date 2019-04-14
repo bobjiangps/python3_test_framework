@@ -12,6 +12,7 @@ report: {
     version: v1.0,
     ui_test: 0,
     app_test: 0,
+    win_test: 0,
 }
 
 env: {

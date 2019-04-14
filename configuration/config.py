@@ -29,7 +29,7 @@ class CMDConfig:
     def set_command_parameter(self):
         parser = argparse.ArgumentParser()
         
-        parser.add_argument("-pr", "--project", metavar="Example", type=str, default="Example", choices=["TEMP", "Android_BaiduMap", "Example_Android", "Example_API_Restful", "Example_Web"],
+        parser.add_argument("-p", "--project", metavar="Example", type=str, default="Example", choices=["TEMP", "Android_BaiduMap", "Example_Android", "Example_API_Restful", "Example_Web"],
                             help="a string that indicates which project it will run with (Example)")
         parser.add_argument("-e", "--environment", metavar="QA", type=str, default="QA", choices=["INT", "QA", "Staging", "PROD"],
                             help="a string that indicates which environment to test (INT, QA, Staging, PROD)")
@@ -42,7 +42,7 @@ class CMDConfig:
                             help="a list of test classes or test methods which you want to run")
         parser.add_argument("-et", "--exclude_test", metavar="test_class_name test_class_name.method_name", type=str, nargs="+",
                             help="a list of test classes or test methods which not run")
-        parser.add_argument("-p", "--profile", metavar="tester", type=str, default="Bob",
+        parser.add_argument("-pf", "--profile", metavar="tester", type=str, default="Bob",
                             help="a string about the peoples to receive test result by email")
         parser.add_argument("-T", "--tag", metavar="Happy_Path", type=str, default="All", choices=["All", "Happy_Path", "Bad_Path", "Sad_Path"],
                             help="a string about the tag to define which cases to run")

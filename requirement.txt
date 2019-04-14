@@ -5,5 +5,10 @@ more-itertools==4.3.0
 pluggy==0.8.0
 py==1.7.0
 pytest==4.0.2
+pytest-assume==1.2.2
+pytest-html==1.20.0
+pytest-metadata==1.8.0
+pytest-ordering==0.6
+pytest-rerunfailures==7.0
 PyYAML==3.13
 six==1.12.0
