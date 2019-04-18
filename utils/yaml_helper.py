@@ -1,17 +1,17 @@
 import yaml
 
 
-class YamlHelper(object):
+class YamlHelper:
 
     @classmethod
-    def load_yaml(self, f):
-        rf = open(f, "rb")
+    def load_yaml(cls, file_path):
+        rf = open(file_path, "rb")
         ret = yaml.load(rf)
         rf.close()
         return ret
 
     @classmethod
-    def dump_yaml(self, f, dataMap):
-        wf = open(f, "w")
-        yaml.safe_dump(dataMap, wf)
+    def dump_yaml(cls, file_path, data):
+        wf = open(file_path, "w")
+        yaml.dump(data, wf)
         wf.close()

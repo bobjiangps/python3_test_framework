@@ -3,20 +3,27 @@ from py.xml import html
 import pytest
 import os
 import datetime
+import json
 
 
-pass_sum = fail_sum = skip_sum = 0
+total_sum = pass_sum = fail_sum = skip_sum = 0
+module_case = {}
 
 
 @pytest.hookimpl(hookwrapper=True, tryfirst=True)
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item, call):
-    stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.csv")
+    stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
+    global total_sum
     global pass_sum
     global fail_sum
     global skip_sum
+    global module_case
     outcome = yield
     rep = outcome.get_result()
+    test_file = item.function.__module__.split(".")[-1]
+    if test_file not in module_case.keys():
+        module_case[test_file] = {}
     rep.description = str(item.function.__doc__)
     setattr(item, "rep_" + rep.when, rep)
     if rep.when == "call":
@@ -25,15 +32,21 @@ def pytest_runtest_makereport(item, call):
         print(rep.location)
         print(rep.nodeid)
         print(rep.fspath)
+        test_method = rep.nodeid.split("::")[-1]
+        total_sum += 1
         if rep.passed:
             pass_sum += 1
+            module_case[test_file][test_method] = "pass"
         elif rep.failed:
             fail_sum += 1
+            module_case[test_file][test_method] = "fail"
         elif rep.skipped:
             skip_sum += 1
-        print("Current Status: Pass - %d, Fail - %d, Skip - %d\n" % (pass_sum, fail_sum, skip_sum))
+            module_case[test_file][test_method] = "skip"
+        print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d\n" % (total_sum, pass_sum, fail_sum, skip_sum))
+        current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S"), "Details": module_case}
         with open(stat_file, "w") as f:
-            f.write("Pass,%d\nFail,%d\nSkip,%d\nEndTime,%s" % (pass_sum, fail_sum, skip_sum, datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")))
+            json.dump(current_result, f)
 
 
 # update environment data in pytest-html report
