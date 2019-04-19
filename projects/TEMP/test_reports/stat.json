@@ -1,0 +1,1 @@
+{"Total": 7, "Pass": 4, "Fail": 3, "Skip": 0, "End_Time": "2019-04-19-13:35:17", "Details": {"test_sample": {"test_answer1": "pass", "test_answer2": "fail", "test_answer3": "pass", "test_answer4": "fail"}, "test_sample2": {"test_answer5": "pass", "test_answer6": "fail", "test_answer7": "pass"}}}
