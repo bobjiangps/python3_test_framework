@@ -1,8 +1,8 @@
 email_receiver: {
     Bob:{
         receiver: jbsv43@sina.com,
-        #cc: 48090730@qq.com;bo.jiang@activenetwork.com,
-        #receiver: automation@byincd.com,
+        #cc: 48090730@qq.com;10406043@163.com,
+        #receiver: ,
         cc:
     },
 }

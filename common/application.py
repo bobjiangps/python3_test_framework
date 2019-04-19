@@ -39,13 +39,13 @@ class Application:
 
         self.end_time = datetime.datetime.now()
         print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
-        result_statistics = self._retrieve_result_stat(report_folder_path)
-        # self._send_test_result(result_statistics, report_path)
+        result_statistics = self._generate_result_statistics(report_folder_path)
+        self._send_test_result(result_statistics, report_path)
 
     def _load_config(self):
         self._config = LoadConfig.load_config()
 
-    def _retrieve_result_stat(self, report_folder_path):
+    def _generate_result_statistics(self, report_folder_path):
         result_stat = {"Total": None, "Pass": None, "Fail": None, "Skip": None}
         stat_path = os.path.join(report_folder_path, "stat.json")
         with open(stat_path, "r") as f:
@@ -53,8 +53,41 @@ class Application:
             for item in result_json.keys():
                 if item in result_stat.keys():
                     result_stat[item] = result_json[item]
-        print(f"result statistics: {str(result_stat)[1:-1]}")
-        return str(result_stat)[1:-1]
+        print(f"Overall Result Statistics: {str(result_stat)[1:-1]}")
+        modules_cases = {}
+        fail_skip_suite = {"has_fail": [], "has_skip": []}
+        for item in result_json["Details"].items():
+            modules_cases[item[0]] = {"case_total": 0, "case_pass": 0, "case_fail": 0, "case_skip": 0}
+            for v in item[1].values():
+                modules_cases[item[0]]["case_total"] += 1
+                if v.lower() == "pass":
+                    modules_cases[item[0]]["case_pass"] += 1
+                elif v.lower() == "fail":
+                    modules_cases[item[0]]["case_fail"] += 1
+                    # if has fail and skip, mark it as has_fail
+                    if item[0] not in fail_skip_suite["has_fail"]:
+                        fail_skip_suite["has_fail"].append(item[0])
+                elif v.lower() == "skip":
+                    modules_cases[item[0]]["case_skip"] += 1
+                    if item[0] not in fail_skip_suite["has_skip"]:
+                        fail_skip_suite["has_skip"].append(item[0])
+
+        stat_template = os.path.join(os.getcwd(), "common", "report", "statistics.html")
+        with open(stat_template) as f:
+            statistics = f.read()
+        statistics = statistics.replace("<strong>Project:</strong></p>", "<strong>Project:</strong> %s</p>" % self._config["project"])
+        statistics = statistics.replace("<strong>Environment:</strong></p>", "<strong>Environment:</strong> %s</p>" % self._config["environment"])
+        statistics = statistics.replace("<strong>Start Time:</strong></p>", "<strong>Start Time:</strong> %s</p>" % str(self.start_time)[:-7])
+        statistics = statistics.replace("<strong>Duration:</strong></p>", "<strong>Duration:</strong> %s</p>" % str(self.end_time - self.start_time)[:-7])
+        statistics = statistics.replace("<td>total_suite</td><td>total_case</td>", "<td>%d</td><td>%d</td>" % (len(modules_cases.keys()), result_stat["Total"]))
+        statistics = statistics.replace("<td>pass_suite</td><td>pass_case</td>", "<td>%d</td><td>%d</td>" % ((len(modules_cases.keys()) - len(fail_skip_suite["has_fail"]) - len(fail_skip_suite["has_skip"])), result_stat["Pass"]))
+        statistics = statistics.replace("<td>fail_suite</td><td>fail_case</td>", "<td>%d</td><td>%d</td>" % (len(fail_skip_suite["has_fail"]), result_stat["Fail"]))
+        statistics = statistics.replace("<td>skip_suite</td><td>skip_case</td>", "<td>%d</td><td>%d</td>" % (len(fail_skip_suite["has_skip"]), result_stat["Skip"]))
+        modules_stat_string = ""
+        for item in modules_cases.items():
+            modules_stat_string += "<tr class='module-row'><td>%s</td><td>%d</td><td class='pass-cell'>%d</td><td class='fail-cell'>%d</td><td class='skip-cell'>%d</td></tr>" % (item[0], item[1]["case_total"], item[1]["case_pass"], item[1]["case_fail"], item[1]["case_skip"])
+        statistics = statistics.replace("<tr class='module-row'></tr>", modules_stat_string)
+        return statistics
 
     def _send_test_result(self, result_statistics, report_file):
         email_setting = dict(self._config["email_sender"], **self._config["email_receiver"][self._config["profile"]])

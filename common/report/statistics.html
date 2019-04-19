@@ -1,184 +1,146 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style type="text/css" media="screen">
-body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
-table       { font-size: 100%; }
-pre         { }
+    <head>
+        <style type="text/css" media="screen">
+            body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+            table       { font-size: 100%; }
 
-/* -- heading ---------------------------------------------------------------------- */
-h1 {
-    font-size: 16pt;
-    color: gray;
-}
-.heading {
-    margin-top: 0ex;
-    margin-bottom: 1ex;
-}
+            /* -- heading ---------------------------------------------------------------------- */
+            h1 {
+                font-size: 16pt;
+                color: gray;
+            }
+            .heading {
+                margin-top: 0ex;
+                margin-bottom: 1ex;
+            }
 
-.heading .attribute {
-    margin-top: 1ex;
-    margin-bottom: 0;
-}
+            .heading .attribute {
+                margin-top: 1ex;
+                margin-bottom: 0;
+            }
 
-.heading .description {
-    margin-top: 4ex;
-    margin-bottom: 6ex;
-}
+            .heading .description {
+                margin-top: 4ex;
+                margin-bottom: 6ex;
+            }
 
-/* -- css div popup ------------------------------------------------------------------------ */
-a.popup_link {
-}
+            /* -- report ------------------------------------------------------------------------ */
+            th,td {
+                border: 1px solid #777;
+            }
+            #result-summary-table {
+                width: 30%;
+                border-collapse: collapse;
+                border: 1px solid #777;
+                text-align: center;
+            }
+            #header-row {
+                font-weight: bold;
+                color: white;
+                background-color: #3399ff;
+            }
+            #pass-summary-row {
+                color: #00CD00;
+            }
+            #fail-summary-row {
+                color: #EE2C2C;
+            }
+            #skip-summary-row {
+                color: #EE9A00;
+            }
+            #result-module-table {
+                width: 40%;
+                border-collapse: collapse;
+                border: 1px solid #777;
+                text-align: center;
+            }
+            #header-module-row {
+                font-weight: bold;
+                color: white;
+                background-color: #3399ff;
+            }
+            .pass-cell {
+                color: #00CD00;
+            }
+            .fail-cell {
+                color: #EE2C2C;
+            }
+            .skip-cell {
+                color: #EE9A00;
+            }
+            .failClass { color: #c00; font-weight: bold; }
+            .blockClass  { background-color: #c60; }
+            .errorClass  { background-color: #880; }
+            .warningClass  { background-color: #690; }
+            .passClass  { color: #6c6; font-weight: bold; }
+            .failCase  { color: #c00; font-weight: bold; }
+            .blockCase   { color: #c60; font-weight: bold; }
+            .errorCase   { color: #880; font-weight: bold; }
+            .warningCase   { color: #690; }
+            .passCase   { color: #6c6; }
+            .hiddenRow  { display: none; }
+            .testcase   { margin-left: 2em; }
+            .testcasetitle   { background-color: #CCC; font-weight: bold; }
 
-a.popup_link:hover {
-    color: red;
-}
-
-.popup_window {
-    display: none;
-    position: relative;
-    left: 0px;
-    top: 0px;
-    /*border: solid #627173 1px; */
-    padding: 10px;
-    background-color: #E6E6D6;
-    font-family: "Lucida Console", "Courier New", Courier, monospace;
-    text-align: left;
-    font-size: 8pt;
-    /*width: 500px;*/
-}
-td[colspan='7']{
-    width:800px;
-}
-td[colspan='7'] > .popup_window{
-   width:780px;
-}
-td[colspan='7'] > .popup_window pre{
-    width:780px;
-    white-space: pre-wrap;
-}
-
-}
-/* -- report ------------------------------------------------------------------------ */
-#show_detail_line {
-    margin-top: 3ex;
-    margin-bottom: 1ex;
-}
-#result_table {
-    width: 30%;
-    border-collapse: collapse;
-    border: 1px solid #777;
-}
-#result_table_2 {
-    width: 200px;
-    border-collapse: collapse;
-    border: 1px solid #777;
-}
-#header_row {
-    font-weight: bold;
-    color: white;
-    background-color: #777;
-}
-#result_table td {
-    border: 1px solid #777;
-    width: 16%;
-    padding: 2px;
-}
-#result_table_2 td {
-    border: 1px solid #777;
-    padding: 2px;
-}
-#total_row  { font-weight: bold; }
-.failClass { color: #c00; font-weight: bold; }
-.blockClass  { background-color: #c60; }
-.errorClass  { background-color: #880; }
-.warningClass  { background-color: #690; }
-.passClass  { color: #6c6; font-weight: bold; }
-.failCase  { color: #c00; font-weight: bold; }
-.blockCase   { color: #c60; font-weight: bold; }
-.errorCase   { color: #880; font-weight: bold; }
-.warningCase   { color: #690; }
-.passCase   { color: #6c6; }
-.hiddenRow  { display: none; }
-.testcase   { margin-left: 2em; }
-.testcasetitle   { background-color: #CCC; font-weight: bold; }
-
-
-/* -- ending ---------------------------------------------------------------------- */
-#ending {
-}
-
-</style>
-
-</head>
-<body>
-
-<div class="heading">
-<p class="attribute"><strong>Project:</strong> </p>
-    
-<p class="attribute"><strong>Environment:</strong> </p>
-    
-<p class="attribute"><strong>Start Time:</strong> </p>
-    
-<p class="attribute"><strong>Duration:</strong> </p>
-    
-<p class="attribute"><strong>Statistics:</strong> </p>
-    
-
-    <p class="attribute">
-    <table id="result_table_2" width="30%">
-    <tr id="header_row">
-        <td width="8%">Type</td>
-        <td width="10%">Test Suite Count</td>
-        <td width="12%">Test Case Count</td>
-    </tr> 
-    
-    <tr id="total_row">
-        <td>Pass</td>
-        <td>pass_suite</td><td>pass_case</td>
-    </tr>  
-
-    <tr id="total_row">
-        <td>Fail / Error</td>
-        <td>fail_suite</td><td>fail_case</td>
-    </tr>  
-
-    <tr id="total_row">
-        <td>Total</td>
-        <td>total_suite</td><td>total_case</td>
-    </tr>  
-
-    </table>
-    </p>
-    
-<p class="description"></p>
-</div>
-<br>
-<br>
-
-
-<table id="result_table">
-<tr id="header_row">
-    <td>Failed Test Suite</td>
-</tr>
-
-<tr class="failClass"><td></td></tr>
-
-<tr id="header_row">
-    <td>Successful Test Suite</td>
-</tr>
-
-<tr class="passClass"><td></td></tr>
-
-</table>
-
-
-    <div style="margin:20px 0 0 0">
-        <div>
-            <span class="none" style="font-weight: bold;">Notes: </span>
+            /* -- ending ---------------------------------------------------------------------- */
+            #ending {
+                margin: 20px 0 0 0;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="heading">
+            <p class="attribute"><strong>Project:</strong></p>
+            <p class="attribute"><strong>Environment:</strong></p>
+            <p class="attribute"><strong>Start Time:</strong></p>
+            <p class="attribute"><strong>Duration:</strong></p>
         </div>
-    <div id="ending" style="margin:20px 0 0 0;font-weight:bold">Please open the attachment file in browser for more details.</div>
-    
-
-</body>
+        <p>---------------------------</p>
+        <p class="attribute"><strong>Overall Statistics:</strong></p>
+        <div class="summary">
+            <table id="result-summary-table">
+                <tr id="header-row">
+                    <th width="8%">Type</th>
+                    <th width="10%">Test Suite Count</th>
+                    <th width="12%">Test Case Count</th>
+                </tr>
+                <tr id="total-summary-row">
+                    <td>Total</td>
+                    <td>total_suite</td><td>total_case</td>
+                </tr>
+                <tr id="pass-summary-row">
+                    <td>Pass</td>
+                    <td>pass_suite</td><td>pass_case</td>
+                </tr>
+                <tr id="fail-summary-row">
+                    <td>Fail</td>
+                    <td>fail_suite</td><td>fail_case</td>
+                </tr>
+                <tr id="skip-summary-row">
+                    <td>Skip</td>
+                    <td>skip_suite</td><td>skip_case</td>
+                </tr>
+            </table>
+        </div>
+        <p>---------------------------</p>
+        <p class="attribute"><strong>Module Statistics:</strong></p>
+        <div class="modules">
+            <table id="result-module-table">
+                <tr id="header-module-row">
+                    <th width="13%">Type</th>
+                    <th width="9%">Total Count</th>
+                    <th width="9%">Pass Count</th>
+                    <th width="9%">Fail Count</th>
+                    <th width="9%">Skip Count</th>
+                </tr>
+                <tr class='module-row'></tr>
+            </table>
+        </div>
+        <div id="ending">
+            <span>Notes: </span>
+            <p>Please open the attachment file for more details.</p>
+        </div>
+    </body>
 </html>
