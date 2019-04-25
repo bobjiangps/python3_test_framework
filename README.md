@@ -20,15 +20,15 @@
 | | SOAP | TBD |
 
 
-todo list:
+Todo List:
 - running by commandline, by config file --> Done
 - pytest
-- select any test case or test suite to run, or make your own group, not run something,etc
+- select any test case or test suite to run, or make your own group, not run something,etc --> Done
 - run by tag
 - logging
 - screenshot + video during test
-- statistics for test results
-- email
+- statistics for test results  --> Done
+- email  --> Done
 - page object
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
 - selenium webdriver
@@ -41,13 +41,13 @@ todo list:
 - link to jira and testlink
 - multiple process
 - distributed
-- web UI page to run test / show statistics by many kinds of types(module, time, etc)/show trend/give warning prompt
+- web UI page to run test / show statistics by many kinds of types(module, time, etc)/show trend/give warning prompt  --> implement in another project
 - resource control
 
 
-environment:
-- run "pip install -r requirement.txt" to install python libraries
+Environment:
+> * run "pip install -r requirement.txt" to install python libraries
 
 
-note:
-- allure is beautiful but not choose it to show report. because it is not a single file, cannot send in email; the report is able to view by starting a server, but I don't think this is good for distributed test. I have a another web server to show same data and charts.
+Note:
+> * allure is beautiful but not choose it to show report. because it is not a single file, cannot send in email; the report is able to view by starting a server, but I don't think this is good for distributed test. I have a another web server to show same data and charts.

@@ -31,11 +31,18 @@ class Application:
         else:
             report_suffix = "API"
         report_path = os.path.join(report_folder_path, "AutoTest-%s-%s-%s-%s.html" % (self._config["project"], self._config["environment"], report_suffix, datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
-        # pytest.main("--html=%s" % report_path) # show warning
 
         # -v shows the result of each def; -q only shows the overall status; -s shows the print function in test def
-        pytest.main(["--html", report_path, "--self-contained-html", "-v"])
-        # pytest.main()
+        command_list = ["--html", report_path, "--self-contained-html", "-v"]
+        # if has include_test, then run these cases; else check and run exclude_test
+        if self._config["test"]:
+            for in_test in self._config["test"].split(","):
+                command_list.append(os.path.join("projects", self._config["project"], "tests", in_test.strip()))
+        elif self._config["exclude_test"]:
+            for ex_test in self._config["exclude_test"].split(","):
+                command_list.append("--deselect")
+                command_list.append(os.path.join("projects", self._config["project"], "tests", ex_test.strip()))
+        pytest.main(command_list)
 
         self.end_time = datetime.datetime.now()
         print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
