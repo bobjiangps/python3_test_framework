@@ -1,3 +1,6 @@
+import pytest
+
+
 class TestSample2:
 
     def test_answer5(self):
@@ -8,6 +11,7 @@ class TestSample2:
         """this is description of test answer6"""
         assert 2 + 4 == 5
 
+    @pytest.mark.temp
     def test_answer7(self):
         """this is description of test answer7"""
         assert 2+3 == 5

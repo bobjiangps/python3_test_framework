@@ -26,6 +26,11 @@ def pytest_runtest_makereport(item, call):
         module_case[test_file] = {}
     rep.description = str(item.function.__doc__)
     setattr(item, "rep_" + rep.when, rep)
+    if rep.when == "setup" and rep.skipped:
+        total_sum += 1
+        skip_sum += 1
+        test_method = rep.nodeid.split("::")[-1]
+        module_case[test_file][test_method] = "skip"
     if rep.when == "call":
         print("\nCase Duration: %ss ...%s" % (str(round(rep.duration, 2)), rep.outcome))
         print(rep.keywords)

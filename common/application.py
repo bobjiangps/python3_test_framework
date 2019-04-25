@@ -42,8 +42,16 @@ class Application:
             for ex_test in self._config["exclude_test"].split(","):
                 command_list.append("--deselect")
                 command_list.append(os.path.join("projects", self._config["project"], "tests", ex_test.strip()))
+        # run tests which name match keyword, example: keyword, not keyword, key1 or key2, key1 and key2
+        if self._config["keyword"]:
+            command_list.append("-k")
+            command_list.append(self._config["keyword"].strip())
+        # run tests which name match marker, example: marker, not marker, marker1 or marker2, marker1 and marker2
+        if self._config["marker"]:
+            command_list.append("-m")
+            command_list.append(self._config["marker"].strip())
         pytest.main(command_list)
-
+        # print(command_list)
         self.end_time = datetime.datetime.now()
         print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
         result_statistics = self._generate_result_statistics(report_folder_path)
