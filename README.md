@@ -24,8 +24,9 @@ Todo List:
 - running by commandline, by config file --> Done
 - pytest
 - select any test case or test suite to run, or make your own group, not run something,etc --> Done
-- run by tag
+- run by tag or keyword or marker --> Done
 - logging
+- rerun failures, set times
 - screenshot + video during test
 - statistics for test results  --> Done
 - email  --> Done

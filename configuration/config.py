@@ -46,6 +46,10 @@ class CMDConfig:
                             help="a string about the peoples to receive test result by email")
         parser.add_argument("-T", "--tag", metavar="Happy_Path", type=str, default="All", choices=["All", "Happy_Path", "Bad_Path", "Sad_Path"],
                             help="a string about the tag to define which cases to run")
+        parser.add_argument("-k", "--keyword", metavar="", type=str,
+                            help="a string about the keyword to define which cases to run, match case name")
+        parser.add_argument("-m", "--marker", metavar="", type=str,
+                            help="a string about the marker to define which cases to run, like categorization")
         parser.add_argument("-ll", "--log_level", metavar="DEBUG", type=str, default="DEBUG", choices=["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "NOTEST"],
                             help="a string about log level to show log")
         
