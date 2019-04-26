@@ -26,7 +26,7 @@ Todo List:
 - select any test case or test suite to run, or make your own group, not run something,etc --> Done
 - run by tag or keyword or marker --> Done
 - logging
-- rerun failures, set times
+- rerun failures, set times  --> Done
 - screenshot + video during test
 - statistics for test results  --> Done
 - email  --> Done

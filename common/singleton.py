@@ -1,9 +1,9 @@
 import threading
 
-class Singleton(object):
 
-    objs  = {}
-    objs_locker =  threading.Lock()
+class Singleton:
+    objs = {}
+    objs_locker = threading.Lock()
 
     def __new__(cls, *args, **kwargs):
         if cls in cls.objs:
