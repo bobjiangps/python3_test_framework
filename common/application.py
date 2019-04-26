@@ -50,6 +50,13 @@ class Application:
         if self._config["marker"]:
             command_list.append("-m")
             command_list.append(self._config["marker"].strip())
+        # rerun failures
+        if self._config["rerun"]["rerun_times"]:
+            command_list.append("--reruns")
+            command_list.append(str(self._config["rerun"]["rerun_times"]))
+            if self._config["rerun"]["rerun_delay"]:
+                command_list.append("--reruns-delay")
+                command_list.append(str(self._config["rerun"]["rerun_delay"]))
         pytest.main(command_list)
         # print(command_list)
         self.end_time = datetime.datetime.now()

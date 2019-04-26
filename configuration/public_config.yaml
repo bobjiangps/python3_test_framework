@@ -4,3 +4,8 @@ email_sender: {
     sender_username: automation@byincd.com,
     sender_password:
 }
+
+rerun: {
+    rerun_times: 3,
+    rerun_delay: 5,
+}

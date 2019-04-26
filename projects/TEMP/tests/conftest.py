@@ -27,9 +27,10 @@ def pytest_runtest_makereport(item, call):
     rep.description = str(item.function.__doc__)
     setattr(item, "rep_" + rep.when, rep)
     if rep.when == "setup" and rep.skipped:
-        total_sum += 1
-        skip_sum += 1
         test_method = rep.nodeid.split("::")[-1]
+        if test_method not in module_case[test_file]:
+            total_sum += 1
+            skip_sum += 1
         module_case[test_file][test_method] = "skip"
     if rep.when == "call":
         print("\nCase Duration: %ss ...%s" % (str(round(rep.duration, 2)), rep.outcome))
@@ -38,14 +39,18 @@ def pytest_runtest_makereport(item, call):
         print(rep.nodeid)
         print(rep.fspath)
         test_method = rep.nodeid.split("::")[-1]
-        total_sum += 1
         if rep.passed:
-            pass_sum += 1
+            if test_method not in module_case[test_file]:
+                total_sum += 1
+                pass_sum += 1
             module_case[test_file][test_method] = "pass"
         elif rep.failed:
-            fail_sum += 1
+            if test_method not in module_case[test_file]:
+                total_sum += 1
+                fail_sum += 1
             module_case[test_file][test_method] = "fail"
         elif rep.skipped:
+            total_sum += 1
             skip_sum += 1
             module_case[test_file][test_method] = "skip"
         print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d\n" % (total_sum, pass_sum, fail_sum, skip_sum))
