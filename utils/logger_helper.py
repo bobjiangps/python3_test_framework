@@ -27,7 +27,7 @@ class LoggingHelper:
         logging.basicConfig(level=LoadConfig.load_config()["log_level"],
                             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                             filename=os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest.log"),
-                            filemode='w')
+                            filemode='a')
 
         if len(logger.handlers) == 0:
             cls.add_handler(logger, cls.get_handler(level=LoadConfig.load_config()["log_level"]))

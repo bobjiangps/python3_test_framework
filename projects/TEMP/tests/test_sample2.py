@@ -1,7 +1,8 @@
 import pytest
+from common.test_base.logged_test_case import LoggedTestCase
 
 
-class TestSample2:
+class TestSample2(LoggedTestCase):
 
     def test_answer5(self):
         """this is description of test answer5"""

@@ -1,8 +1,9 @@
 import pytest
 from configuration.config import LoadConfig
+from common.test_base.logged_test_case import LoggedTestCase
 
 
-class TestSample:
+class TestSample(LoggedTestCase):
 
     def test_answer1(self):
         """this is description of test answer1"""
