@@ -33,11 +33,13 @@ class Application:
         report_path = os.path.join(report_folder_path, "AutoTest-%s-%s-%s-%s.html" % (self._config["project"], self._config["environment"], report_suffix, datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
 
         # -v shows the result of each def; -q only shows the overall status; -s shows the print function in test def
-        command_list = ["--html", report_path, "--self-contained-html", "-v"]
+        command_list = ["--html", report_path, "--self-contained-html", "-v", "--tb=line"]
         # if has include_test, then run these cases; else check and run exclude_test
         if self._config["test"]:
             for in_test in self._config["test"].split(","):
                 command_list.append(os.path.join("projects", self._config["project"], "tests", in_test.strip()))
+        elif not self._config["test"]:
+            command_list.append(os.path.join("projects", self._config["project"], "tests"))
         elif self._config["exclude_test"]:
             for ex_test in self._config["exclude_test"].split(","):
                 command_list.append("--deselect")
@@ -57,12 +59,18 @@ class Application:
             if self._config["rerun"]["rerun_delay"]:
                 command_list.append("--reruns-delay")
                 command_list.append(str(self._config["rerun"]["rerun_delay"]))
+        # log
+        #command_list.append('--log-format="%(asctime)s %(levelname)s %(message)s"')
+        #command_list.append('--log-date-format="%Y-%m-%d %H:%M:%S"')
+        #command_list.append("--show-capture=no")
+        command_list.append("--log-file=%s" % os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest.log"))
         pytest.main(command_list)
         # print(command_list)
         self.end_time = datetime.datetime.now()
         print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
         result_statistics = self._generate_result_statistics(report_folder_path, self.start_time)
         self._send_test_result(result_statistics, report_path)
+        self.exit_test()
 
     def _load_config(self):
         self._config = LoadConfig.load_config()
@@ -122,3 +130,6 @@ class Application:
             email_subject = "%s - %s - Auto Test Result" % (self._config["project"], self._config["environment"])
             print(f"Send email: {email_subject}")
             send_email(email_content, email_subject, email_setting, filename=report_file)
+
+    def exit_test(self):
+        print("Test Complete...\n")
