@@ -10,7 +10,8 @@ total_sum = pass_sum = fail_sum = skip_sum = 0
 module_case = {}
 
 
-@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+#@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+@pytest.hookimpl(hookwrapper=True)
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item, call):
     stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
@@ -33,11 +34,11 @@ def pytest_runtest_makereport(item, call):
             skip_sum += 1
         module_case[test_file][test_method] = "skip"
     if rep.when == "call":
-        print("\nCase Duration: %ss ...%s" % (str(round(rep.duration, 2)), rep.outcome))
-        print(rep.keywords)
-        print(rep.location)
-        print(rep.nodeid)
-        print(rep.fspath)
+        print("%s: Case Duration: %ss ...%s" % (rep.nodeid.split("::")[-1], str(round(rep.duration, 2)), rep.outcome))
+        # print(rep.keywords)
+        # print(rep.location)
+        # print(rep.nodeid)
+        # print(rep.fspath)
         test_method = rep.nodeid.split("::")[-1]
         if rep.passed:
             if test_method not in module_case[test_file]:
@@ -53,20 +54,24 @@ def pytest_runtest_makereport(item, call):
             total_sum += 1
             skip_sum += 1
             module_case[test_file][test_method] = "skip"
-        print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d\n" % (total_sum, pass_sum, fail_sum, skip_sum))
-        current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
-        with open(stat_file, "w") as f:
-            json.dump(current_result, f)
+    print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d" % (total_sum, pass_sum, fail_sum, skip_sum))
+    current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
+    with open(stat_file, "w") as f:
+        json.dump(current_result, f)
 
 
 # update environment data in pytest-html report
 def pytest_configure(config):
     if hasattr(config, '_metadata'):
         run_config_data = LoadConfig.load_config()
-        del config._metadata["Python"]
-        del config._metadata["Packages"]
-        del config._metadata["Plugins"]
-        del config._metadata["JAVA_HOME"]
+        if "Python" in config._metadata.keys():
+            del config._metadata["Python"]
+        if "Packages" in config._metadata.keys():
+            del config._metadata["Packages"]
+        if "Plugins" in config._metadata.keys():
+            del config._metadata["Plugins"]
+        if "JAVA_HOME" in config._metadata.keys():
+            del config._metadata["JAVA_HOME"]
         config._metadata["Project"] = run_config_data["project"]
         config._metadata["Environment"] = run_config_data["environment"]
         if run_config_data["report"]["ui_test"]:
