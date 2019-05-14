@@ -11,7 +11,7 @@ class RestAPITestBase:
         self.log = logging.getLogger(os.environ.get('PYTEST_CURRENT_TEST').split('::')[-2].split(' ')[0])
         self.config = LoadConfig.load_config()
         self.env = self.config["environment"]
-        self.url = "/".join([self.config[self.env]["base_url"], self.config[self.env]["api_list"][self.api_name]])
+        self.url = "/".join([self.config["env"][self.env]["base_url"], self.config["env"][self.env]["api_list"][self.api_name]])
 
     def get_response_by_url(self, data=None, headers={}):
         default_headers = {"Content-type": "application/json; charset=UTF-8"}

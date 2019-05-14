@@ -43,7 +43,7 @@ class LoggedTestCase:
             raise e
 
     @contextmanager
-    def verification(self):
+    def verify(self):
         try:
             yield
         except Exception as e:
