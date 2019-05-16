@@ -36,7 +36,7 @@ class Application:
         report_path = os.path.join(report_folder_path, "AutoTest-%s-%s-%s-%s.html" % (self._config["project"], self._config["environment"], report_suffix, datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
 
         # -v shows the result of each def; -q only shows the overall status; -s shows the print function in test def
-        command_list = ["--html", report_path, "--self-contained-html", "-v", "--tb=line"]
+        command_list = ["--html", report_path, "--self-contained-html", "-v", "--tb=short"]
         # if has include_test, then run these cases; else check and run exclude_test
         if self._config["test"]:
             for in_test in self._config["test"].split(","):

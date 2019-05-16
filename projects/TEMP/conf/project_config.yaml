@@ -2,7 +2,6 @@ email_receiver: {
     Bob:{
         receiver: jbsv43@sina.com,
         #cc: 48090730@qq.com;10406043@163.com,
-        #receiver: ,
         cc:
     },
 }
@@ -20,7 +19,7 @@ env: {
         users: {
             Users_1: {
                 email_address: automation@byincd.com,
-                password: Password@1234
+                password: Password
             },
         },
         https: 1,

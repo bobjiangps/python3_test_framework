@@ -17,7 +17,8 @@ env: {
     QA: {
         base_url: "https://jsonplaceholder.typicode.com",
         api_list: {
-            posts: posts
+            posts: posts,
+            post_comment: posts/<param>/comments
         }
     },
 }

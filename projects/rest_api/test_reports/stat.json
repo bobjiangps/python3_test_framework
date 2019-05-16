@@ -1,0 +1,1 @@
+{"Total": 3, "Pass": 2, "Fail": 1, "Skip": 0, "End_Time": "2019-05-16-18:20:21.052038", "Details": {"test_post_comment": {"test_post_comment_amount": "pass"}, "test_posts": {"test_posts_amount": "pass", "test_create_new_post": "fail"}}}
