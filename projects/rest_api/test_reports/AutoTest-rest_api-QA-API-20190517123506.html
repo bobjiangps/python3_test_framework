@@ -397,8 +397,8 @@ function filter_table(elem) {
     not_found_message.hidden = !all_rows_hidden;
 }
 </script>
-    <h1>AutoTest-rest_api-QA-API-20190516182011.html</h1>
-    <p>Report generated on 16-May-2019 at 18:20:21 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v1.20.0</p>
+    <h1>AutoTest-rest_api-QA-API-20190517123506.html</h1>
+    <p>Report generated on 17-May-2019 at 12:35:21 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v1.20.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -414,8 +414,8 @@ function filter_table(elem) {
         <td>Type</td>
         <td>API</td></tr></table>
     <h2>Summary</h2>
-    <p>3 tests ran in 9.32 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">2 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">1 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="rerun">1 rerun</span>
+    <p>8 tests ran in 14.32 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">7 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">1 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="rerun">1 rerun</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -432,43 +432,108 @@ function filter_table(elem) {
           <td class="col-result">Failed</td>
           <td class="col-name">projects/rest_api/tests/test_posts.py::TestPosts::test_create_new_post</td>
           <td>create new post and check new amount</td>
-          <td class="col-time">2019-05-16 10:20:21.053254</td>
-          <td class="col-duration">2.58</td></tr>
+          <td class="col-time">2019-05-17 04:35:21.200404</td>
+          <td class="col-duration">2.53</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">projects/rest_api/tests/test_posts.py:31: in test_create_new_post<br/>    assert all_posts_after == create_new_post_result[&quot;id&quot;], message_when_error<br/><span class="error">E   AssertionError: amount is not correct after create new post, expect: 101, before create: 100</span><br/><span class="error">E   assert 100 == 101</span><br/><span class="error">E     -100</span><br/><span class="error">E     +101</span><br/>------------------------------ Captured log setup ------------------------------<br/>2019-05-16 18:20:13 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-16 18:20:16 - TestPosts - [CRITICAL] - Exception in test verification---------------------------- Captured log teardown -----------------------------<br/>2019-05-16 18:20:16 - TestPosts - [INFO] - End to test TestPosts.test_create_new_post
-2019-05-16 18:20:16 - TestPosts - [INFO] - Test Suite TestPosts end, cost time: 0:00:03.557779------------------------------ Captured log setup ------------------------------<br/>2019-05-16 18:20:18 - TestPosts - [INFO] - Test Suite TestPosts start
-2019-05-16 18:20:18 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-16 18:20:21 - TestPosts - [CRITICAL] - Exception in test verification</div></td></tr></tbody>
+            <div class="log">projects/rest_api/tests/test_posts.py:31: in test_create_new_post<br/>    assert all_posts_after == create_new_post_result[&quot;id&quot;], message_when_error<br/><span class="error">E   AssertionError: amount is not correct after create new post, expect: 101, before create: 100</span><br/><span class="error">E   assert 100 == 101</span><br/><span class="error">E     -100</span><br/><span class="error">E     +101</span><br/>------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:13 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:16 - TestPosts - [CRITICAL] - Exception in test verification---------------------------- Captured log teardown -----------------------------<br/>2019-05-17 12:35:16 - TestPosts - [INFO] - End to test TestPosts.test_create_new_post
+2019-05-17 12:35:16 - TestPosts - [INFO] - Test Suite TestPosts end, cost time: 0:00:03.540795------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:18 - TestPosts - [INFO] - Test Suite TestPosts start
+2019-05-17 12:35:18 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:21 - TestPosts - [CRITICAL] - Exception in test verification</div></td></tr></tbody>
       <tbody class="rerun results-table-row">
         <tr>
           <td class="col-result">Rerun</td>
           <td class="col-name">projects/rest_api/tests/test_posts.py::TestPosts::test_create_new_post</td>
           <td>create new post and check new amount</td>
-          <td class="col-time">2019-05-16 10:20:18.432980</td>
-          <td class="col-duration">2.63</td></tr>
+          <td class="col-time">2019-05-17 04:35:18.631913</td>
+          <td class="col-duration">2.61</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">projects/rest_api/tests/test_posts.py:31: in test_create_new_post<br/>    assert all_posts_after == create_new_post_result[&quot;id&quot;], message_when_error<br/><span class="error">E   AssertionError: amount is not correct after create new post, expect: 101, before create: 100</span><br/><span class="error">E   assert 100 == 101</span><br/><span class="error">E     -100</span><br/><span class="error">E     +101</span><br/>------------------------------ Captured log setup ------------------------------<br/>2019-05-16 18:20:13 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-16 18:20:16 - TestPosts - [CRITICAL] - Exception in test verification</div></td></tr></tbody>
+            <div class="log">projects/rest_api/tests/test_posts.py:31: in test_create_new_post<br/>    assert all_posts_after == create_new_post_result[&quot;id&quot;], message_when_error<br/><span class="error">E   AssertionError: amount is not correct after create new post, expect: 101, before create: 100</span><br/><span class="error">E   assert 100 == 101</span><br/><span class="error">E     -100</span><br/><span class="error">E     +101</span><br/>------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:13 - TestPosts - [INFO] - Begin to test TestPosts.test_create_new_post------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:16 - TestPosts - [CRITICAL] - Exception in test verification</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_0[1-a-500]</td>
           <td>post comment amount</td>
-          <td class="col-time">2019-05-16 10:20:12.861685</td>
-          <td class="col-duration">1.00</td></tr>
+          <td class="col-time">2019-05-17 04:35:08.057444</td>
+          <td class="col-duration">1.02</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-16 18:20:11 - TestPostComment - [INFO] - Test Suite TestPostComment start
-2019-05-16 18:20:11 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount------------------------------ Captured log call -------------------------------<br/>2019-05-16 18:20:11 - TestPostComment - [INFO] - now url is: https://jsonplaceholder.typicode.com/posts/1/comments
-2019-05-16 18:20:12 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:06 - TestPostComment - [INFO] - Test Suite TestPostComment start
+2019-05-17 12:35:07 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_0[1-a-500]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:07 - TestPostComment - [INFO] - post id is 1
+2019-05-17 12:35:07 - TestPostComment - [INFO] - comment_mark is a
+2019-05-17 12:35:08 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:08 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_0[2-b-500]</td>
+          <td>post comment amount</td>
+          <td class="col-time">2019-05-17 04:35:09.060887</td>
+          <td class="col-duration">0.98</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:08 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_0[2-b-500]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:08 - TestPostComment - [INFO] - post id is 2
+2019-05-17 12:35:08 - TestPostComment - [INFO] - comment_mark is b
+2019-05-17 12:35:09 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:09 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_1[3-c-500]</td>
+          <td>post comment amount</td>
+          <td class="col-time">2019-05-17 04:35:10.074510</td>
+          <td class="col-duration">0.99</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:09 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_1[3-c-500]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:09 - TestPostComment - [INFO] - post id is 3
+2019-05-17 12:35:09 - TestPostComment - [INFO] - comment_mark is c
+2019-05-17 12:35:10 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:10 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_1[7-b-500]</td>
+          <td>post comment amount</td>
+          <td class="col-time">2019-05-17 04:35:11.093912</td>
+          <td class="col-duration">0.99</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:10 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_1[7-b-500]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:10 - TestPostComment - [INFO] - post id is 7
+2019-05-17 12:35:10 - TestPostComment - [INFO] - comment_mark is b
+2019-05-17 12:35:11 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:11 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_2[6]</td>
+          <td>post comment amount</td>
+          <td class="col-time">2019-05-17 04:35:12.106903</td>
+          <td class="col-duration">0.99</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:11 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_2[6]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:11 - TestPostComment - [INFO] - post id is 6
+2019-05-17 12:35:12 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:12 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/rest_api/tests/test_post_comment.py::TestPostComment::test_post_comment_amount_2[99]</td>
+          <td>post comment amount</td>
+          <td class="col-time">2019-05-17 04:35:13.078148</td>
+          <td class="col-duration">0.95</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:12 - TestPostComment - [INFO] - Begin to test TestPostComment.test_post_comment_amount_2[99]------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:12 - TestPostComment - [INFO] - post id is 99
+2019-05-17 12:35:13 - TestPostComment - [INFO] - url is https://jsonplaceholder.typicode.com/posts/1/comments
+2019-05-17 12:35:13 - TestPostComment - [INFO] - size is: 500</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">projects/rest_api/tests/test_posts.py::TestPosts::test_posts_amount</td>
           <td>posts amount</td>
-          <td class="col-time">2019-05-16 10:20:13.684060</td>
-          <td class="col-duration">0.79</td></tr>
+          <td class="col-time">2019-05-17 04:35:13.917900</td>
+          <td class="col-duration">0.81</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-16 18:20:12 - TestPosts - [INFO] - Test Suite TestPosts start
-2019-05-16 18:20:12 - TestPosts - [INFO] - Begin to test TestPosts.test_posts_amount------------------------------ Captured log call -------------------------------<br/>2019-05-16 18:20:13 - TestPosts - [INFO] - add cleanup part or not is up to you</div></td></tr></tbody></table></body></html>
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-05-17 12:35:13 - TestPosts - [INFO] - Test Suite TestPosts start
+2019-05-17 12:35:13 - TestPosts - [INFO] - Begin to test TestPosts.test_posts_amount------------------------------ Captured log call -------------------------------<br/>2019-05-17 12:35:13 - TestPosts - [INFO] - add cleanup part or not is up to you</div></td></tr></tbody></table></body></html>

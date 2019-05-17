@@ -76,3 +76,17 @@ class LoadConfig(Singleton):
         all_config = dict(all_config, **public_conf)
         all_config = dict(all_config, **project_conf)
         return all_config
+
+
+class TestData:
+
+    @classmethod
+    def load_test_case_data(cls, file_name, name):
+        all_config = LoadConfig.load_config()
+        test_data = []
+        test_data_path = os.path.join(os.getcwd(), "projects", all_config["project"], "test_data", file_name + ".yaml")
+        if os.path.exists(test_data_path):
+            case_data = YamlHelper.load_yaml(test_data_path)[name]
+            for case in case_data.values():
+                test_data.append(list(case.values()))
+        return test_data

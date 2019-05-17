@@ -19,11 +19,11 @@ class Application:
         self._load_config()
         # print(self._config)
         report_folder_path = os.path.join(os.getcwd(), "projects", self._config["project"], "test_reports")
-        if not os.path.exists(report_folder_path):
-            os.mkdir(report_folder_path)
         log_folder_path = os.path.join(os.getcwd(), "projects", self._config["project"], "log")
-        if not os.path.exists(log_folder_path):
-            os.mkdir(log_folder_path)
+        data_folder_path = os.path.join(os.getcwd(), "projects", self._config["project"], "test_data")
+        for folder in [report_folder_path, log_folder_path, data_folder_path]:
+            if not os.path.exists(folder):
+                os.mkdir(folder)
         if self._config["report"]["ui_test"]:
             if self._config["report"]["app_test"]:
                 report_suffix = self._config["mobile"]

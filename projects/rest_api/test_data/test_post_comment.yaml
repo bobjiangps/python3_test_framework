@@ -1,0 +1,12 @@
+check_post_comment: {
+    case_1: {
+        post_id: 1,
+        comment_mark: a,
+        expect_result: 500
+    },
+    case_2: {
+        post_id: 2,
+        comment_mark: b,
+        expect_result: 500
+    }
+}

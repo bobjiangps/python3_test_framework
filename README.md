@@ -22,24 +22,26 @@
 
 Todo List:
 - running by commandline, by config file --> Done
-- pytest
+- pytest - Done
 - select any test case or test suite to run, or make your own group, not run something,etc --> Done
 - run by tag or keyword or marker --> Done
 - logging --> Done
 - rerun failures, set times  --> Done
-- screenshot + video during test
+- screenshot
+- video during test
 - statistics for test results  --> Done
 - email  --> Done
 - page object
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
 - selenium webdriver
 - appium
+- automate restful api - Done
 - automate windows desktop application
 - db for mysql, mongodb, redis
 - activemq or else
 - file handler
 - text handler
-- data driven
+- data driven --> Done
 - link to jira and testlink
 - multiple process
 - distributed

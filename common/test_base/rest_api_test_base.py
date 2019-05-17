@@ -1,4 +1,5 @@
 from configuration.config import LoadConfig
+from utils.yaml_helper import YamlHelper
 import os
 import requests
 import logging
@@ -8,7 +9,8 @@ class RestAPITestBase:
 
     def __init__(self, api_name):
         self.api_name = api_name
-        self.log = logging.getLogger(os.environ.get('PYTEST_CURRENT_TEST').split('::')[-2].split(' ')[0])
+        self.current_class = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-2].split(' ')[0]
+        self.log = logging.getLogger(self.current_class)
         self.config = LoadConfig.load_config()
         self.env = self.config["environment"]
         self.url = "/".join([self.config["env"][self.env]["base_url"], self.config["env"][self.env]["api_list"][self.api_name]])
@@ -22,7 +24,6 @@ class RestAPITestBase:
                     url_split[index] = str(arg_list[param_index])
                     param_index += 1
             self.url = "/".join(url_split)
-            self.log.info(f"now url is: {self.url}")
 
     def get_response_by_url(self, data=None, headers={}, **kwargs):
         self.set_value_to_param_in_url(list(kwargs.values()))
