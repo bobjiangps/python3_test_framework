@@ -5,13 +5,12 @@ import pytest
 
 class TestPostComment(RestTestCase):
 
-    @pytest.mark.parametrize(("post_id", "comment_mark", "expect_result"), TestData.load_test_case_data("test_post_comment", "check_post_comment"))
+    @pytest.mark.parametrize(("post_id", "comment_mark", "expect_result"), TestData.load_test_case_data("test_post_comment"))
     def test_post_comment_amount_0(self, post_id, comment_mark, expect_result):
         """post comment amount"""
         with self.precondition():
             self.log.info("post id is %d" % post_id)
             self.log.info("comment_mark is %s" % comment_mark)
-            #self.log.info(self.post_comment_api.load_test_case_data("check_post_comment"))
             comments_of_post = self.post_comment_api.get_comments_of_post(post_id=post_id)
 
         with self.steps():

@@ -66,7 +66,7 @@ class Application:
         #command_list.append('--log-format="%(asctime)s %(levelname)s %(message)s"')
         #command_list.append('--log-date-format="%Y-%m-%d %H:%M:%S"')
         #command_list.append("--show-capture=no")
-        command_list.append("--log-file=%s" % os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest.log"))
+        command_list.append("--log-file=%s" % os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest-%s.log" % datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
         pytest.main(command_list)
         # print(command_list)
         self.end_time = datetime.datetime.now()

@@ -24,7 +24,6 @@ class LoggedTestCase:
         cls.stopTime = datetime.datetime.now()
         runtime = cls.stopTime - cls.startTime
         cls.log.info("Test Suite {0} end, cost time: {1}".format(cls.__name__, str(runtime)))
-        
 
     @contextmanager
     def precondition(self):
@@ -32,6 +31,7 @@ class LoggedTestCase:
             yield
         except Exception as e:
             self.log.critical("Exception in precondition")
+            self.log.critical(str(e))
             raise e
 
     @contextmanager
@@ -40,6 +40,7 @@ class LoggedTestCase:
             yield
         except Exception as e:
             self.log.critical("Exception in test steps")
+            self.log.critical(str(e))
             raise e
 
     @contextmanager
@@ -48,6 +49,7 @@ class LoggedTestCase:
             yield
         except Exception as e:
             self.log.critical("Exception in test verification")
+            self.log.critical(str(e))
             raise e
 
     @contextmanager
@@ -56,4 +58,5 @@ class LoggedTestCase:
             yield
         except Exception as e:
             self.log.critical("Exception in cleanup")
+            self.log.critical(str(e))
             raise e
