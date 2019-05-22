@@ -14,7 +14,6 @@ class TestPostComment(RestTestCase):
             comments_of_post = self.post_comment_api.get_comments_of_post(post_id=post_id)
 
         with self.steps():
-            self.log.info("url is %s" % self.post_comment_api.url)
             comment_amount = len(comments_of_post)
 
         with self.verify():
