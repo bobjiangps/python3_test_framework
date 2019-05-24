@@ -1,5 +1,6 @@
 from configuration.config import LoadConfig
 from utils.email_helper import send_email
+from utils.selenium_helper import SeleniumHelper
 import pytest
 import os
 import datetime
@@ -135,4 +136,7 @@ class Application:
             send_email(email_content, email_subject, email_setting, filename=report_file)
 
     def exit_test(self):
+        if self._config["report"]["ui_test"]:
+            if not self._config["report"]["win_test"]:
+                SeleniumHelper.close_driver()
         print("Test Complete...\n")

@@ -29,8 +29,8 @@ class SeleniumHelper(Singleton):
 
 class ChromeDriver:
 
-    @classmethod
-    def name(cls):
+    @staticmethod
+    def name():
         return "Chrome"
 
     @classmethod
@@ -43,8 +43,8 @@ class ChromeDriver:
 
 class FirefoxDriver:
 
-    @classmethod
-    def name(cls):
+    @staticmethod
+    def name():
         return "Firefox"
 
     @classmethod
@@ -57,8 +57,8 @@ class FirefoxDriver:
 
 class IEDriver:
 
-    @classmethod
-    def name(cls):
+    @staticmethod
+    def name():
         return "IE"
 
     @classmethod
@@ -71,8 +71,8 @@ class IEDriver:
 
 class EdgeDriver:
 
-    @classmethod
-    def name(cls):
+    @staticmethod
+    def name():
         return "Edge"
 
     @classmethod
@@ -85,8 +85,8 @@ class EdgeDriver:
 
 class SafariDriver:
 
-    @classmethod
-    def name(cls):
+    @staticmethod
+    def name():
         return "Safari"
 
     @classmethod
