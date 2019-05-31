@@ -1,0 +1,35 @@
+email_receiver: {
+    Bob:{
+        receiver: jbsv43@sina.com,
+        cc:
+    },
+}
+
+report: {
+    version: v1.0,
+    ui_test: 1,
+    app_test: 0,
+    win_test: 0,
+}
+
+env: {
+    QA: {
+        users: {
+            Users_1: {
+                email_address: blogeditor,
+                password: Password
+            },
+        },
+        host: 120.78.133.207,
+        port: 443,
+        test_db: {
+            host: 127.0.0.1,
+            username: blogeditor,
+            password: blogeditor,
+            dbname: test,
+            port: 3306,
+            charset: utf8
+        },
+        home_page: "https://byincd.com/bobjiang",
+    },
+}

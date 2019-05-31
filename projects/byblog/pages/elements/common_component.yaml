@@ -1,0 +1,11 @@
+search_input: {
+    type: input,
+    by: name,
+    value: q
+}
+
+search_button: {
+    type: button,
+    by: xpath,
+    value: "//section[@id='search']//button"
+}
