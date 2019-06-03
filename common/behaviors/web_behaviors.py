@@ -58,7 +58,7 @@ class WebBehaviors(WebDriverWait):
     def wait_until_frame_to_be_available_and_switch_to_it(self, locator, *args):
         by, value = self.format_locator(locator, *args)
         message = "Unable to switch to the frame to be available by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
-        el = self.until_visibility_of_element(locator, *args)
+        el = self.wait_until_visibility_of_element(locator, *args)
         return self.until(EC.frame_to_be_available_and_switch_to_it(el), message)
 
     def wait_until_switch_to_default_content(self):
@@ -156,14 +156,41 @@ class WebBehaviors(WebDriverWait):
         self.log.info("Get the first selected option from the element found by %s: %s" % (by, value))
         return Select(self.wait_until_visibility_of_element(locator, *args)).first_selected_option
 
-    def set_checkbox_value(self, enable, locator, *args):
-        by, value = self.format_locator(locator, *args)
-        checkbox = self.wait_until_visibility_of_element(locator, *args)
-        if checkbox.is_selected() != enable:
-            self.log.info("Set the checkbox to %s found by %s: %s" % (enable, by, value))
-            checkbox.click()
+    def element_selected(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        if element.is_selected():
+            self.log.info("The element is already selected")
         else:
-            self.log.info("The checkbox is already %s" % enable)
+            self.log.info("The element is not selected")
+        return element.is_selected()
+
+    def element_enabled(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        if element.is_enabled():
+            self.log.info("The element is already enabled")
+        else:
+            self.log.info("The element is not enabled")
+        return element.is_enabled()
+
+    def element_displayed(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        if element.is_displayed():
+            self.log.info("The element is already displayed")
+        else:
+            self.log.info("The element is not displayed")
+        return element.is_displayed()
+
+    def get_element_property(self, property_name, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        return element.get_property(property_name)
+
+    def get_element_text(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        return element.text
+
+    def get_element_attribute(self, attribute_name, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        return element.get_attribute(attribute_name)
 
     def mouse_over(self, locator, *args):
         element = self.wait_until_visibility_of_element(locator, *args)
