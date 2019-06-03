@@ -1,6 +1,8 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -96,3 +98,88 @@ class WebBehaviors(WebDriverWait):
     def wait_until_alert_is_present(self):
         message = "Unable to get alert to be present in the page %s" % self._driver.current_url
         return self.until(EC.alert_is_present(), message)
+
+    def go_to_page(self, page_url):
+        self.log.info("go to page %s" % page_url)
+        self._driver.get(page_url)
+
+    def click(self, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Click the element found by %s: %s" % (by, value))
+        if by != "image":
+            element = self.wait_until_element_to_be_clickable(locator, *args)
+            element.location_once_scrolled_into_view()
+            element.click()
+        # else:
+        #     screenshot_path = os.path.join(os.getcwd(), "projects", Config.instance().current_project, "resource", "screenshot.png")
+        #     self._driver.save_screenshot(screenshot_path)
+        #     time.sleep(1)
+        #     if os.path.exists(screenshot_path):
+        #         x,y = cv.generate_coordinate_matched(value, screenshot_path)
+        #         self.log.info("click on the coordinates: %s, %s" % (str(x),str(y)))
+        #         whole_page = self.find_element({"xpath":"//body"})
+        #         ActionChains(self._driver).move_to_element_with_offset(whole_page, 1, 1).perform()
+        #         ActionChains(self._driver).move_by_offset(x,y).click().perform()
+        #     else:
+        #         self.log.info("unable to find the screenshot file")
+
+    def clear(self, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Clear the element found by %s: %s" % (by, value))
+        element = self.wait_until_visibility_of_element(locator, *args)
+        element.location_once_scrolled_into_view()
+        element.clear()
+
+    def send_keys(self, keys_value, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Send keys(%s) to the element found by %s: %s" % (keys_value, by, value))
+        element = self.wait_until_visibility_of_element(locator, *args)
+        element.location_once_scrolled_into_view()
+        element.send_keys(keys_value)
+
+    def clear_and_send_keys(self, value, locator, *args):
+        self.clear(locator, *args)
+        self.send_keys(value, locator, *args)
+
+    def select(self, select_text, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Select the value(%s) from the element found by %s: %s" % (select_text, by, value))
+        Select(self.wait_until_visibility_of_element(locator, *args)).select_by_visible_text(select_text)
+
+    def select_by_value(self, select_value, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Select the value(%s) from the element found by %s: %s" % (select_value, by, value))
+        Select(self.wait_until_visibility_of_element(locator, *args)).select_by_value(select_value)
+
+    def first_selected_option(self, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Get the first selected option from the element found by %s: %s" % (by, value))
+        return Select(self.wait_until_visibility_of_element(locator, *args)).first_selected_option
+
+    def set_checkbox_value(self, enable, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        checkbox = self.wait_until_visibility_of_element(locator, *args)
+        if checkbox.is_selected() != enable:
+            self.log.info("Set the checkbox to %s found by %s: %s" % (enable, by, value))
+            checkbox.click()
+        else:
+            self.log.info("The checkbox is already %s" % enable)
+
+    def mouse_over(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        self.log.info("Mouse Over to the element")
+        ActionChains(self._driver).move_to_element(element).perform()
+
+    def double_click(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        self.log.info("Double Click the element")
+        ActionChains(self._driver).double_click(element).perform()
+
+    def right_click(self, locator, *args):
+        element = self.wait_until_visibility_of_element(locator, *args)
+        self.log.info("Right Click the element")
+        ActionChains(self._driver).context_click(element).perform()
+
+    def drag_and_drop(self, element, to):
+        self.log.info("Drag the element to the field")
+        ActionChains(self._driver).drag_and_drop(element, to).perform()
