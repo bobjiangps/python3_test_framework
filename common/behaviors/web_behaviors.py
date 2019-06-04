@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
+from utils.js_helper import JSHelper
 
 
 class WebBehaviors(WebDriverWait):
@@ -11,6 +12,7 @@ class WebBehaviors(WebDriverWait):
     def __init__(self, driver, timeout, logger):
         super().__init__(driver, timeout)
         self.log = logger
+        self.js = JSHelper()
 
     def format_locator(self, locator, *args):
         web_locators = list(By.__dict__.items())
@@ -21,7 +23,7 @@ class WebBehaviors(WebDriverWait):
                 by = v
                 value = locator["value"].format(*args)
                 break
-        self.log.info("by: %s, value: %s" % (by, value))
+        # self.log.info("by: %s, value: %s" % (by, value))
         return by, value
 
     def find_element(self, locator, *args):
@@ -100,15 +102,20 @@ class WebBehaviors(WebDriverWait):
         return self.until(EC.alert_is_present(), message)
 
     def go_to_page(self, page_url):
-        self.log.info("go to page %s" % page_url)
+        self.log.info("Go to page %s" % page_url)
         self._driver.get(page_url)
+
+    def scroll_into_view_of_element(self, element):
+        self.log.info("Scroll into view of element")
+        self._driver.execute_script(self.js.scroll_into_view, element)
 
     def click(self, locator, *args):
         by, value = self.format_locator(locator, *args)
         self.log.info("Click the element found by %s: %s" % (by, value))
         if by != "image":
             element = self.wait_until_element_to_be_clickable(locator, *args)
-            element.location_once_scrolled_into_view()
+            # element.location_once_scrolled_into_view
+            self.scroll_into_view_of_element(element)
             element.click()
         # else:
         #     screenshot_path = os.path.join(os.getcwd(), "projects", Config.instance().current_project, "resource", "screenshot.png")
@@ -127,14 +134,14 @@ class WebBehaviors(WebDriverWait):
         by, value = self.format_locator(locator, *args)
         self.log.info("Clear the element found by %s: %s" % (by, value))
         element = self.wait_until_visibility_of_element(locator, *args)
-        element.location_once_scrolled_into_view()
+        self.scroll_into_view_of_element(element)
         element.clear()
 
     def send_keys(self, keys_value, locator, *args):
         by, value = self.format_locator(locator, *args)
         self.log.info("Send keys(%s) to the element found by %s: %s" % (keys_value, by, value))
         element = self.wait_until_visibility_of_element(locator, *args)
-        element.location_once_scrolled_into_view()
+        self.scroll_into_view_of_element(element)
         element.send_keys(keys_value)
 
     def clear_and_send_keys(self, value, locator, *args):
@@ -210,3 +217,14 @@ class WebBehaviors(WebDriverWait):
     def drag_and_drop(self, element, to):
         self.log.info("Drag the element to the field")
         ActionChains(self._driver).drag_and_drop(element, to).perform()
+
+    def accept_in_alert(self):
+        self.log.info("Accept in alert")
+        alert = self.wait_until_alert_is_present()
+        alert.accept()
+
+    def dismiss_in_alert(self):
+        self.log.info("Dismiss in alert")
+        alert = self.wait_until_alert_is_present()
+        alert.dismiss()
+
