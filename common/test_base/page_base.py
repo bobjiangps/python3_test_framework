@@ -36,7 +36,8 @@ class PageBase:
             "input": Input(self.behavior, self.elements[name], *args),
             "link": Link(self.behavior, self.elements[name], *args),
             "radiobutton": RadioButton(self.behavior, self.elements[name], *args),
-            "text": Static(self.behavior, self.elements[name], *args)
+            "text": Static(self.behavior, self.elements[name], *args),
+            "pic": Static(self.behavior, self.elements[name], *args)
         }
         if self.elements[name]["type"].lower():
             return options[self.elements[name]["type"].lower()]

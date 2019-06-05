@@ -27,13 +27,13 @@ Todo List:
 - run by tag or keyword or marker --> Done
 - logging --> Done
 - rerun failures, set times  --> Done
-- screenshot
+- screenshot  --> Done
 - video during test
 - statistics for test results  --> Done
 - email  --> Done
-- page object
+- page object  --> Done
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
-- selenium webdriver
+- selenium webdriver  --> Done
 - appium
 - automate restful api - Done
 - automate windows desktop application

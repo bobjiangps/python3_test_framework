@@ -67,7 +67,7 @@ class WebBehaviors(WebDriverWait):
         message = "Unable to switch to the default frame in the page '{0}'".format(self._driver.current_url)
         return self.until(EC.frame_to_be_available_and_switch_to_it(None), message)
 
-    def wait_until_invisibility_of_element_located(self, locator, *args):
+    def wait_until_invisibility_of_element(self, locator, *args):
         by, value = self.format_locator(locator, *args)
         message = "Unable to get the element to be invisible by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
         return self.until(EC.invisibility_of_element_located((by, value)), message)
@@ -148,15 +148,20 @@ class WebBehaviors(WebDriverWait):
         self.clear(locator, *args)
         self.send_keys(value, locator, *args)
 
-    def select(self, select_text, locator, *args):
+    def select_by_text(self, select_text, locator, *args):
         by, value = self.format_locator(locator, *args)
-        self.log.info("Select the value(%s) from the element found by %s: %s" % (select_text, by, value))
+        self.log.info("Select the text(%s) from the element found by %s: %s" % (select_text, by, value))
         Select(self.wait_until_visibility_of_element(locator, *args)).select_by_visible_text(select_text)
 
     def select_by_value(self, select_value, locator, *args):
         by, value = self.format_locator(locator, *args)
         self.log.info("Select the value(%s) from the element found by %s: %s" % (select_value, by, value))
         Select(self.wait_until_visibility_of_element(locator, *args)).select_by_value(select_value)
+
+    def select_by_index(self, index, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Select the index(%s) from the element found by %s: %s" % (index, by, value))
+        Select(self.wait_until_visibility_of_element(locator, *args)).select_by_index(index)
 
     def first_selected_option(self, locator, *args):
         by, value = self.format_locator(locator, *args)
