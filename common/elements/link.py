@@ -3,4 +3,5 @@ from common.elements.element_base import ElementBase
 
 class Link(ElementBase):
 
-    pass
+    def click(self):
+        self._behavior.click(self.locator)
