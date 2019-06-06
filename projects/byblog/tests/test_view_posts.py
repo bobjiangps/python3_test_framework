@@ -7,7 +7,7 @@ class TestViewPosts(BlogWebTestCase):
     def test_view_posts_in_search_result(self):
         """Case-1: user is able to search posts and view the search result"""
         with self.precondition():
-            keyword = "webdriver"
+            keyword = "openstf"
 
         with self.steps():
             self.post_list_page.search_posts(keyword)

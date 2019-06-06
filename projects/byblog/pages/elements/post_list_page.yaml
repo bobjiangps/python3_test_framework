@@ -47,13 +47,13 @@ blog_post: {
 }
 
 blog_post_title: {
-    type: area,
+    type: text,
     by: xpath,
     value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h3"
 }
 
 blog_post_preview_content: {
-    type: area,
+    type: text,
     by: xpath,
     value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h6[@class='post-subtitle']"
 }

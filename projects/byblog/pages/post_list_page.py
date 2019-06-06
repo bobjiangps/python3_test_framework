@@ -31,16 +31,18 @@ class PostListPage(CommonComponent):
 
     def title_or_content_should_contains_search_keyword_in_search_result(self, search_keyword):
         all_blog_posts = self.behavior.find_elements(self.element_info("all_blog_post"))
+        self.log.info("check %d blog posts in search result" % len(all_blog_posts))
         check_result = False
         for index in range(len(all_blog_posts)):
-            title = self.element("blog_post_title", index + 1).get_element_text()
-            content = self.element("blog_post_preview_content", index + 1).get_element_text()
-            self.log.info("post %d has title: %s" % (index, title))
-            self.log.info("post %d has preview content: %s" % (index, content))
+            index += 1
+            title = self.element("blog_post_title", index).get_element_text()
+            content = self.element("blog_post_preview_content", index).get_element_text()
+            self.log.info("post%d has title: %s" % (index, title))
+            self.log.info("post%d has preview content: %s" % (index, content))
             if search_keyword in title or search_keyword in content:
-                self.log.info("post %d check search keyword pass" % index)
+                self.log.info("post%d check search keyword pass" % index)
                 check_result = True
             else:
-                self.log.critical("post %d check search keyword fail" % index)
+                self.log.critical("post%d check search keyword fail" % index)
                 check_result = False
         assert check_result, "not all title or content of posts on search result match keyword: %s" % search_keyword

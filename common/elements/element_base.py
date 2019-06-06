@@ -1,9 +1,13 @@
+import copy
+
+
 class ElementBase:
 
     def __init__(self, behavior, locator, *args):
         self._behavior = behavior
-        locator["value"].format(*args)
-        self.locator = locator
+        temp_locator = copy.deepcopy(locator)
+        temp_locator["value"] = temp_locator["value"].format(*args)
+        self.locator = temp_locator
 
     def wait_presence(self):
         self._behavior.wait_until_presence_of_element(self.locator)
