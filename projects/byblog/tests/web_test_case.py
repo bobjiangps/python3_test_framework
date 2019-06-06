@@ -1,5 +1,5 @@
 from common.test_base.web_test_case import WebTestCase
-from projects.byblog.pages.home_page import HomePage
+from projects.byblog.pages.post_list_page import PostListPage
 
 
 class BlogWebTestCase(WebTestCase):
@@ -8,4 +8,4 @@ class BlogWebTestCase(WebTestCase):
     @classmethod
     def setup_class(cls):
         super().setup_class()
-        cls.home_page = HomePage(cls._driver, cls.log)
+        cls.post_list_page = PostListPage(cls._driver, cls.log)

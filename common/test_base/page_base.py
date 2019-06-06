@@ -37,7 +37,8 @@ class PageBase:
             "link": Link(self.behavior, self.elements[name], *args),
             "radiobutton": RadioButton(self.behavior, self.elements[name], *args),
             "text": Static(self.behavior, self.elements[name], *args),
-            "pic": Static(self.behavior, self.elements[name], *args)
+            "pic": Static(self.behavior, self.elements[name], *args),
+            "area": Static(self.behavior, self.elements[name], *args)
         }
         if self.elements[name]["type"].lower():
             return options[self.elements[name]["type"].lower()]
@@ -49,3 +50,8 @@ class PageBase:
             return Frame(self.behavior, self.elements[name], *args)
         else:
             self.log.info("%s is not a frame..." % self.elements[name]["value"])
+
+    def current_url_contains(self, keyword):
+        self.log.info("Check the current url contains: %s" % keyword)
+        url = self.behavior.get_current_url()
+        assert keyword in url, "current url is: %s doesn't contain: %s" % (url, keyword)

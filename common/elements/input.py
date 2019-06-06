@@ -6,8 +6,8 @@ class Input(ElementBase):
     def clear(self):
         self._behavior.clear(self.locator)
 
-    def send_keys(self, value):
+    def input_value(self, value):
         self._behavior.send_keys(value, self.locator)
 
-    def clear_then_send_keys(self, value):
+    def clear_then_input_value(self, value):
         self._behavior.clear_and_send_keys(value, self.locator)

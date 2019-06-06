@@ -204,6 +204,9 @@ class WebBehaviors(WebDriverWait):
         element = self.wait_until_visibility_of_element(locator, *args)
         return element.get_attribute(attribute_name)
 
+    def get_current_url(self):
+        return self._driver.current_url
+
     def mouse_over(self, locator, *args):
         element = self.wait_until_visibility_of_element(locator, *args)
         self.log.info("Mouse Over to the element")
