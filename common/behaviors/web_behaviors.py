@@ -106,7 +106,7 @@ class WebBehaviors(WebDriverWait):
         self._driver.get(page_url)
 
     def scroll_into_view_of_element(self, element):
-        self.log.info("Scroll into view of element")
+        # self.log.info("Scroll into view of element")
         self._driver.execute_script(self.js.scroll_into_view, element)
 
     def click(self, locator, *args):
@@ -191,6 +191,15 @@ class WebBehaviors(WebDriverWait):
         else:
             self.log.info("The element is not displayed")
         return element.is_displayed()
+
+    def element_exist(self, locator, *args):
+        try:
+            element = self.find_element(locator, *args)
+            self.log.info("The element exists")
+            return element
+        except NoSuchElementException:
+            self.log.info("The element does not exist")
+            return False
 
     def get_element_property(self, property_name, locator, *args):
         element = self.wait_until_visibility_of_element(locator, *args)
