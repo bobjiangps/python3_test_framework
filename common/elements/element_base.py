@@ -30,6 +30,9 @@ class ElementBase:
     def element_displayed(self):
         return self._behavior.element_displayed(self.locator)
 
+    def element_exist(self):
+        return self._behavior.element_exist(self.locator)
+
     def get_element_property(self, property_name):
         return self._behavior.get_element_property(property_name, self.locator)
 
@@ -50,3 +53,9 @@ class ElementBase:
     def check_text(self, expect):
         actual = self.get_element_text()
         assert expect == actual, "Check text fail, expect value is: %s, but actual value is: %s" % (expect, actual)
+
+    def all(self):
+        return self._behavior.find_elements(self.locator)
+
+    def count(self):
+        return len(self.all())
