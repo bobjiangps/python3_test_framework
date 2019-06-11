@@ -16,8 +16,8 @@ env: {
     QA: {
         users: {
             Users_1: {
-                email_address: blogeditor,
-                password: Password
+                account: Bo,
+                password: password
             },
         },
         host: 120.78.133.207,

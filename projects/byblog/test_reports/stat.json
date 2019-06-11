@@ -1,1 +1,1 @@
-{"Total": 2, "Pass": 2, "Fail": 0, "Skip": 0, "End_Time": "2019-06-06-17:24:37.124733", "Details": {"test_view_posts": {"test_view_posts_in_search_result": "pass", "test_view_posts_when_jump_page": "pass"}}}
+{"Total": 3, "Pass": 3, "Fail": 0, "Skip": 0, "End_Time": "2019-06-10-14:32:19.103925", "Details": {"test_permission": {"test_view_posts_in_search_result": "pass"}, "test_view_posts": {"test_view_posts_in_search_result": "pass", "test_view_posts_when_jump_page": "pass"}}}

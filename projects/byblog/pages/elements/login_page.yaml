@@ -21,3 +21,21 @@ logout_link: {
     by: xpath,
     value: "//a[@class='nav-link' and contains(@href, 'logout')]"
 }
+
+account_input: {
+    type: input,
+    by: id,
+    value: username
+}
+
+password_input: {
+    type: input,
+    by: id,
+    value: password
+}
+
+login_button: {
+    type: button,
+    by: xpath,
+    value: "//div[@class='login-container']//button[@type='submit']"
+}

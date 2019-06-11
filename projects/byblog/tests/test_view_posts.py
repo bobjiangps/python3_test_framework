@@ -1,4 +1,3 @@
-#from common.test_base.web_test_case import WebTestCase
 from projects.byblog.tests.web_test_case import BlogWebTestCase
 
 
