@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 from utils.js_helper import JSHelper
+import time
 
 
 class WebBehaviors(WebDriverWait):
@@ -245,3 +246,14 @@ class WebBehaviors(WebDriverWait):
         alert = self.wait_until_alert_is_present()
         alert.dismiss()
 
+    def wait_page_load(self, timeout=5):
+        self.log.info("Wait page load")
+        while timeout:
+            time.sleep(0.5)
+            timeout -= 0.5
+            status = self._driver.execute_script(self.js.get_page_load_status)
+            if status.lower() == "complete":
+                self.log.info("Page load completed")
+                return True
+        self.log.info("Page load not completed after timeout, now status is %s" % status)
+        return False

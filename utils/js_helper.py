@@ -11,3 +11,7 @@ class JSHelper:
     @property
     def scroll_down_to_bottom_of_page(self):
         return "window.scrollBy(0,document.body.scrollHeight);"
+
+    @property
+    def get_page_load_status(self):
+        return "return document.readyState"

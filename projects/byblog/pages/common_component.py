@@ -7,6 +7,7 @@ class CommonComponent(PageBase):
         self.log.info("Start to search posts with keyword: %s" % text)
         self.element("search_input").clear_then_input_value(text)
         self.element("search_button").click()
+        self.behavior.wait_page_load()
         self.element("search_button").wait_clickable()
         self.log.info("Complete to search posts with keyword: %s" % text)
 
