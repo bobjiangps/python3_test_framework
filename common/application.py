@@ -73,7 +73,8 @@ class Application:
         self.end_time = datetime.datetime.now()
         print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
         result_statistics = self._generate_result_statistics(report_folder_path, self.start_time)
-        self._send_test_result(result_statistics, report_path)
+        if self._config["email_sender"]["send_report"]:
+            self._send_test_result(result_statistics, report_path)
         self.exit_test()
 
     def _load_config(self):

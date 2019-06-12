@@ -2,7 +2,8 @@ email_sender: {
     smtp_server: smtp.qiye.aliyun.com,
     sender: automation@byincd.com,
     sender_username: automation@byincd.com,
-    sender_password: 
+    sender_password: pwd,
+    send_report: false
 }
 
 rerun: {
