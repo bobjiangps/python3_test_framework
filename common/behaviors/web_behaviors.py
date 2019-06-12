@@ -248,6 +248,7 @@ class WebBehaviors(WebDriverWait):
 
     def wait_page_load(self, timeout=5):
         self.log.info("Wait page load")
+        status = "checking"
         while timeout:
             time.sleep(0.5)
             timeout -= 0.5
