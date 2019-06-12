@@ -23,10 +23,16 @@ class WebTestCase(LoggedTestCase):
 
     @classmethod
     def start_browser(cls):
-        cls.log.info("Start to launch browser - %s" % LoadConfig.load_config()["browser"])
-        cls._driver = SeleniumHelper.get_driver(LoadConfig.load_config()["browser"])
+        browser = LoadConfig.load_config()["browser"]
+        if browser.lower() in ["chrome", "firefox", "ie", "edge", "safari"]:
+            cls.log.info("Start to launch browser - %s" % browser)
+            cls._driver = SeleniumHelper.get_driver(browser)
+        else:
+            mobile = LoadConfig.load_config()["mobile"]
+            cls.log.info("Start to launch browser - %s with device name %s" % (browser, mobile))
+            cls._driver = SeleniumHelper.get_driver(browser, device_name=mobile)
         try:
-            if LoadConfig.load_config()["browser"].lower() == "chrome":
+            if browser.lower() == "chrome":
                 width, height = cls._driver.execute_script("return [window.screen.availWidth, window.screen.availHeight];")
                 cls.log.info(f"set window size to width: {width} and height: {height}")
                 cls._driver.set_window_size(width, height)

@@ -29,11 +29,11 @@ class CMDConfig:
     def set_command_parameter(self):
         parser = argparse.ArgumentParser()
         
-        parser.add_argument("-p", "--project", metavar="Example", type=str, default="Example", choices=["TEMP", "Android_BaiduMap", "Example_Android", "Example_API_Restful", "Example_Web"],
-                            help="a string that indicates which project it will run with (Example)")
+        parser.add_argument("-p", "--project", metavar="Example", type=str, default="TEMP",
+                            help="a string that indicates which project it will run with")
         parser.add_argument("-e", "--environment", metavar="QA", type=str, default="QA", choices=["INT", "QA", "Staging", "PROD"],
                             help="a string that indicates which environment to test (INT, QA, Staging, PROD)")
-        parser.add_argument("-b", "--browser", metavar="Chrome", type=str, default="Chrome", choices=["IE", "Safari", "Chrome", "Firefox"],
+        parser.add_argument("-b", "--browser", metavar="Chrome", type=str, default="Chrome", choices=["IE", "Safari", "Chrome", "Firefox", "Edge", "MobileBrowser"],
                             help="a string that indicates which browser to run web test")
         parser.add_argument("-m", "--mobile", metavar="Android", type=str, default="Android", choices=["Android", "iOS"],
                             help="a string that indicates which mobile system to run mobile app test")
