@@ -14,6 +14,7 @@
 | | Simulate mobile browser | √ |
 | Mobile Application | iOS | √ |
 | | Android | √ |
+| | Simulator | √ |
 | Windows | Desktop app | √ |
 | API | Rest | √ |
 | | Thrift | TBD |
@@ -35,6 +36,7 @@ Todo List:
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
 - selenium webdriver  --> Done
 - appium
+- integrate with openstf
 - automate restful api - Done
 - automate windows desktop application
 - db for mysql, mongodb, redis
