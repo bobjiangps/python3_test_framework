@@ -22,7 +22,7 @@ class MobileBehaviors(WebBehaviors):
 
     def swipe(self, direction, duration=1000):
         self.log.info("Swipe to direction: %s" % direction)
-        if LoadConfig.load_config()["mobile"].lower().startswith("ip"):
+        if LoadConfig.load_config()["device"].lower().startswith("ip"):
             self._driver.execute_script("mobile: swipe", {"direction": direction})
         else:
             screen_size = self._driver.get_window_size()

@@ -28,9 +28,9 @@ class WebTestCase(LoggedTestCase):
             cls.log.info("Start to launch browser - %s" % browser)
             cls._driver = SeleniumHelper.get_driver(browser)
         else:
-            mobile = LoadConfig.load_config()["mobile"]
-            cls.log.info("Start to launch browser - %s with device name %s" % (browser, mobile))
-            cls._driver = SeleniumHelper.get_driver(browser, device_name=mobile)
+            device = LoadConfig.load_config()["device"]
+            cls.log.info("Start to launch browser - %s with device name %s" % (browser, device))
+            cls._driver = SeleniumHelper.get_driver(browser, device_name=device)
         try:
             if browser.lower() == "chrome":
                 width, height = cls._driver.execute_script("return [window.screen.availWidth, window.screen.availHeight];")

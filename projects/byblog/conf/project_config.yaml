@@ -30,6 +30,6 @@ env: {
             port: 3306,
             charset: utf8
         },
-        home_page: "https://byincd.com/bobjiang",
+        home_page: "https://www.byincd.com/bobjiang",
     },
 }
