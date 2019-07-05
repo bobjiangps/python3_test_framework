@@ -111,15 +111,21 @@ def pytest_configure(config):
 # update the result table in pytest-html report
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
-    cells.insert(2, html.th('Description'))
-    cells.insert(3, html.th('Time', class_='sortable time', col='time'))
-    cells.pop()
+    try:
+        cells.insert(2, html.th('Description'))
+        cells.insert(3, html.th('Time', class_='sortable time', col='time'))
+        cells.pop()
+    except:
+        print("error occur, cannot update report")
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_row(report, cells):
-    cells.insert(2, html.td(report.description))
-    cells.insert(3, html.td(datetime.datetime.utcnow(), class_='col-time'))
-    cells.pop()
+    try:
+        cells.insert(2, html.td(report.description))
+        cells.insert(3, html.td(datetime.datetime.utcnow(), class_='col-time'))
+        cells.pop()
+    except:
+        print("error occur, cannot update report")
 
 # @pytest.mark.hookwrapper
 # def pytest_runtest_makereport(item, call):
