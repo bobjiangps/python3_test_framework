@@ -15,6 +15,7 @@
 | Mobile Application | iOS | √ |
 | | Android | √ |
 | | Simulator | √ |
+| | Emulator | √ |
 | Windows | Desktop app | √ |
 | API | Rest | √ |
 | | Thrift | TBD |
@@ -23,7 +24,7 @@
 
 Todo List:
 - running by commandline, by config file --> Done
-- pytest - Done
+- pytest --> Done
 - select any test case or test suite to run, or make your own group, not run something,etc --> Done
 - run by tag or keyword or marker --> Done
 - logging --> Done
@@ -39,7 +40,7 @@ Todo List:
 - integrate with openstf
 - automate restful api - Done
 - automate windows desktop application
-- db for mysql, mongodb, redis
+- db for mysql, mongodb, redis -> mysql Done,
 - activemq or else
 - file handler
 - text handler

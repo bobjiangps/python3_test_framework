@@ -25,3 +25,15 @@ class TestViewPosts(BlogWebTestCase):
         with self.verify():
             self.post_list_page.current_url_contains("?page=%d" % page_num)
             self.post_list_page.blog_post_amount_should_equal_to_num(5)
+
+    def test_post_id_in_detail_page_url(self):
+        """Case-4: details page url contains post id"""
+        with self.precondition():
+            random_id_title = self.post_list_page.get_id_title_of_random_post()
+            new_url = "/".join([self.post_list_page.current_url(), f"article-01{random_id_title['id']}"])
+
+        with self.steps():
+            self.browse_page(new_url)
+
+        with self.verify():
+            self.post_detail_page.blog_post_title_equals(random_id_title["title"])

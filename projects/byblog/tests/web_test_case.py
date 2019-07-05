@@ -1,6 +1,7 @@
 from common.test_base.web_test_case import WebTestCase
 from projects.byblog.pages.post_list_page import PostListPage
 from projects.byblog.pages.login_page import LoginPage
+from projects.byblog.pages.post_detail_page import PostDetailPage
 
 
 class BlogWebTestCase(WebTestCase):
@@ -11,3 +12,4 @@ class BlogWebTestCase(WebTestCase):
         super().setup_class()
         cls.post_list_page = PostListPage(cls._driver, cls.log)
         cls.login_page = LoginPage(cls._driver, cls.log)
+        cls.post_detail_page = PostDetailPage(cls._driver, cls.log)

@@ -64,3 +64,6 @@ class PageBase:
         self.log.info("Check the current url contains: %s" % keyword)
         url = self.behavior.get_current_url()
         assert keyword in url, "current url is: %s doesn't contain: %s" % (url, keyword)
+
+    def current_url(self):
+        return self.behavior.get_current_url()

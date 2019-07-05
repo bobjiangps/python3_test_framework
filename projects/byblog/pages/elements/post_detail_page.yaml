@@ -1,0 +1,29 @@
+search_input: {
+    type: input,
+    by: name,
+    value: q
+}
+
+search_button: {
+    type: button,
+    by: xpath,
+    value: "//section[@id='search']//button"
+}
+
+login_link: {
+    type: link,
+    by: xpath,
+    value: "//a[@class='nav-link' and contains(@href, 'login')]"
+}
+
+logout_link: {
+    type: link,
+    by: xpath,
+    value: "//a[@class='nav-link' and contains(@href, 'logout')]"
+}
+
+blog_post_title: {
+    type: text,
+    by: xpath,
+    value: "//div[@class='post_detail']/h3[2]"
+}

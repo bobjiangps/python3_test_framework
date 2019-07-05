@@ -1,4 +1,5 @@
 from common.test_base.page_base import PageBase
+from projects.byblog.utils.mysql_connection import MysqlConnection
 
 
 class CommonComponent(PageBase):
@@ -20,3 +21,11 @@ class CommonComponent(PageBase):
         self.element("logout_link").click()
         self.element("login_link").wait_visible()
         self.log.info("Complete to logout")
+
+    def get_id_title_of_random_post(self):
+        self.log.info("Query in database to get id and title of random post")
+        db = MysqlConnection().connect("test_db")
+        sql = "select id, title from blog_post where visiable_id=1;"
+        result = db.get_random_results_from_database(sql)
+        self.log.info(f"the query result is: {result}")
+        return result

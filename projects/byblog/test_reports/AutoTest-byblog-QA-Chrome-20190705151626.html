@@ -397,8 +397,8 @@ function filter_table(elem) {
     not_found_message.hidden = !all_rows_hidden;
 }
 </script>
-    <h1>AutoTest-byblog-QA-Chrome-20190610143201.html</h1>
-    <p>Report generated on 10-Jun-2019 at 14:32:19 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v1.20.0</p>
+    <h1>AutoTest-byblog-QA-Chrome-20190705151626.html</h1>
+    <p>Report generated on 05-Jul-2019 at 15:17:06 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v1.20.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -414,8 +414,8 @@ function filter_table(elem) {
         <td>Project</td>
         <td>byblog</td></tr></table>
     <h2>Summary</h2>
-    <p>3 tests ran in 17.46 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">3 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="rerun">0 rerun</span>
+    <p>4 tests ran in 39.45 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">4 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>, <input checked="true" class="filter" data-test-result="rerun" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="rerun">0 rerun</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -430,83 +430,102 @@ function filter_table(elem) {
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">projects/byblog/tests/test_permission.py::TestViewPosts::test_view_posts_in_search_result</td>
+          <td class="col-name">projects/byblog/tests/test_permission.py::TestPermission::test_sort_posts_only_available_for_logged_in_user</td>
           <td>Case-3: only user who have logged in can see the posts view dropdown in post list page</td>
-          <td class="col-time">2019-06-10 06:32:12.148277</td>
-          <td class="col-duration">3.02</td></tr>
+          <td class="col-time">2019-07-05 07:16:39.300953</td>
+          <td class="col-duration">5.99</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-06-10 14:32:01 - TestViewPosts - [INFO] - Test Suite TestViewPosts start
-2019-06-10 14:32:01 - TestViewPosts - [INFO] - Start to launch browser - Chrome
-2019-06-10 14:32:03 - TestViewPosts - [INFO] - set window size to width: 1440 and height: 821
-2019-06-10 14:32:03 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_view_posts_in_search_result
-2019-06-10 14:32:03 - TestViewPosts - [INFO] - Go to home page: https://byincd.com/bobjiang
-2019-06-10 14:32:03 - TestViewPosts - [INFO] - Browse page https://byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-06-10 14:32:09 - TestViewPosts - [INFO] - Start to login with account: Bo and password: BoYan20170218
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - The element exists
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - Go to login page
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - Click the element found by xpath: //a[@class=&#x27;nav-link&#x27; and contains(@href, &#x27;login&#x27;)]
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - Send keys(Bo) to the element found by id: username
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - Send keys(BoYan20170218) to the element found by id: password
-2019-06-10 14:32:09 - TestViewPosts - [INFO] - Click the element found by xpath: //div[@class=&#x27;login-container&#x27;]//button[@type=&#x27;submit&#x27;]
-2019-06-10 14:32:10 - TestViewPosts - [INFO] - Complete to login
-2019-06-10 14:32:10 - TestViewPosts - [INFO] - Select the text(按阅读量) from the element found by id: sortarticle
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - check 5 blog posts in new order by view count
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post1 has title: openstf环境搭建和问题解决
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post1 has view count: 411
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post2 has title: rails配置环境时的LoadError解决方法
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post2 has view count: 203
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - check view count between 203 and 411
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post3 has title: APP自动化的元素定位
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post3 has view count: 201
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - check view count between 201 and 203
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post4 has title: 关于活着的意义
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post4 has view count: 186
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - check view count between 186 and 201
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post5 has title: Mac上配置appium环境
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - post5 has view count: 177
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - check view count between 177 and 186
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - Start to logout
-2019-06-10 14:32:11 - TestViewPosts - [INFO] - Click the element found by xpath: //a[@class=&#x27;nav-link&#x27; and contains(@href, &#x27;logout&#x27;)]
-2019-06-10 14:32:12 - TestViewPosts - [INFO] - Complete to logout</div></td></tr></tbody>
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-07-05 15:16:26 - TestPermission - [INFO] - Test Suite TestPermission start
+2019-07-05 15:16:26 - TestPermission - [INFO] - Start to launch browser - Chrome
+2019-07-05 15:16:29 - TestPermission - [INFO] - set window size to width: 1440 and height: 813
+2019-07-05 15:16:29 - TestPermission - [INFO] - Begin to test TestPermission.test_sort_posts_only_available_for_logged_in_user
+2019-07-05 15:16:29 - TestPermission - [INFO] - Go to home page: https://www.byincd.com/bobjiang
+2019-07-05 15:16:29 - TestPermission - [INFO] - Browse page https://www.byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-07-05 15:16:33 - TestPermission - [INFO] - Start to login with account: Bo and password: BoYan20170218
+2019-07-05 15:16:33 - TestPermission - [INFO] - The element exists
+2019-07-05 15:16:33 - TestPermission - [INFO] - Go to login page
+2019-07-05 15:16:33 - TestPermission - [INFO] - Click the element found by xpath: //a[@class=&#x27;nav-link&#x27; and contains(@href, &#x27;login&#x27;)]
+2019-07-05 15:16:35 - TestPermission - [INFO] - Send keys(Bo) to the element found by id: username
+2019-07-05 15:16:36 - TestPermission - [INFO] - Send keys(BoYan20170218) to the element found by id: password
+2019-07-05 15:16:36 - TestPermission - [INFO] - Click the element found by xpath: //div[@class=&#x27;login-container&#x27;]//button[@type=&#x27;submit&#x27;]
+2019-07-05 15:16:37 - TestPermission - [INFO] - Complete to login
+2019-07-05 15:16:37 - TestPermission - [INFO] - Select the text(按阅读量) from the element found by id: sortarticle
+2019-07-05 15:16:37 - TestPermission - [INFO] - Wait page load
+2019-07-05 15:16:38 - TestPermission - [INFO] - Page load completed
+2019-07-05 15:16:38 - TestPermission - [INFO] - check 5 blog posts in new order by view count
+2019-07-05 15:16:38 - TestPermission - [INFO] - post1 has title: openstf环境搭建和问题解决
+2019-07-05 15:16:38 - TestPermission - [INFO] - post1 has view count: 519
+2019-07-05 15:16:38 - TestPermission - [INFO] - post2 has title: APP自动化的元素定位
+2019-07-05 15:16:38 - TestPermission - [INFO] - post2 has view count: 220
+2019-07-05 15:16:38 - TestPermission - [INFO] - check view count between 220 and 519
+2019-07-05 15:16:38 - TestPermission - [INFO] - post3 has title: rails配置环境时的LoadError解决方法
+2019-07-05 15:16:38 - TestPermission - [INFO] - post3 has view count: 214
+2019-07-05 15:16:38 - TestPermission - [INFO] - check view count between 214 and 220
+2019-07-05 15:16:38 - TestPermission - [INFO] - post4 has title: 关于活着的意义
+2019-07-05 15:16:38 - TestPermission - [INFO] - post4 has view count: 198
+2019-07-05 15:16:38 - TestPermission - [INFO] - check view count between 198 and 214
+2019-07-05 15:16:38 - TestPermission - [INFO] - post5 has title: Jupyter Notebook在nginx中无法被配置为二级页面的解决办法
+2019-07-05 15:16:38 - TestPermission - [INFO] - post5 has view count: 190
+2019-07-05 15:16:38 - TestPermission - [INFO] - check view count between 190 and 198
+2019-07-05 15:16:38 - TestPermission - [INFO] - Start to logout
+2019-07-05 15:16:38 - TestPermission - [INFO] - Click the element found by xpath: //a[@class=&#x27;nav-link&#x27; and contains(@href, &#x27;logout&#x27;)]
+2019-07-05 15:16:39 - TestPermission - [INFO] - Complete to logout</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">projects/byblog/tests/test_view_posts.py::TestViewPosts::test_view_posts_in_search_result</td>
           <td>Case-1: user is able to search posts and view the search result</td>
-          <td class="col-time">2019-06-10 06:32:18.049977</td>
-          <td class="col-duration">0.82</td></tr>
+          <td class="col-time">2019-07-05 07:16:48.776582</td>
+          <td class="col-duration">3.57</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-06-10 14:32:12 - TestViewPosts - [INFO] - Test Suite TestViewPosts start
-2019-06-10 14:32:12 - TestViewPosts - [INFO] - Start to launch browser - Chrome
-2019-06-10 14:32:14 - TestViewPosts - [INFO] - set window size to width: 1440 and height: 821
-2019-06-10 14:32:14 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_view_posts_in_search_result
-2019-06-10 14:32:14 - TestViewPosts - [INFO] - Go to home page: https://byincd.com/bobjiang
-2019-06-10 14:32:14 - TestViewPosts - [INFO] - Browse page https://byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-06-10 14:32:17 - TestViewPosts - [INFO] - Start to search posts with keyword: openstf
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - Clear the element found by name: q
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - Send keys(openstf) to the element found by name: q
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - Click the element found by xpath: //section[@id=&#x27;search&#x27;]//button
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - Complete to search posts with keyword: openstf
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - check 2 blog posts in search result
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - post1 has title: openstf环境搭建和问题解决
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - post1 has preview content: openstf是用于管理和控制Android设备，github地址是https:...
-2019-06-10 14:32:17 - TestViewPosts - [INFO] - post1 check search keyword pass
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - post2 has title: openstf与appium集成以自动化操作远程手机设备
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - post2 has preview content: ...openstf的环境搭建和一些问题的解决方式：https://www.byinc...
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - post2 check search keyword pass</div></td></tr></tbody>
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-07-05 15:16:39 - TestViewPosts - [INFO] - Test Suite TestViewPosts start
+2019-07-05 15:16:39 - TestViewPosts - [INFO] - Start to launch browser - Chrome
+2019-07-05 15:16:41 - TestViewPosts - [INFO] - set window size to width: 1440 and height: 813
+2019-07-05 15:16:41 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_view_posts_in_search_result
+2019-07-05 15:16:41 - TestViewPosts - [INFO] - Go to home page: https://www.byincd.com/bobjiang
+2019-07-05 15:16:41 - TestViewPosts - [INFO] - Browse page https://www.byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-07-05 15:16:45 - TestViewPosts - [INFO] - Start to search posts with keyword: openstf
+2019-07-05 15:16:45 - TestViewPosts - [INFO] - Clear the element found by name: q
+2019-07-05 15:16:45 - TestViewPosts - [INFO] - Send keys(openstf) to the element found by name: q
+2019-07-05 15:16:45 - TestViewPosts - [INFO] - Click the element found by xpath: //section[@id=&#x27;search&#x27;]//button
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - Wait page load
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - Page load completed
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - Complete to search posts with keyword: openstf
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - check 2 blog posts in search result
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post1 has title: openstf环境搭建和问题解决
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post1 has preview content: openstf是用于管理和控制Android设备，github地址是https:...
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post1 check search keyword pass
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post2 has title: openstf与appium集成以自动化操作远程手机设备
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post2 has preview content: ...openstf的环境搭建和一些问题的解决方式：https://www.byinc...
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - post2 check search keyword pass</div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">projects/byblog/tests/test_view_posts.py::TestViewPosts::test_view_posts_when_jump_page</td>
           <td>Case-2: user is able to view posts when jump page</td>
-          <td class="col-time">2019-06-10 06:32:19.105041</td>
-          <td class="col-duration">0.62</td></tr>
+          <td class="col-time">2019-07-05 07:16:50.362837</td>
+          <td class="col-duration">1.20</td></tr>
         <tr>
           <td class="extra" colspan="5">
-            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-06-10 14:32:18 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_view_posts_when_jump_page
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Go to home page: https://byincd.com/bobjiang
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Browse page https://byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-06-10 14:32:18 - TestViewPosts - [INFO] - Navigate to page num 2
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Send keys(2) to the element found by id: page-number-input
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Click the element found by id: page-jump
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Check the current url contains: ?page=2
-2019-06-10 14:32:18 - TestViewPosts - [INFO] - Check blog post amount on current page should be 5</div></td></tr></tbody></table></body></html>
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-07-05 15:16:48 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_view_posts_when_jump_page
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - Go to home page: https://www.byincd.com/bobjiang
+2019-07-05 15:16:48 - TestViewPosts - [INFO] - Browse page https://www.byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-07-05 15:16:49 - TestViewPosts - [INFO] - Navigate to page num 2
+2019-07-05 15:16:49 - TestViewPosts - [INFO] - Send keys(2) to the element found by id: page-number-input
+2019-07-05 15:16:49 - TestViewPosts - [INFO] - Click the element found by id: page-jump
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - Check the current url contains: ?page=2
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - Check blog post amount on current page should be 5</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">projects/byblog/tests/test_view_posts.py::TestViewPosts::test_post_id_in_detail_page_url</td>
+          <td>Case-4: details page url contains post id</td>
+          <td class="col-time">2019-07-05 07:17:06.215057</td>
+          <td class="col-duration">15.38</td></tr>
+        <tr>
+          <td class="extra" colspan="5">
+            <div class="log">------------------------------ Captured log setup ------------------------------<br/>2019-07-05 15:16:50 - TestViewPosts - [INFO] - Begin to test TestViewPosts.test_post_id_in_detail_page_url
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - Go to home page: https://www.byincd.com/bobjiang
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - Browse page https://www.byincd.com/bobjiang------------------------------ Captured log call -------------------------------<br/>2019-07-05 15:16:50 - TestViewPosts - [INFO] - Query in database to get id and title of random post
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - the query result is: {&#x27;id&#x27;: 64, &#x27;title&#x27;: &#x27;openstf环境搭建和问题解决&#x27;}
+2019-07-05 15:16:50 - TestViewPosts - [INFO] - Browse page https://www.byincd.com/bobjiang//article-0164
+2019-07-05 15:17:06 - TestViewPosts - [INFO] - Check the blog post title should be openstf环境搭建和问题解决</div></td></tr></tbody></table></body></html>
