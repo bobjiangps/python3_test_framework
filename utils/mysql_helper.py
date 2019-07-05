@@ -11,58 +11,61 @@ class MysqlHelper:
             "charset": "utf8"
         }
         info = dict(default_info, **info)
-        self.conn = pymysql.connect(host=info["host"], port=info["port"], user=info["user"], passwd=info["password"], db=info["db_name"], charset=info["charset"])
+        self.conn = pymysql.connect(host=info["host"], port=info["port"], user=info["username"], passwd=str(info["password"]), db=info["dbname"], charset=info["charset"])
         self.cur = self.conn.cursor()
 
-    @classmethod
-    def execute_sql(cls, sql, commit=False):
+    def execute_sql(self, sql, commit=False):
         try:
-            cls.cur.execute(sql)
+            self.cur.execute(sql)
             if commit:
-                cls.conn.commit()
+                self.conn.commit()
         except:
-            cls.conn.rollback()
+            self.conn.rollback()
         finally:
-            cls.close_connection()
+            self.close_connection()
 
-    @classmethod
-    def get_first_results_from_database(cls, sql):
+    def get_first_results_from_database(self, sql):
         try:
-            cls.cur.execute(sql)
-            return cls.cur.fetchone()
+            self.cur.execute(sql)
+            # return dict
+            return self.__convert_one_result_to_list(self.cur.fetchone())[0]
         finally:
-            cls.close_connection()
+            self.close_connection()
 
-    @classmethod
-    def get_random_results_from_database(cls, sql):
+    def get_random_results_from_database(self, sql):
         try:
-            cls.cur.execute(sql)
-            result = cls.cur.fetchall()
-            return result[random.randint(0, len(result)-1)]
+            self.cur.execute(sql)
+            result = self.cur.fetchall()
+            # return dict
+            return self.__convert_one_result_to_list(result[random.randint(0, len(result)-1)])[0]
         finally:
-            cls.close_connection()
+            self.close_connection()
 
-    @classmethod
-    def get_all_results_from_database(cls, sql):
+    def get_all_results_from_database(self, sql):
         try:
-            cls.cur.execute(sql)
-            return cls.cur.fetchall()
+            self.cur.execute(sql)
+            # return list
+            return self.__convert_one_result_to_list(self.cur.fetchall())
         finally:
-            cls.close_connection()
+            self.close_connection()
 
-    @classmethod
-    def insert_into_database(cls, sql):
-        cls.execute_sql(sql, commit=True)
+    def insert_into_database(self, sql):
+        self.execute_sql(sql, commit=True)
 
-    @classmethod
-    def update_in_database(cls, sql):
-        cls.execute_sql(sql, commit=True)
+    def update_in_database(self, sql):
+        self.execute_sql(sql, commit=True)
 
-    @classmethod
-    def delete_from_database(cls, sql):
-        cls.execute_sql(sql, commit=True)
+    def delete_from_database(self, sql):
+        self.execute_sql(sql, commit=True)
 
-    @classmethod
-    def close_connection(cls):
-        cls.cur.close()
-        cls.conn.close()
+    def close_connection(self):
+        self.cur.close()
+        self.conn.close()
+
+    def __convert_all_results_to_list(self, results):
+        fields = map(lambda x: x[0], self.cur.description)
+        return [dict(zip(fields, row)) for row in results]
+
+    def __convert_one_result_to_list(self, result):
+        fields = map(lambda x: x[0], self.cur.description)
+        return [dict(zip(fields, result))]
