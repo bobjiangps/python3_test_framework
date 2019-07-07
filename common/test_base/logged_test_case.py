@@ -63,9 +63,5 @@ class LoggedTestCase:
             raise e
 
     @staticmethod
-    def _get_all_config_data():
-        return LoadConfig.load_config()
-
-    def get_project_config_data(self):
-        data = self._get_all_config_data()
-        return data["env"][data["environment"]]
+    def get_project_config_data():
+        return LoadConfig.load_config()["env"]

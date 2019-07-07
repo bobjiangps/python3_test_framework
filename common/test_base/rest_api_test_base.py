@@ -11,8 +11,7 @@ class RestAPITestBase:
         self.current_class = os.environ.get('PYTEST_CURRENT_TEST').split('::')[-2].split(' ')[0]
         self.log = logging.getLogger(self.current_class)
         self.config = LoadConfig.load_config()
-        self.env = self.config["environment"]
-        self.url = "/".join([self.config["env"][self.env]["base_url"], self.config["env"][self.env]["api_list"][self.api_name]])
+        self.url = "/".join([self.config["env"]["base_url"], self.config["env"]["api_list"][self.api_name]])
         self.new_url = None
 
     def set_value_to_param_in_url(self, arg_list):

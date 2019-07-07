@@ -73,6 +73,7 @@ class LoadConfig(Singleton):
             all_config["config_type"] = "Command"   
         public_conf = YamlHelper.load_yaml(os.path.join(os.getcwd(), "configuration", "public_config.yaml"))
         project_conf = YamlHelper.load_yaml(os.path.join(os.getcwd(), "projects", all_config["project"], "conf", "project_config.yaml"))
+        project_conf["env"] = project_conf["env"][all_config["environment"]]
         all_config = dict(all_config, **public_conf)
         all_config = dict(all_config, **project_conf)
         return all_config

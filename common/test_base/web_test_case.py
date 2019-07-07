@@ -52,9 +52,8 @@ class WebTestCase(LoggedTestCase):
         self._driver.get(page_url)
 
     def browser_home_page(self):
-        env_name = LoadConfig.load_config()["environment"]
-        if "home_page" in LoadConfig.load_config()["env"][env_name].keys():
-            home_page = LoadConfig.load_config()["env"][env_name]["home_page"]
+        if "home_page" in LoadConfig.load_config()["env"].keys():
+            home_page = LoadConfig.load_config()["env"]["home_page"]
             self.log.info(f"Go to home page: {home_page}")
             self.browse_page(home_page)
         else:
