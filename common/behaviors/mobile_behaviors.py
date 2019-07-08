@@ -1,5 +1,6 @@
 from common.behaviors.web_behaviors import WebBehaviors
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import WebDriverException
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from configuration.config import LoadConfig
@@ -50,3 +51,17 @@ class MobileBehaviors(WebBehaviors):
 
     def get_all_contexts(self):
         return self._driver.contexts
+
+    def get_current_orientation(self):
+        return self._driver.orientation()
+
+    def rotate(self, orientation):
+        self.log.info(f"Change orientation to {orientation}")
+        options = ["LANDSCAPE", "PORTRAIT"]
+        if orientation in options:
+            if orientation.lower() == self.get_current_orientation().lower():
+                self.log.info(f"Already in {orientation}, no need to rotate")
+            else:
+                self._driver.orientation = orientation
+        else:
+            raise WebDriverException("You can only set the orientation to 'LANDSCAPE' or 'PORTRAIT'.")
