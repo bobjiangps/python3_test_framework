@@ -1,3 +1,4 @@
+from configuration.config import LoadConfig
 import pymysql
 import random
 
@@ -69,3 +70,12 @@ class MysqlHelper:
     def __convert_one_result_to_list(self, result):
         fields = map(lambda x: x[0], self.cur.description)
         return [dict(zip(fields, result))]
+
+
+class MysqlConnection:
+
+    def __init__(self):
+        self.env_config = LoadConfig.load_config()["env"]
+
+    def connect(self, name):
+        return MysqlHelper(self.env_config[name])

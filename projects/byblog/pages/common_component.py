@@ -1,5 +1,5 @@
 from common.test_base.page_base import PageBase
-from projects.byblog.utils.mysql_connection import MysqlConnection
+from utils.mysql_helper import MysqlConnection
 
 
 class CommonComponent(PageBase):
