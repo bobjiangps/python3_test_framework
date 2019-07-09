@@ -26,6 +26,6 @@ class CommonComponent(PageBase):
         self.log.info("Query in database to get id and title of random post")
         db = MysqlConnection().connect("test_db")
         sql = "select id, title from blog_post where visiable_id=1;"
-        result = db.get_random_results_from_database(sql)
+        result = db.get_random_result_from_database(sql)
         self.log.info(f"the query result is: {result}")
         return result

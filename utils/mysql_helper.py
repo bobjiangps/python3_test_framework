@@ -25,7 +25,7 @@ class MysqlHelper:
         finally:
             self.close_connection()
 
-    def get_first_results_from_database(self, sql):
+    def get_first_result_from_database(self, sql):
         try:
             self.cur.execute(sql)
             # return dict
@@ -33,7 +33,7 @@ class MysqlHelper:
         finally:
             self.close_connection()
 
-    def get_random_results_from_database(self, sql):
+    def get_random_result_from_database(self, sql):
         try:
             self.cur.execute(sql)
             result = self.cur.fetchall()
