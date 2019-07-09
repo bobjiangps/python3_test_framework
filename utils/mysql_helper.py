@@ -11,12 +11,17 @@ class MysqlHelper:
             "port": 3306,
             "charset": "utf8"
         }
-        info = dict(default_info, **info)
-        self.conn = pymysql.connect(host=info["host"], port=info["port"], user=info["username"], passwd=str(info["password"]), db=info["dbname"], charset=info["charset"])
+        self.info = dict(default_info, **info)
+        self.conn = None
+        self.cur = None
+
+    def get_cur(self):
+        self.conn = pymysql.connect(host=self.info["host"], port=self.info["port"], user=self.info["username"], passwd=str(self.info["password"]), db=self.info["dbname"], charset=self.info["charset"])
         self.cur = self.conn.cursor()
 
     def execute_sql(self, sql, commit=False):
         try:
+            self.get_cur()
             self.cur.execute(sql)
             if commit:
                 self.conn.commit()
@@ -27,6 +32,7 @@ class MysqlHelper:
 
     def get_first_result_from_database(self, sql):
         try:
+            self.get_cur()
             self.cur.execute(sql)
             # return dict
             return self.__convert_one_result_to_dict(self.cur.fetchone())
@@ -35,6 +41,7 @@ class MysqlHelper:
 
     def get_random_result_from_database(self, sql):
         try:
+            self.get_cur()
             self.cur.execute(sql)
             result = self.cur.fetchall()
             # return dict
@@ -44,6 +51,7 @@ class MysqlHelper:
 
     def get_all_results_from_database(self, sql):
         try:
+            self.get_cur()
             self.cur.execute(sql)
             # return list
             return self.__convert_all_results_to_list(self.cur.fetchall())
@@ -60,12 +68,16 @@ class MysqlHelper:
         self.execute_sql(sql, commit=True)
 
     def close_connection(self):
-        self.cur.close()
-        self.conn.close()
+        if self.cur:
+            self.cur.close()
+            self.cur = None
+        if self.conn:
+            self.conn.close()
+            self.conn = None
 
     def __convert_all_results_to_list(self, results):
-        fields = map(lambda x: x[0], self.cur.description)
-        return [dict(zip(fields, row)) for row in results]
+        column = self.cur.description
+        return [dict(zip(map(lambda x: x[0], column), row)) for row in results]
 
     def __convert_one_result_to_dict(self, result):
         fields = map(lambda x: x[0], self.cur.description)
