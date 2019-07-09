@@ -29,7 +29,7 @@ class MysqlHelper:
         try:
             self.cur.execute(sql)
             # return dict
-            return self.__convert_one_result_to_list(self.cur.fetchone())[0]
+            return self.__convert_one_result_to_dict(self.cur.fetchone())
         finally:
             self.close_connection()
 
@@ -38,7 +38,7 @@ class MysqlHelper:
             self.cur.execute(sql)
             result = self.cur.fetchall()
             # return dict
-            return self.__convert_one_result_to_list(result[random.randint(0, len(result)-1)])[0]
+            return self.__convert_one_result_to_dict(result[random.randint(0, len(result)-1)])
         finally:
             self.close_connection()
 
@@ -46,7 +46,7 @@ class MysqlHelper:
         try:
             self.cur.execute(sql)
             # return list
-            return self.__convert_one_result_to_list(self.cur.fetchall())
+            return self.__convert_all_results_to_list(self.cur.fetchall())
         finally:
             self.close_connection()
 
@@ -67,9 +67,9 @@ class MysqlHelper:
         fields = map(lambda x: x[0], self.cur.description)
         return [dict(zip(fields, row)) for row in results]
 
-    def __convert_one_result_to_list(self, result):
+    def __convert_one_result_to_dict(self, result):
         fields = map(lambda x: x[0], self.cur.description)
-        return [dict(zip(fields, result))]
+        return dict(zip(fields, result))
 
 
 class MysqlConnection:
