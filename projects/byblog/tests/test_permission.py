@@ -12,6 +12,7 @@ class TestPermission(BlogWebTestCase):
 
         with self.steps():
             self.login_page.login(account, password)
+            self.main_page.go_to_post_list_page()
 
         with self.verify():
             self.post_list_page.post_view_dropdown_should_appear_after_login()

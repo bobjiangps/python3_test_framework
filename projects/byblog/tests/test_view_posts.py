@@ -9,7 +9,7 @@ class TestViewPosts(BlogWebTestCase):
             keyword = "openstf"
 
         with self.steps():
-            self.post_list_page.search_posts(keyword)
+            self.main_page.search_posts(keyword)
 
         with self.verify():
             self.post_list_page.title_or_content_should_contains_search_keyword_in_search_result(keyword)
@@ -20,6 +20,7 @@ class TestViewPosts(BlogWebTestCase):
             page_num = 2
 
         with self.steps():
+            self.main_page.go_to_post_list_page()
             self.post_list_page.navigate_to_page_num(page_num)
 
         with self.verify():

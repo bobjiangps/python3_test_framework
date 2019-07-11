@@ -16,6 +16,10 @@ class CommonComponent(PageBase):
         self.log.info("Go to login page")
         self.element("login_link").click()
 
+    def go_to_post_list_page(self):
+        self.log.info("Go to post list page")
+        self.element("post_list_link").click()
+
     def logout(self):
         self.log.info("Start to logout")
         self.element("logout_link").click()
