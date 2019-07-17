@@ -1,4 +1,5 @@
 from common.behaviors.web_behaviors import WebBehaviors
+from common.behaviors.mobile_behaviors import MobileBehaviors
 from configuration.config import LoadConfig
 from utils.yaml_helper import YamlHelper
 from common.elements.button import Button
@@ -54,7 +55,7 @@ class PageBase:
     def __init_behavior_by_project_type(self):
         if self._config["report"]["ui_test"]:
             if self._config["report"]["app_test"]:
-                return "todo, mobile"
+                return MobileBehaviors(self._driver, self._config["webdriver"]["timeout"], self.log)
             elif self._config["report"]["win_test"]:
                 return "todo, windowssoftware"
             else:

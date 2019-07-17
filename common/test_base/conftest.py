@@ -92,6 +92,7 @@ def pytest_configure(config):
         if run_config_data["report"]["ui_test"]:
             if run_config_data["report"]["app_test"]:
                 config._metadata["Mobile"] = run_config_data["mobile"]
+                config._metadata["Device"] = run_config_data["device"]
             elif run_config_data["report"]["win_test"]:
                 config._metadata["Type"] = "Windows Software"
             else:

@@ -13,7 +13,7 @@ class AppiumHelper(Singleton):
     @classmethod
     def get_driver(cls, mobile, device_caps):
         if cls._driver is None:
-            driver_types = (AndroidDriver,)
+            driver_types = (AndroidDriver, IOSDriver)
             for driver_type in driver_types:
                 if driver_type.name().lower() == mobile.lower():
                     cls._driver = driver_type.create(device_caps)

@@ -37,6 +37,8 @@ class CMDConfig:
                             help="a string that indicates which browser to run web test")
         parser.add_argument("-m", "--mobile", metavar="Android", type=str, default="Android", choices=["Android", "iOS"],
                             help="a string that indicates which mobile system to run mobile app test")
+        parser.add_argument("-d", "--device", metavar="Device", type=str, default="iPhone",
+                            help="a string that indicates which device to run mobile app test")
         # test_group = parser.add_mutually_exclusive_group()
         parser.add_argument("-t", "--test", metavar="test_class_name test_class_name.method_name", type=str, nargs="+",
                             help="a list of test classes or test methods which you want to run")
