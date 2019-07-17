@@ -1,4 +1,4 @@
-from projects.ios_safari.tests.mobile_test_case import BlogMobileTestCase
+from projects.mobile_web.tests.mobile_test_case import BlogMobileTestCase
 
 
 class TestViewPosts(BlogMobileTestCase):

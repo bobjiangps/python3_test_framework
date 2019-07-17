@@ -1,6 +1,6 @@
 from common.test_base.mobile_test_case import MobileTestCase
-from projects.ios_safari.pages.main_page import MainPage
-from projects.ios_safari.pages.post_list_page import PostListPage
+from projects.mobile_web.pages.main_page import MainPage
+from projects.mobile_web.pages.post_list_page import PostListPage
 
 
 class BlogMobileTestCase(MobileTestCase):
