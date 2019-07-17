@@ -1,0 +1,6 @@
+Simulator: {
+    "platformName": "iOS",
+    "platformVersion": "12.2",
+    "deviceName": "iPhone SE",
+    "browserName": "safari"
+}

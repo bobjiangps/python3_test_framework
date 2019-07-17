@@ -1,0 +1,83 @@
+search_input: {
+    type: input,
+    by: name,
+    value: q
+}
+
+search_button: {
+    type: button,
+    by: xpath,
+    value: "//section[@id='search']//button"
+}
+
+login_link: {
+    type: link,
+    by: xpath,
+    value: "//a[@class='nav-link' and contains(@href, 'login')]"
+}
+
+logout_link: {
+    type: link,
+    by: xpath,
+    value: "//a[@class='nav-link' and contains(@href, 'logout')]"
+}
+
+page_jump_input: {
+    type: input,
+    by: id,
+    value: page-number-input
+}
+
+page_jump_button: {
+    type: button,
+    by: id,
+    value: page-jump
+}
+
+previous_page_button: {
+    type: button,
+    by: xpath,
+    value: "//a[contains(text(), '上一页')]"
+}
+
+next_page_button: {
+    type: button,
+    by: xpath,
+    value: "//a[contains(text(), '下一页')]"
+}
+
+all_blog_post: {
+    type: area,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//div[@class='post-preview']"
+}
+
+blog_post: {
+    type: area,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]"
+}
+
+blog_post_title: {
+    type: text,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h3"
+}
+
+blog_post_preview_content: {
+    type: text,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h6[@class='post-subtitle']"
+}
+
+blog_post_view_count: {
+    type: text,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]//span[@class='view-count']"
+}
+
+post_view_dropdown: {
+    type: dropdown,
+    by: id,
+    value: sortarticle
+}
