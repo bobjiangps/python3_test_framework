@@ -11,3 +11,6 @@ class Input(ElementBase):
 
     def clear_then_input_value(self, value):
         self._behavior.clear_and_send_keys(value, self.locator)
+
+    def click(self):
+        self._behavior.click(self.locator)

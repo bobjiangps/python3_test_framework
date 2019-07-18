@@ -1,0 +1,5 @@
+start_route_button: {
+    type: button,
+    by: id,
+    value: home_route_btn
+}

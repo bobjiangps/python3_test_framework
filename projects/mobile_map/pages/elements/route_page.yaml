@@ -1,0 +1,47 @@
+﻿destination_input: {
+    type: input,
+    by: id,
+    value: route_search_input_end_text
+}
+
+destination_edit: {
+    type: input,
+    by: id,
+    value: edittext_searchbox_search_input
+}
+
+search_button: {
+    type: button,
+    by: id,
+    value: tv_searchbox_history_search
+}
+
+first_suggest_destination: {
+    type: button,
+    by: xpath,
+    value: "//android.widget.ListView/android.widget.LinearLayout[1]"
+}
+
+category_car: {
+    type: button,
+    by: xpath,
+    value: "//android.widget.TextView[contains(@text,'驾车')]"
+}
+
+category_bus: {
+    type: button,
+    by: xpath,
+    value: "//android.widget.TextView[contains(@text,'公交')]"
+}
+
+route_search_back: {
+    type: link,
+    by: id,
+    value: route_search_input_back
+}
+
+start_navigation_button: {
+    type: button,
+    by: id,
+    value: to_pro_guide
+}

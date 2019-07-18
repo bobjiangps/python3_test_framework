@@ -1,0 +1,10 @@
+MiPlus: {
+    "platformName": "Android",
+    "deviceName": "334764fc0804",
+    "automationName": "UiAutomator2",
+    "appPackage": "com.baidu.BaiduMap",
+    "appActivity": "com.baidu.baidumaps.MapsActivity",
+    "noRest": true,
+    "unicodeKeyboard": true,
+    "resetKeyboard": true,
+}

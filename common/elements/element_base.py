@@ -10,16 +10,16 @@ class ElementBase:
         self.locator = temp_locator
 
     def wait_presence(self):
-        self._behavior.wait_until_presence_of_element(self.locator)
+        return self._behavior.wait_until_presence_of_element(self.locator)
 
     def wait_visible(self):
-        self._behavior.wait_until_visibility_of_element(self.locator)
+        return self._behavior.wait_until_visibility_of_element(self.locator)
 
     def wait_not_visible(self):
-        self._behavior.wait_until_invisibility_of_element(self.locator)
+        return self._behavior.wait_until_invisibility_of_element(self.locator)
 
     def wait_clickable(self):
-        self._behavior.wait_until_element_to_be_clickable(self.locator)
+        return self._behavior.wait_until_element_to_be_clickable(self.locator)
 
     def element_selected(self):
         return self._behavior.element_selected(self.locator)
