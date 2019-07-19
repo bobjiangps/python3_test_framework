@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from utils.js_helper import JSHelper
 import time
 
@@ -14,6 +14,7 @@ class WebBehaviors(WebDriverWait):
         super().__init__(driver, timeout)
         self.log = logger
         self.js = JSHelper()
+        self.timeout = timeout
 
     def format_locator(self, locator, *args):
         web_locators = list(By.__dict__.items())
@@ -32,7 +33,11 @@ class WebBehaviors(WebDriverWait):
         try:
             return self._driver.find_element(by, value)
         except NoSuchElementException:
-            raise NoSuchElementException("Unable to locate the element by {0}: '{1}' in the page {2}".format(by, value, self._driver.current_url))
+            try:
+                message = "Unable to locate the element by {0}: '{1}' in the page {2}".format(by, value, self._driver.current_url)
+            except WebDriverException:
+                message = "Unable to locate the element by {0}: '{1}'".format(by, value)
+            raise NoSuchElementException(message)
 
     def find_elements(self, locator, *args):
         by, value = self.format_locator(locator, *args)
@@ -55,51 +60,103 @@ class WebBehaviors(WebDriverWait):
 
     def wait_until_presence_of_element(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to find the element by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to find the element by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to find the element by {0}: '{1}'".format(by, value)
         return self.until(EC.presence_of_element_located((by, value)), message)
+
+    def wait_until_element_disappear(self, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        try:
+            message = "Unable to wait the element disappear by {0}: '{1}' in the page '{2}' during timeout '{3}'".format(by, value, self._driver.current_url, self.timeout)
+        except WebDriverException:
+            message = "Unable to wait the element disappear by {0}: '{1}' during timeout '{2}'".format(by, value, self.timeout)
+        wait_time = 0
+        while wait_time < self.timeout:
+            elements = self.find_elements(locator, *args)
+            if len(elements) == 0:
+                self.log.info("the element disappear by {0}: '{1}' after wait {2}s".format(by, value, wait_time))
+                break
+            else:
+                time.sleep(0.5)
+                wait_time += 0.5
+                continue
+        if wait_time >= self.timeout:
+            self.log.info(message)
+            return False
+        else:
+            return True
 
     def wait_until_frame_to_be_available_and_switch_to_it(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to switch to the frame to be available by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to switch to the frame to be available by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to switch to the frame to be available by {0}: '{1}'".format(by, value)
         el = self.wait_until_visibility_of_element(locator, *args)
         return self.until(EC.frame_to_be_available_and_switch_to_it(el), message)
 
     def wait_until_switch_to_default_content(self):
-        message = "Unable to switch to the default frame in the page '{0}'".format(self._driver.current_url)
+        try:
+            message = "Unable to switch to the default frame in the page '{0}'".format(self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to switch to the default frame"
         return self.until(EC.frame_to_be_available_and_switch_to_it(None), message)
 
     def wait_until_invisibility_of_element(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get the element to be invisible by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to get the element to be invisible by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get the element to be invisible by {0}: '{1}'".format(by, value)
         return self.until(EC.invisibility_of_element_located((by, value)), message)
 
     def wait_until_visibility_of_element(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get the element to be visible by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to get the element to be visible by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get the element to be visible by {0}: '{1}'".format(by, value)
         return self.until(EC.visibility_of_element_located((by, value)), message)
 
     def wait_until_element_to_be_clickable(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get the element to be clickable by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to get the element to be clickable by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get the element to be clickable by {0}: '{1}'".format(by, value)
         return self.until(EC.element_to_be_clickable((by, value)), message)
 
     def wait_until_element_to_be_selected(self, locator, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get the element to be clickable by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to get the element to be clickable by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get the element to be clickable by {0}: '{1}'".format(by, value)
         return self.until(EC.element_to_be_selected((by, value)), message)
 
     def wait_until_text_to_be_present_in_element(self, locator, text, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get '{2}' to be present in the element by {0}: '{1}' in the page '{3}'".format(by, value, text, self._driver.current_url)
+        try:
+            message = "Unable to get '{2}' to be present in the element by {0}: '{1}' in the page '{3}'".format(by, value, text, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get '{2}' to be present in the element by {0}: '{1}'".format(by, value, text)
         return self.until(EC.text_to_be_present_in_element((by, value)), message)
 
     def wait_until_element_located_selection_state_to_be(self, locator, is_selected, *args):
         by, value = self.format_locator(locator, *args)
-        message = "Unable to get the element to be located selection state by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        try:
+            message = "Unable to get the element to be located selection state by {0}: '{1}' in the page '{2}'".format(by, value, self._driver.current_url)
+        except WebDriverException:
+            message = "Unable to get the element to be located selection state by {0}: '{1}'".format(by, value)
         return self.until(EC.element_located_selection_state_to_be((by, value), is_selected), message)
 
     def wait_until_alert_is_present(self):
-        message = "Unable to get alert to be present in the page %s" % self._driver.current_url
+        try:
+            message = "Unable to get alert to be present in the page %s" % self._driver.current_url
+        except WebDriverException:
+            message = "Unable to get alert to be present"
         return self.until(EC.alert_is_present(), message)
 
     def go_to_page(self, page_url):
@@ -114,9 +171,12 @@ class WebBehaviors(WebDriverWait):
         by, value = self.format_locator(locator, *args)
         self.log.info("Click the element found by %s: %s" % (by, value))
         if by != "image":
-            element = self.wait_until_element_to_be_clickable(locator, *args)
-            # element.location_once_scrolled_into_view
-            self.scroll_into_view_of_element(element)
+            try:
+                element = self.wait_until_element_to_be_clickable(locator, *args)
+                # element.location_once_scrolled_into_view
+                self.scroll_into_view_of_element(element)
+            except:
+                element = self.find_element(locator, *args)
             element.click()
         # else:
         #     screenshot_path = os.path.join(os.getcwd(), "projects", Config.instance().current_project, "resource", "screenshot.png")
@@ -135,14 +195,20 @@ class WebBehaviors(WebDriverWait):
         by, value = self.format_locator(locator, *args)
         self.log.info("Clear the element found by %s: %s" % (by, value))
         element = self.wait_until_visibility_of_element(locator, *args)
-        self.scroll_into_view_of_element(element)
+        try:
+            self.scroll_into_view_of_element(element)
+        except WebDriverException:
+            pass
         element.clear()
 
     def send_keys(self, keys_value, locator, *args):
         by, value = self.format_locator(locator, *args)
         self.log.info("Send keys(%s) to the element found by %s: %s" % (keys_value, by, value))
         element = self.wait_until_visibility_of_element(locator, *args)
-        self.scroll_into_view_of_element(element)
+        try:
+            self.scroll_into_view_of_element(element)
+        except WebDriverException:
+            pass
         element.send_keys(keys_value)
 
     def clear_and_send_keys(self, value, locator, *args):

@@ -21,6 +21,9 @@ class ElementBase:
     def wait_clickable(self):
         return self._behavior.wait_until_element_to_be_clickable(self.locator)
 
+    def wait_disappear(self):
+        self._behavior.wait_until_element_disappear(self.locator)
+
     def element_selected(self):
         return self._behavior.element_selected(self.locator)
 
