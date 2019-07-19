@@ -1,5 +1,6 @@
 from configuration.config import LoadConfig
 from utils.selenium_helper import SeleniumHelper
+from utils.appium_helper import AppiumHelper
 from py.xml import html
 import pytest
 import os
@@ -53,18 +54,20 @@ def pytest_runtest_makereport(item, call):
             module_case[test_file][test_method] = "fail"
             config = LoadConfig.load_config()
             if config["report"]["ui_test"]:
-                if not config["report"]["win_test"]:
-                    screen_folder_path = os.path.join(os.getcwd(), "projects", config["project"], "test_reports", "screenshots")
-                    if not os.path.exists(screen_folder_path):
-                        os.mkdir(screen_folder_path)
-                    driver = SeleniumHelper.get_driver(LoadConfig.load_config()["browser"])
-                    screenshot_file_path = os.path.join(screen_folder_path, "%s.png" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
-                    driver.save_screenshot(screenshot_file_path)
-                    html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
-                           'onclick="window.open(this.src)" align="right"/></div>' % screenshot_file_path
-                    extra = getattr(rep, 'extra', [])
-                    extra.append(item.config.pluginmanager.getplugin('html').extras.html(html))
-                    rep.extra = extra
+                screen_folder_path = os.path.join(os.getcwd(), "projects", config["project"], "test_reports", "screenshots")
+                if not os.path.exists(screen_folder_path):
+                    os.mkdir(screen_folder_path)
+                if config["report"]["app_test"]:
+                    driver = AppiumHelper.get_current_driver()
+                elif not config["report"]["win_test"]:
+                    driver = SeleniumHelper.get_current_driver()
+                screenshot_file_path = os.path.join(screen_folder_path, "%s.png" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
+                driver.save_screenshot(screenshot_file_path)
+                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
+                       'onclick="window.open(this.src)" align="right"/></div>' % screenshot_file_path
+                extra = getattr(rep, 'extra', [])
+                extra.append(item.config.pluginmanager.getplugin('html').extras.html(html))
+                rep.extra = extra
         elif rep.skipped:
             total_sum += 1
             skip_sum += 1
