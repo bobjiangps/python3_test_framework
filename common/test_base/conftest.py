@@ -37,15 +37,14 @@ def pytest_runtest_makereport(item, call):
         module_case[test_file][test_method] = "skip"
     if rep.when == "call":
         print("%s: Case Duration: %ss ...%s" % (rep.nodeid.split("::")[-1], str(round(rep.duration, 2)), rep.outcome))
-        # print(rep.keywords)
-        # print(rep.location)
-        # print(rep.nodeid)
-        # print(rep.fspath)
         test_method = rep.nodeid.split("::")[-1]
         if rep.passed:
             if test_method not in module_case[test_file]:
                 total_sum += 1
                 pass_sum += 1
+            else:
+                pass_sum += 1
+                fail_sum -= 1
             module_case[test_file][test_method] = "pass"
         elif rep.failed:
             if test_method not in module_case[test_file]:
@@ -104,14 +103,6 @@ def pytest_configure(config):
             config._metadata["Type"] = "API"
 
 
-# # update the summary data in pytest-html report
-# @pytest.mark.optionalhook
-# def pytest_html_results_summary(prefix, summary, postfix):
-#     prefix.extend([html.p("location: in prefix")])
-#     del(summary[1])
-#     postfix.extend([html.p("location: in postfix")])
-
-
 # update the result table in pytest-html report
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
@@ -130,9 +121,3 @@ def pytest_html_results_table_row(report, cells):
         cells.pop()
     except:
         print("error occur, cannot update report")
-
-# @pytest.mark.hookwrapper
-# def pytest_runtest_makereport(item, call):
-#     outcome = yield
-#     report = outcome.get_result()
-#     report.description = str(item.function.__doc__)
