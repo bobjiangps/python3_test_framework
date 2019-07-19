@@ -5,7 +5,7 @@ from common.test_base.page_base import PageBase
 class RoutePage(PageBase):       
     
     def input_destination_and_search_route(self, destination):
-        self.log.info("user input destination to go and search route")
+        self.log.info("input destination to go and search route")
         self.switch_to_bus_mode()
         self.element("destination_input").click()
         self.element("destination_edit").input_value(destination)
@@ -25,10 +25,11 @@ class RoutePage(PageBase):
         self.element("category_bus").click()
         
     def back_to_main_page(self):
-        self.log.info("user go back to main page")
+        self.log.info("go back to main page")
         self.element("route_search_back").click()
 
     # assertions below
     def is_able_to_navigate(self):
         start_navigate_button = self.element("start_navigation_button").wait_clickable()
+        self.log.info("start navigate button is displayed and clickable")
         assert start_navigate_button, "unable to find the start navigation button"

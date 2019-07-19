@@ -3,3 +3,15 @@ start_route_button: {
     by: id,
     value: home_route_btn
 }
+
+user_head_pic: {
+    type: link,
+    by: id,
+    value: user_head_portrait
+}
+
+user_level: {
+    type: link,
+    by: id,
+    value: tv_lv_lv
+}

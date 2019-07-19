@@ -1,0 +1,30 @@
+favorite_link: {
+    type: link,
+    by: xpath,
+    value: "//android.widget.TextView[contains(@text,'收藏夹')]/parent::android.view.ViewGroup"
+}
+
+favorite_item_address: {
+    type: area,
+    by: id,
+    value: fav_addr
+}
+
+
+favorite_back: {
+    type: link,
+    by: id,
+    value: ugc_title_left_back
+}
+
+personal_page_back: {
+    type: link,
+    by: id,
+    value: user_center_close
+}
+
+sync_complete_toast: {
+    type: text,
+    by: xpath,
+    value: "//android.widget.Toast[contains(@text, '同步完成')]"
+}
