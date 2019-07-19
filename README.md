@@ -36,7 +36,7 @@ Todo List:
 - page object  --> Done
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
 - selenium webdriver  --> Done
-- appium
+- appium  --> Done
 - integrate with openstf
 - automate restful api - Done
 - automate windows desktop application
