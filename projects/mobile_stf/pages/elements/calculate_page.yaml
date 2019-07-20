@@ -1,0 +1,29 @@
+num_2: {
+    type: button,
+    by: id,
+    value: bt_02
+}
+
+num_6: {
+    type: button,
+    by: id,
+    value: bt_06
+}
+
+add_button: {
+    type: button,
+    by: id,
+    value: bt_add
+}
+
+equal_button: {
+    type: button,
+    by: id,
+    value: bt_equal
+}
+
+cal_result: {
+    type: text,
+    by: id,
+    value: txtCalc
+}
