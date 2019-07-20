@@ -1,10 +1,11 @@
+from common.singleton import Singleton
 import requests
 import json
 import random
 import time
 
 
-class StfDevices:
+class StfDevices(Singleton):
 
     def __init__(self, ip):
         self.ip = ip
@@ -106,4 +107,3 @@ class StfDevices:
                 print("failed to get user devices info")
         else:
             print("wrong status: %d" % my_devices.status_code)
-
