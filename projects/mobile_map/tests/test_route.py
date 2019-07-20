@@ -19,5 +19,3 @@ class TestMapRoute(MapMobileTestCase):
             
         with self.cleanup():
             self.route_page.back_to_main_page()
-            import time
-            time.sleep(20)
