@@ -1,7 +1,7 @@
 # python3_autotest_framework
 
 几年前曾经用python2写过测试框架用于公司内使用，现在看来里面有些东西已经老旧了，于是打算用python3系列重新写一个，延续以前的一些功能，并修改一些不足的地方。
-### python3 autotest framework to test with:
+### python3 autotest framework to test:
 
 
 | Type | Option | Support |
@@ -14,6 +14,7 @@
 | | Simulate mobile browser | √ |
 | Mobile Application | iOS | √ |
 | | Android | √ |
+| | Devices managed by OpenSTF | √ |
 | | Simulator | √ |
 | | Emulator | √ |
 | Windows | Desktop app | √ |
@@ -37,8 +38,8 @@ Todo List:
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
 - selenium webdriver  --> Done
 - appium  --> Done
-- integrate with openstf
-- automate restful api - Done
+- integrate with openstf --> Done
+- automate restful api --> Done
 - automate windows desktop application
 - db for mysql, mongodb, redis -> mysql Done,
 - activemq or else

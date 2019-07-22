@@ -17,11 +17,11 @@ class MobileTestCase(LoggedTestCase):
     @classmethod
     def teardown_class(cls):
         super().teardown_class()
+        AppiumHelper.close_driver()
         device = LoadConfig.load_config()["device"]
         if device.lower() == "stf":
             os.system("adb disconnect " + cls.remote_connect_url)
             cls.log.info(cls.remote_device.return_rented_device(cls.device_serial).text)
-        AppiumHelper.close_driver()
 
     @classmethod
     def start_app(cls):
@@ -31,7 +31,10 @@ class MobileTestCase(LoggedTestCase):
         if device.lower() == "stf":
             cls.remote_device = StfDevices(LoadConfig.load_config()["env"]["stf_host"])
             cls.device_serial = cls.remote_device.get_single_device()["serial"]
+            cls.log.info("device serial: %s" % str(cls.device_serial))
+            cls.log.info(cls.remote_device.rent_single_device(cls.device_serial).text)
             cls.remote_connect_url = cls.remote_device.get_user_device_remote_connect_url(cls.device_serial)
+            cls.log.info("connect url: %s" % str(cls.remote_connect_url))
             os.system("adb connect " + cls.remote_connect_url)
             stf_caps = YamlHelper.load_yaml(os.path.join(os.getcwd(), "projects", project, "conf", "device_caps.yaml"))["STF"]
             device_cap = None
