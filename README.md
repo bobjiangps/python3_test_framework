@@ -35,7 +35,7 @@ Todo List:
 - statistics for test results  --> Done
 - email  --> Done
 - page object  --> Done
-- opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name)
+- opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name) --> Done
 - selenium webdriver  --> Done
 - appium  --> Done
 - integrate with openstf --> Done
