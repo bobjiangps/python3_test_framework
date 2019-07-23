@@ -16,6 +16,12 @@ login_link: {
     value: "//a[@class='nav-link' and contains(@href, 'login')]"
 }
 
+login_link_img: {
+    type: link,
+    by: image,
+    value: "login_link.png"
+}
+
 logout_link: {
     type: link,
     by: xpath,

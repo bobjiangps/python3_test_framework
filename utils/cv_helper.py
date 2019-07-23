@@ -15,8 +15,8 @@ class CVHelper:
         base_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_data")
         img_target = cv2.imread(os.path.join(base_path, target), 0)
         img_source = cv2.imread(os.path.join(base_path, source), 0)
-        print('target image size: width, height: {}, {}'.format(img_target.shape[0], img_target.shape[1]))
-        print('source image size: width, height: {}, {}'.format(img_source.shape[0], img_source.shape[1]))
+        print('target image size: height, width: {}, {}'.format(img_target.shape[0], img_target.shape[1]))
+        print('source image size: height, width: {}, {}'.format(img_source.shape[0], img_source.shape[1]))
 
         sift = cv2.xfeatures2d.SIFT_create()
         kp1, des1 = sift.detectAndCompute(img_target, None)
@@ -33,12 +33,12 @@ class CVHelper:
         plt.show()
 
     @classmethod
-    def flann_generate_matched_central_coordinates(cls, target, source="screenshot.png"):
+    def flann_generate_matched_points_center(cls, target, source="screenshot.png"):
         base_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_data")
         img_target = cv2.imread(os.path.join(base_path, target), 0)
         img_source = cv2.imread(os.path.join(base_path, source), 0)
-        print('target image size: width, height: {}, {}'.format(img_target.shape[0], img_target.shape[1]))
-        print('source image size: width, height: {}, {}'.format(img_source.shape[0], img_source.shape[1]))
+        print('target image size: height, width: {}, {}'.format(img_target.shape[0], img_target.shape[1]))
+        print('source image size: height, width: {}, {}'.format(img_source.shape[0], img_source.shape[1]))
 
         sift = cv2.xfeatures2d.SIFT_create()
         kp1, des1 = sift.detectAndCompute(img_target, None)
@@ -66,7 +66,9 @@ class CVHelper:
         for p in points:
             coordinate_x.append(int(kp2[p.trainIdx].pt[0]))
             coordinate_y.append(int(kp2[p.trainIdx].pt[1]))
-        return round(sum(coordinate_x) / len(points), 2), round(sum(coordinate_y) / len(points), 2)
+        scale_x = round(sum(coordinate_x) / len(points) / img_source.shape[1], 2)
+        scale_y = round(sum(coordinate_y) / len(points) / img_source.shape[0], 2)
+        return scale_x, scale_y
         # temp = []
         # for m, n in matches:
         #     if m.distance < 0.6 * n.distance:

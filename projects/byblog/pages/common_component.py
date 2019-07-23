@@ -15,6 +15,7 @@ class CommonComponent(PageBase):
     def go_to_login_page(self):
         self.log.info("Go to login page")
         self.element("login_link").click()
+        # self.element("login_link_img").click()
 
     def go_to_post_list_page(self):
         self.log.info("Go to post list page")

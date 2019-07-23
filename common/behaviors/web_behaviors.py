@@ -5,7 +5,10 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from utils.js_helper import JSHelper
+from utils.cv_helper import CVHelper
+from configuration.config import LoadConfig
 import time
+import os
 
 
 class WebBehaviors(WebDriverWait):
@@ -178,18 +181,23 @@ class WebBehaviors(WebDriverWait):
             except:
                 element = self.find_element(locator, *args)
             element.click()
-        # else:
-        #     screenshot_path = os.path.join(os.getcwd(), "projects", Config.instance().current_project, "resource", "screenshot.png")
-        #     self._driver.save_screenshot(screenshot_path)
-        #     time.sleep(1)
-        #     if os.path.exists(screenshot_path):
-        #         x,y = cv.generate_coordinate_matched(value, screenshot_path)
-        #         self.log.info("click on the coordinates: %s, %s" % (str(x),str(y)))
-        #         whole_page = self.find_element({"xpath":"//body"})
-        #         ActionChains(self._driver).move_to_element_with_offset(whole_page, 1, 1).perform()
-        #         ActionChains(self._driver).move_by_offset(x,y).click().perform()
-        #     else:
-        #         self.log.info("unable to find the screenshot file")
+        else:
+            test_data_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_data")
+            screenshot_path = os.path.join(test_data_path, "screenshot.png")
+            element_img_path = os.path.join(test_data_path, value)
+            self._driver.save_screenshot(screenshot_path)
+            time.sleep(1)
+            if os.path.exists(screenshot_path):
+                scale_x, scale_y = CVHelper.flann_generate_matched_points_center(element_img_path, screenshot_path)
+                window_size = self._driver.get_window_size()
+                x = round(scale_x * window_size["width"], 2)
+                y = round(scale_y * window_size["height"], 2)
+                self.log.info(f"click on the coordinates: {x}, {y}")
+                whole_page = self.find_element({"by": "xpath", "value": "//html/body"})
+                ActionChains(self._driver).move_to_element_with_offset(whole_page, 1, 1).perform()
+                ActionChains(self._driver).move_by_offset(x, y).click().perform()
+            else:
+                self.log.info("unable to find the screenshot file")
 
     def clear(self, locator, *args):
         by, value = self.format_locator(locator, *args)
