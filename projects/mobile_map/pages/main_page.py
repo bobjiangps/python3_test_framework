@@ -10,4 +10,5 @@ class MainPage(PageBase):
     def go_to_personal_page(self):
         self.log.info("user go to personal page")
         self.element("user_head_pic").click()
+        # self.element("user_head_pic_img").click()
         self.element("user_level").wait_presence()

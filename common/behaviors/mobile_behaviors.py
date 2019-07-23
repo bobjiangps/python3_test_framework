@@ -4,6 +4,9 @@ from selenium.common.exceptions import WebDriverException
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from configuration.config import LoadConfig
+from utils.cv_helper import CVHelper
+import os
+import time
 
 
 class MobileBehaviors(WebBehaviors):
@@ -20,6 +23,31 @@ class MobileBehaviors(WebBehaviors):
                 value = locator["value"].format(*args)
                 break
         return by, value
+
+    def click(self, locator, *args):
+        by, value = self.format_locator(locator, *args)
+        self.log.info("Click the element found by %s: %s" % (by, value))
+        if by != "image":
+            try:
+                element = self.wait_until_element_to_be_clickable(locator, *args)
+            except:
+                element = self.find_element(locator, *args)
+            element.click()
+        else:
+            test_data_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_data")
+            screenshot_path = os.path.join(test_data_path, "screenshot.png")
+            element_img_path = os.path.join(test_data_path, value)
+            self._driver.save_screenshot(screenshot_path)
+            time.sleep(1)
+            if os.path.exists(screenshot_path):
+                scale_x, scale_y = CVHelper.flann_generate_matched_points_center(element_img_path, screenshot_path)
+                window_size = self._driver.get_window_size()
+                x = round(scale_x * window_size["width"], 2)
+                y = round(scale_y * window_size["height"], 2)
+                self.log.info(f"click on the coordinates: {x}, {y}")
+                self._driver.tap([(x, y)])
+            else:
+                self.log.info("unable to find the screenshot file")
 
     def swipe(self, direction, duration=1000):
         self.log.info("Swipe to direction: %s" % direction)

@@ -10,6 +10,12 @@ user_head_pic: {
     value: user_head_portrait
 }
 
+user_head_pic_img: {
+    type: link,
+    by: image,
+    value: "user_head_pic.png"
+}
+
 user_level: {
     type: link,
     by: id,
