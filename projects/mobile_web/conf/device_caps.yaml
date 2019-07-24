@@ -1,6 +1,6 @@
 Simulator: {
     "platformName": "iOS",
-    "platformVersion": "12.2",
+    "platformVersion": "12.4",
     "automationName": "XCUITest",
     "deviceName": "iPhone SE",
     "browserName": "safari"
