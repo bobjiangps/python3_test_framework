@@ -80,6 +80,26 @@ class Win32Helper:
             raise
 
     @classmethod
+    def find_element(cls, top_window_handle, text=None, class_name=None):
+        elements = cls.find_elements(top_window_handle, text, class_name)
+        return elements[0]
+
+    @classmethod
+    def find_elements(cls, top_window_handle, text=None, class_name=None):
+        try:
+            all_elements = []
+            for hwnd, window_text, window_class in cls.get_all_child_windows(top_window_handle):
+                if text and text in window_text:
+                    all_elements.append(hwnd)
+                elif class_name and class_name in window_class:
+                    all_elements.append(hwnd)
+            return all_elements
+        except Exception as e:
+            message = "fail to find elements with error: {0}".format(str(e))
+            print(message)
+            raise
+
+    @classmethod
     def close_window(cls, window_text, partial=False, handle=None):
         try:
             if handle:
@@ -97,6 +117,20 @@ class Win32Helper:
             raise
 
     @classmethod
+    def click_button(cls, handle):
+        win32gui.PostMessage(handle, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, 0)
+        win32gui.PostMessage(handle, win32con.WM_LBUTTONUP, win32con.MK_LBUTTON, 0)
+        # win32gui.SendMessage(handle, win32con.BN_CLICKED, 0, 0)
+
+    @classmethod
+    def input_text(cls, handle, text, append=False):
+        if append:
+            win32gui.SendMessage(handle, win32con.EM_SETSEL, -1, 0)
+        else:
+            win32gui.SendMessage(handle, win32con.EM_SETSEL, 0, -1)
+        win32gui.SendMessage(handle, win32con.EM_REPLACESEL, True, text)
+
+    @classmethod
     def send_keyboard_signal(cls, window_handle, key):
         assert window_handle, "window handle cannot be None"
         assert key, "key of keyboard cannot be None"
@@ -112,6 +146,12 @@ class Win32Helper:
         all_windows = []
         win32gui.EnumWindows(cls._window_enumeration_handler, all_windows)
         return all_windows
+
+    @classmethod
+    def get_all_child_windows(cls, top_window_handle):
+        all_child_windows = []
+        win32gui.EnumChildWindows(top_window_handle, cls._window_enumeration_handler, all_child_windows)
+        return all_child_windows
 
     @classmethod
     def _window_enumeration_handler(cls, hwnd, window_list):
