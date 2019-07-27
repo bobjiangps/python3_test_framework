@@ -11,9 +11,12 @@ class WinautoHelper(Singleton):
         return cls._driver
 
     @classmethod
-    def get_driver(cls, executable, caps):
+    def get_driver(cls, executable, caps=None):
         default_caps = {"backend": "win32"}
-        caps = dict(default_caps, **caps)
+        if caps:
+            caps = dict(default_caps, **caps)
+        else:
+            caps = default_caps
         cls._driver = WinDriver.create(executable, caps)
         return cls._driver
 
