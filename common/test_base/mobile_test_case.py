@@ -7,7 +7,7 @@ import os
 
 
 class MobileTestCase(LoggedTestCase):
-    """Test case for testing web application"""
+    """Test case for testing mobile application"""
 
     @classmethod
     def setup_class(cls):
