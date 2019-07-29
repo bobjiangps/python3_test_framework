@@ -71,8 +71,9 @@ class WinBehaviors:
     def get_top_window(self):
         return self._driver.top_window()
 
-    def select_menu(self, menu_list):
-        self._driver.menu_select("->".join(menu_list))
+    def select_menu(self, window_locator, menu_list):
+        self._window = self.find_window(window_locator)
+        self._window.menu_select("->".join(menu_list))
 
     def wait_until_presence_of_element(self, locator, *args):
         by, value = self.format_locator(locator, *args)

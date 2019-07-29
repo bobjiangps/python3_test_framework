@@ -61,7 +61,11 @@ def pytest_runtest_makereport(item, call):
                 elif not config["report"]["win_test"]:
                     driver = SeleniumHelper.get_current_driver()
                 screenshot_file_path = os.path.join(screen_folder_path, "%s.png" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
-                driver.save_screenshot(screenshot_file_path)
+                if config["report"]["win_test"]:
+                    from utils.win32_helper import Win32Helper
+                    Win32Helper.capture_screen(screenshot_file_path)
+                else:
+                    driver.save_screenshot(screenshot_file_path)
                 html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % screenshot_file_path
                 extra = getattr(rep, 'extra', [])

@@ -7,3 +7,28 @@ edit_input: {
         value: "Untitled - Notepad"
     }
 }
+
+main_window: {
+    by: title,
+    value: "Untitled - Notepad"
+}
+
+save_file_input: {
+    type: input,
+    by: name,
+    value: Edit,
+    window: {
+        by: title,
+        value: "Save As"
+    }
+}
+
+save_button: {
+    type: button,
+    by: name,
+    value: Save,
+    window: {
+        by: title,
+        value: "Save As"
+    }
+}
