@@ -1,0 +1,9 @@
+edit_input: {
+    type: input,
+    by: name,
+    value: Edit,
+    window: {
+        by: title,
+        value: "Untitled - Notepad"
+    }
+}

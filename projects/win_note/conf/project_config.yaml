@@ -18,5 +18,6 @@ env: {
         user: {
             account: jbsv43,
         },
+        executable: notepad
     },
 }
