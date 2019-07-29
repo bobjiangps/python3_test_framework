@@ -2,6 +2,7 @@ import win32api
 import win32gui
 import win32con
 import win32process
+import win32ui
 import time
 import os
 
@@ -158,3 +159,22 @@ class Win32Helper:
         window_list.append((hwnd,
                            win32gui.GetWindowText(hwnd),
                            win32gui.GetClassName(hwnd)))
+
+    @classmethod
+    def capture_screen(cls, file_path):
+        hdesktop = win32gui.GetDesktopWindow()
+        width = win32api.GetSystemMetrics(win32con.SM_CXVIRTUALSCREEN)
+        height = win32api.GetSystemMetrics(win32con.SM_CYVIRTUALSCREEN)
+        # left = win32api.GetSystemMetrics(win32con.SM_XVIRTUALSCREEN)
+        # top = win32api.GetSystemMetrics(win32con.SM_YVIRTUALSCREEN)
+        desktop_dc = win32gui.GetWindowDC(hdesktop)
+        img_dc = win32ui.CreateDCFromHandle(desktop_dc)
+        mem_dc = img_dc.CreateCompatibleDC()
+        screenshot = win32ui.CreateBitmap()
+        screenshot.CreateCompatibleBitmap(img_dc, width, height)
+        mem_dc.SelectObject(screenshot)
+        mem_dc.BitBlt((0, 0), (width, height), img_dc, (0, 0), win32con.SRCCOPY)
+        screenshot.SaveBitmapFile(mem_dc, file_path)
+        mem_dc.DeleteDC()
+        win32gui.DeleteObject(screenshot.GetHandle())
+        return width, height
