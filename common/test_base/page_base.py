@@ -57,7 +57,8 @@ class PageBase:
             if self._config["report"]["app_test"]:
                 return MobileBehaviors(self._driver, self._config["webdriver"]["timeout"], self.log)
             elif self._config["report"]["win_test"]:
-                return "todo, windowssoftware"
+                from common.behaviors.win_behaviors import WinBehaviors
+                return WinBehaviors(self._driver, self._config["webdriver"]["timeout"], self.log)
             else:
                 return WebBehaviors(self._driver, self._config["webdriver"]["timeout"], self.log)
 

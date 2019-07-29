@@ -143,4 +143,7 @@ class Application:
                 AppiumHelper.close_driver()
             elif not self._config["report"]["win_test"]:
                 SeleniumHelper.close_driver()
+            else:
+                from utils.winauto_helper import WinautoHelper
+                WinautoHelper.close_driver()
         print("Test Complete...\n")
