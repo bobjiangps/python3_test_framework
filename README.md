@@ -40,7 +40,7 @@ Todo List:
 - appium  --> Done
 - integrate with openstf --> Done
 - automate restful api --> Done
-- automate windows desktop application
+- automate windows desktop application --> Done
 - db for mysql, mongodb, redis -> mysql Done,
 - activemq or else
 - file handler

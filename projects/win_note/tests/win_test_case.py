@@ -1,5 +1,5 @@
 from common.test_base.win_test_case import WinTestCase
-from projects.win_note.pages.edit_page import EditPage
+from ..pages.edit_page import EditPage
 
 
 class NoteWinTestCase(WinTestCase):

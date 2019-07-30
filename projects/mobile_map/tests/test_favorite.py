@@ -1,4 +1,4 @@
-from projects.mobile_map.tests.mobile_test_case import MapMobileTestCase
+from .mobile_test_case import MapMobileTestCase
 
 
 class TestFavorite(MapMobileTestCase):

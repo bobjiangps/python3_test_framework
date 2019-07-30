@@ -1,4 +1,4 @@
-from projects.rest_api.tests.rest_test_case import RestTestCase
+from .rest_test_case import RestTestCase
 from configuration.config import TestData
 import pytest
 

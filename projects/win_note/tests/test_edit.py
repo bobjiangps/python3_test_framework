@@ -1,4 +1,4 @@
-from projects.win_note.tests.win_test_case import NoteWinTestCase
+from .win_test_case import NoteWinTestCase
 
 
 class TestEdit(NoteWinTestCase):

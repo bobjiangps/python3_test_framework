@@ -1,6 +1,6 @@
 from common.test_base.logged_test_case import LoggedTestCase
-from projects.rest_api.apis.posts_rest_api import PostsApi
-from projects.rest_api.apis.post_comment_rest_api import PostCommentApi
+from ..apis.posts_rest_api import PostsApi
+from ..apis.post_comment_rest_api import PostCommentApi
 
 
 class RestTestCase(LoggedTestCase):

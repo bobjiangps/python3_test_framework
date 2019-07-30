@@ -1,8 +1,8 @@
 from common.test_base.web_test_case import WebTestCase
-from projects.byblog.pages.main_page import MainPage
-from projects.byblog.pages.post_list_page import PostListPage
-from projects.byblog.pages.login_page import LoginPage
-from projects.byblog.pages.post_detail_page import PostDetailPage
+from ..pages.main_page import MainPage
+from ..pages.post_list_page import PostListPage
+from ..pages.login_page import LoginPage
+from ..pages.post_detail_page import PostDetailPage
 
 
 class BlogWebTestCase(WebTestCase):

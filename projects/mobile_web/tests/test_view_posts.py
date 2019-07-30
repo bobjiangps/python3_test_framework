@@ -1,4 +1,4 @@
-from projects.mobile_web.tests.mobile_test_case import BlogMobileTestCase
+from .mobile_test_case import BlogMobileTestCase
 
 
 class TestViewPosts(BlogMobileTestCase):

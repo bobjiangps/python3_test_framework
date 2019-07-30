@@ -1,4 +1,4 @@
-from projects.byblog.tests.web_test_case import BlogWebTestCase
+from .web_test_case import BlogWebTestCase
 
 
 class TestViewPosts(BlogWebTestCase):

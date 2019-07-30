@@ -1,4 +1,4 @@
-from projects.mobile_web.pages.common_component import CommonComponent
+from .common_component import CommonComponent
 
 
 class PostListPage(CommonComponent):

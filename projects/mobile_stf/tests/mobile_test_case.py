@@ -1,5 +1,5 @@
 from common.test_base.mobile_test_case import MobileTestCase
-from projects.mobile_stf.pages.calculate_page import CalculatePage
+from ..pages.calculate_page import CalculatePage
 
 
 class STFMobileTestCase(MobileTestCase):

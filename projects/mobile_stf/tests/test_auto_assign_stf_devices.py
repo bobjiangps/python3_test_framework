@@ -1,4 +1,4 @@
-from projects.mobile_stf.tests.mobile_test_case import STFMobileTestCase
+from .mobile_test_case import STFMobileTestCase
 
 
 class TestSTF(STFMobileTestCase):

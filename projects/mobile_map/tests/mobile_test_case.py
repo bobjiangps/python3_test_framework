@@ -1,7 +1,7 @@
 from common.test_base.mobile_test_case import MobileTestCase
-from projects.mobile_map.pages.main_page import MainPage
-from projects.mobile_map.pages.route_page import RoutePage
-from projects.mobile_map.pages.personal_page import PersonalPage
+from ..pages.main_page import MainPage
+from ..pages.route_page import RoutePage
+from ..pages.personal_page import PersonalPage
 
 
 class MapMobileTestCase(MobileTestCase):
