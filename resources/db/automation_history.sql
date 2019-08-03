@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.11, for osx10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.16, for osx10.14 (x86_64)
 --
 -- Host: localhost    Database: automation_history
 -- ------------------------------------------------------
--- Server version	8.0.11
+-- Server version	8.0.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,6 +41,32 @@ LOCK TABLES `browser` WRITE;
 /*!40000 ALTER TABLE `browser` DISABLE KEYS */;
 INSERT INTO `browser` VALUES (1,'Chrome','chrome','75.0.3770.142','2019-07-31 02:46:21','2019-07-31 02:46:21'),(2,'Firefox','firefox','67.0.4','2019-07-31 02:48:37','2019-07-31 02:48:37'),(3,'Safari','Safari','12.1.2','2019-07-31 02:49:54','2019-07-31 02:49:54'),(4,'IE','internet explorer','11','2019-07-31 02:53:20','2019-07-31 02:53:20'),(5,'Edge','MicrosoftEdge','42.17134.1.0','2019-07-31 02:54:49','2019-07-31 02:54:49'),(6,'MobileBrowser','chrome','75.0.3770.142','2019-07-31 02:56:31','2019-07-31 02:56:31');
 /*!40000 ALTER TABLE `browser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `case_suite`
+--
+
+DROP TABLE IF EXISTS `case_suite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `case_suite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `test_suite_id` int(11) NOT NULL,
+  `test_case_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `case_suite`
+--
+
+LOCK TABLES `case_suite` WRITE;
+/*!40000 ALTER TABLE `case_suite` DISABLE KEYS */;
+/*!40000 ALTER TABLE `case_suite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -152,6 +178,57 @@ INSERT INTO `platform_os` VALUES (1,'Windows','Windows-10-10.0.17134-SP0','2019-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `project`
+--
+
+DROP TABLE IF EXISTS `project`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `project` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project`
+--
+
+LOCK TABLES `project` WRITE;
+/*!40000 ALTER TABLE `project` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_case`
+--
+
+DROP TABLE IF EXISTS `test_case`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_case` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `test_function_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_case`
+--
+
+LOCK TABLES `test_case` WRITE;
+/*!40000 ALTER TABLE `test_case` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_case` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `test_environment`
 --
 
@@ -173,6 +250,114 @@ LOCK TABLES `test_environment` WRITE;
 /*!40000 ALTER TABLE `test_environment` DISABLE KEYS */;
 INSERT INTO `test_environment` VALUES (1,'INT'),(2,'QA'),(3,'Regression'),(4,'Staging'),(5,'Production');
 /*!40000 ALTER TABLE `test_environment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_function`
+--
+
+DROP TABLE IF EXISTS `test_function`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_function` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `script_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL,
+  `update_time` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_function`
+--
+
+LOCK TABLES `test_function` WRITE;
+/*!40000 ALTER TABLE `test_function` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_function` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_round`
+--
+
+DROP TABLE IF EXISTS `test_round`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_round` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `test_suite_id` int(11) NOT NULL,
+  `browser_id` int(11) DEFAULT NULL,
+  `device_id` int(11) DEFAULT NULL,
+  `mobile_os_id` int(11) DEFAULT NULL,
+  `platform_os_id` int(11) NOT NULL,
+  `test_environment_id` int(11) NOT NULL,
+  `test_type_id` int(11) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_round`
+--
+
+LOCK TABLES `test_round` WRITE;
+/*!40000 ALTER TABLE `test_round` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_round` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_script`
+--
+
+DROP TABLE IF EXISTS `test_script`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_script` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_script`
+--
+
+LOCK TABLES `test_script` WRITE;
+/*!40000 ALTER TABLE `test_script` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_script` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_suite`
+--
+
+DROP TABLE IF EXISTS `test_suite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_suite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_suite`
+--
+
+LOCK TABLES `test_suite` WRITE;
+/*!40000 ALTER TABLE `test_suite` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_suite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -208,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-31 14:32:55
+-- Dump completed on 2019-08-03 11:54:51
