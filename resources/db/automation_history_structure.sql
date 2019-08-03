@@ -295,6 +295,7 @@ CREATE TABLE `test_round` (
   `platform_os_id` int(11) NOT NULL,
   `test_environment_id` int(11) NOT NULL,
   `test_type_id` int(11) NOT NULL,
+  `ip` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -393,4 +394,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-03 15:33:14
+-- Dump completed on 2019-08-03 15:37:39
