@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.16, for osx10.14 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.11, for osx10.12 (x86_64)
 --
 -- Host: localhost    Database: automation_history
 -- ------------------------------------------------------
--- Server version	8.0.16
+-- Server version	8.0.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -186,7 +186,7 @@ DROP TABLE IF EXISTS `project`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `test_case`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `test_case` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `test_function_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -226,6 +226,36 @@ CREATE TABLE `test_case` (
 LOCK TABLES `test_case` WRITE;
 /*!40000 ALTER TABLE `test_case` DISABLE KEYS */;
 /*!40000 ALTER TABLE `test_case` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_case_result`
+--
+
+DROP TABLE IF EXISTS `test_case_result`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_case_result` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `test_case_id` int(11) NOT NULL,
+  `test_round_id` int(11) NOT NULL,
+  `error_message` varchar(3000) DEFAULT NULL,
+  `screenshot` varchar(500) DEFAULT NULL,
+  `video` varchar(500) DEFAULT NULL,
+  `result` varchar(100) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_case_result`
+--
+
+LOCK TABLES `test_case_result` WRITE;
+/*!40000 ALTER TABLE `test_case_result` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_case_result` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -261,7 +291,7 @@ DROP TABLE IF EXISTS `test_function`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `test_function` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `script_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL,
   `update_time` timestamp NOT NULL,
@@ -287,7 +317,7 @@ DROP TABLE IF EXISTS `test_round`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `test_round` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `test_suite_id` int(11) NOT NULL,
   `browser_id` int(11) DEFAULT NULL,
   `device_id` int(11) DEFAULT NULL,
@@ -295,7 +325,7 @@ CREATE TABLE `test_round` (
   `platform_os_id` int(11) NOT NULL,
   `test_environment_id` int(11) NOT NULL,
   `test_type_id` int(11) NOT NULL,
-  `ip` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -320,7 +350,7 @@ DROP TABLE IF EXISTS `test_script`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `test_script` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -345,7 +375,7 @@ DROP TABLE IF EXISTS `test_suite`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `test_suite` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -394,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-03 15:37:39
+-- Dump completed on 2019-08-07 10:06:57
