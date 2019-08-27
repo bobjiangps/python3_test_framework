@@ -16,3 +16,4 @@ class CommonComponent(PageBase):
         home_page = LoadConfig.load_config()["env"]["home_page"]
         self.log.info(f"Go to home page: {home_page}")
         self.behavior.go_to_page(home_page)
+        self.element("search_button").wait_clickable()

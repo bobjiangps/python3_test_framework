@@ -18,6 +18,6 @@ env: {
         user: {
             account: jbsv43,
         },
-        home_page: "https://www.byincd.com/",
+        home_page: "https://www.byincd.com/bobjiang",
     },
 }

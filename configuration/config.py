@@ -62,7 +62,7 @@ class CMDConfig:
 class LoadConfig(Singleton):
     
     @classmethod
-    def load_config(cls):
+    def load_config(cls, name=None):
         args = sys.argv[1:]
         if len(args) < 1:
             all_config = FileConfig().get_running_parameter_from_file()
@@ -78,7 +78,10 @@ class LoadConfig(Singleton):
         project_conf["env"] = project_conf["env"][all_config["environment"]]
         all_config = dict(all_config, **public_conf)
         all_config = dict(all_config, **project_conf)
-        return all_config
+        if name:
+            return all_config[name]
+        else:
+            return all_config
 
 
 class TestData:

@@ -14,3 +14,8 @@ rerun: {
 webdriver: {
     timeout: 30
 }
+
+video: {
+    record: false,
+    time_limit: 10
+}

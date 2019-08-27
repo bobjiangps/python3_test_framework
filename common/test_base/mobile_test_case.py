@@ -4,6 +4,8 @@ from utils.stf_helper import StfDevices
 from configuration.config import LoadConfig
 from common.test_base.logged_test_case import LoggedTestCase
 import os
+import base64
+import datetime
 
 
 class MobileTestCase(LoggedTestCase):
@@ -13,10 +15,22 @@ class MobileTestCase(LoggedTestCase):
     def setup_class(cls):
         super().setup_class()
         cls.start_app()
+        cls.video_config = LoadConfig.load_config("video")
+        if cls.video_config["record"]:
+            cls._driver.start_recording_screen()
 
     @classmethod
     def teardown_class(cls):
         super().teardown_class()
+        if cls.video_config["record"]:
+            video = cls._driver.stop_recording_screen()
+            video_folder_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "videos")
+            if not os.path.exists(video_folder_path):
+                os.mkdir(video_folder_path)
+            video_file_path = os.path.join(video_folder_path, "%s.mp4" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
+            with open(video_file_path, "wb") as f:
+                f.write(base64.b64decode(video))
+            cls.log.info("video captured")
         AppiumHelper.close_driver()
         device = LoadConfig.load_config()["device"]
         if device.lower() == "stf":
