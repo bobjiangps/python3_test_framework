@@ -6,6 +6,7 @@ from common.test_base.logged_test_case import LoggedTestCase
 import os
 import base64
 import datetime
+import json
 
 
 class MobileTestCase(LoggedTestCase):
@@ -15,22 +16,39 @@ class MobileTestCase(LoggedTestCase):
     def setup_class(cls):
         super().setup_class()
         cls.start_app()
-        cls.video_config = LoadConfig.load_config("video")
-        if cls.video_config["record"]:
-            cls._driver.start_recording_screen()
 
-    @classmethod
-    def teardown_class(cls):
-        super().teardown_class()
-        if cls.video_config["record"]:
-            video = cls._driver.stop_recording_screen()
-            video_folder_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "videos")
+    def setup_method(self):
+        super().setup_method()
+        self.video_config = LoadConfig.load_config("video")
+        if self.video_config["record"]:
+            self._driver.start_recording_screen()
+
+    def teardown_method(self):
+        super().teardown_method()
+        if self.video_config["record"]:
+            video = self._driver.stop_recording_screen()
+            video_folder_path = os.path.join(os.getcwd(), "projects", LoadConfig.load_config("project"), "test_reports", "videos")
             if not os.path.exists(video_folder_path):
                 os.mkdir(video_folder_path)
             video_file_path = os.path.join(video_folder_path, "%s.mp4" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
             with open(video_file_path, "wb") as f:
                 f.write(base64.b64decode(video))
-            cls.log.info("video captured")
+            self.log.info("video captured")
+
+            if self.video_config["only_record_failed"]:
+                stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config("project"), "test_reports", "stat.json")
+                with open(stat_file, "r") as f:
+                    current_stat = json.load(f)
+                current_test = os.environ.get('PYTEST_CURRENT_TEST').split('::')
+                current_test_file = current_test[0].split(os.sep)[-1].split(".")[0]
+                current_test_name = current_test[-1].split(" ")[0]
+                if current_stat["Details"][current_test_file][current_test_name].lower() == "pass":
+                    os.remove(video_file_path)
+                    self.log.info("remove video because current test pass")
+
+    @classmethod
+    def teardown_class(cls):
+        super().teardown_class()
         AppiumHelper.close_driver()
         device = LoadConfig.load_config()["device"]
         if device.lower() == "stf":

@@ -17,5 +17,5 @@ webdriver: {
 
 video: {
     record: false,
-    time_limit: 10
+    only_record_failed: true
 }
