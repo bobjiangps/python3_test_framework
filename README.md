@@ -31,26 +31,23 @@ Todo List:
 - logging --> Done
 - rerun failures, set times  --> Done
 - screenshot  --> Done
-- video during test
+- video during test  --> Done (ffmpeg)
 - statistics for test results  --> Done
 - email  --> Done
 - page object  --> Done
 - opencv to compare picutures or find some elements to easy to operate (if you don't want to use xpath,id,name) --> Done
 - selenium webdriver  --> Done
 - appium  --> Done
-- integrate with openstf --> Done
+- integrate with openstf --> Done (currently android)
 - automate restful api --> Done
 - automate windows desktop application --> Done
 - db for mysql, mongodb, redis -> mysql Done,
 - activemq or else
-- file handler
-- text handler
 - data driven --> Done
 - link to jira and testlink
 - multiple process
 - distributed
 - web UI page to run test / show statistics by many kinds of types(module, time, etc)/show trend/give warning prompt  --> implement in another project
-- resource control
 
 
 Environment:
