@@ -31,7 +31,6 @@ class WinTestCase(LoggedTestCase):
             self.video_file_path = os.path.join(video_folder_path, "%s.mp4" % datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))
             self.vh = VideoHelper(out_file=self.video_file_path)
             self.vh.start_recording_screen()
-        self.browser_home_page()
 
     def teardown_method(self):
         super().teardown_method()
@@ -43,7 +42,7 @@ class WinTestCase(LoggedTestCase):
                 with open(stat_file, "r") as f:
                     current_stat = json.load(f)
                 current_test = os.environ.get('PYTEST_CURRENT_TEST').split('::')
-                current_test_file = current_test[0].split(os.sep)[-1].split(".")[0]
+                current_test_file = current_test[0].split("/")[-1].split(".")[0]
                 current_test_name = current_test[-1].split(" ")[0]
                 if current_stat["Details"][current_test_file][current_test_name].lower() == "pass":
                     os.remove(self.video_file_path)
