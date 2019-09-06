@@ -10,6 +10,7 @@ import json
 
 total_sum = pass_sum = fail_sum = skip_sum = 0
 module_case = {}
+start_time = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f")
 
 
 #@pytest.hookimpl(hookwrapper=True, tryfirst=True)
@@ -22,6 +23,7 @@ def pytest_runtest_makereport(item, call):
     global fail_sum
     global skip_sum
     global module_case
+    global start_time
     outcome = yield
     rep = outcome.get_result()
     test_file = item.function.__module__.split(".")[-1]
@@ -76,7 +78,7 @@ def pytest_runtest_makereport(item, call):
             skip_sum += 1
             module_case[test_file][test_method] = "skip"
     print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d" % (total_sum, pass_sum, fail_sum, skip_sum))
-    current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
+    current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
     with open(stat_file, "w") as f:
         json.dump(current_result, f)
 

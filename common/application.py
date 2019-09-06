@@ -71,29 +71,29 @@ class Application:
         command_list.append("--log-file=%s" % os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest-%s.log" % datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
         pytest.main(command_list)
         # print(command_list)
+        self.exit_test()
         self.end_time = datetime.datetime.now()
-        print("Start Time: %s\nEnd Time: %s\nDuraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
-        result_statistics = self._generate_result_statistics(report_folder_path, self.start_time)
+        result_statistics = self._generate_result_statistics(report_folder_path)
         if self._config["email_sender"]["send_report"]:
             self._send_test_result(result_statistics, report_path)
-        self.exit_test()
+        print("Overall Start Time: %s\nOverall End Time: %s\nOverall Duraion: %s\nReport file in: %s" % (str(self.start_time), str(self.end_time), str(self.end_time - self.start_time), report_path))
 
     def _load_config(self):
         self._config = LoadConfig.load_config()
 
-    def _generate_result_statistics(self, report_folder_path, start_time):
-        result_stat = {"Total": None, "Pass": None, "Fail": None, "Skip": None, "End_Time": None}
+    def _generate_result_statistics(self, report_folder_path):
+        result_stat = {"Total": None, "Pass": None, "Fail": None, "Skip": None, "Start_Time": None, "End_Time": None}
         stat_path = os.path.join(report_folder_path, "stat.json")
         with open(stat_path, "r") as f:
             result_json = json.load(f)
             for item in result_json.keys():
                 if item in result_stat.keys():
                     result_stat[item] = result_json[item]
-        if start_time >= datetime.datetime.strptime(result_stat["End_Time"], "%Y-%m-%d-%H:%M:%S.%f"):
+        if self.start_time >= datetime.datetime.strptime(result_stat["End_Time"], "%Y-%m-%d-%H:%M:%S.%f"):
             print("No result!! Please check if your skip all cases...")
             return False
         else:
-            print(f"Overall Result Statistics: {str(result_stat)[1:-1]}")
+            print(f"Execution Result Statistics: {str(result_stat)[1:-1]}")
             self._module_cases = {}
             fail_skip_suite = {"has_fail": [], "has_skip": []}
             for item in result_json["Details"].items():
