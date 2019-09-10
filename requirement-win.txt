@@ -1,3 +1,4 @@
+apipkg==1.5
 Appium-Python-Client==0.44
 atomicwrites==1.2.1
 attrs==18.2.0
@@ -7,6 +8,7 @@ colorama==0.4.1
 comtypes==1.1.7
 configparser==3.5.0
 cycler==0.10.0
+execnet==1.7.1
 idna==2.8
 kiwisolver==1.1.0
 matplotlib==3.1.1
@@ -22,10 +24,12 @@ PyQt5==5.13.0
 PyQt5-sip==4.19.18
 pytest==4.4.1
 pytest-assume==1.2.2
+pytest-forked==1.0.2
 pytest-html==1.20.0
 pytest-metadata==1.8.0
 pytest-ordering==0.6
 pytest-rerunfailures==7.0
+pytest-xdist==1.29.0
 python-dateutil==2.8.0
 pywin32==224
 pywinauto==0.6.7
