@@ -69,6 +69,13 @@ class Application:
         #command_list.append('--log-date-format="%Y-%m-%d %H:%M:%S"')
         #command_list.append("--show-capture=no")
         command_list.append("--log-file=%s" % os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "log", "AutoTest-%s.log" % datetime.datetime.now().strftime("%Y%m%d%H%M%S")))
+        # multi-process
+        try:
+            if int(self._config["process"]) > 1:
+                command_list.append("-n")
+                command_list.append(self._config["process"])
+        except (ValueError, KeyError):
+            pass
         pytest.main(command_list)
         # print(command_list)
         self.exit_test()

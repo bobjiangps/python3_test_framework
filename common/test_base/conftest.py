@@ -17,7 +17,7 @@ start_time = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f")
 @pytest.hookimpl(hookwrapper=True)
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item, call):
-    stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
+    # stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
     global total_sum
     global pass_sum
     global fail_sum
@@ -78,7 +78,38 @@ def pytest_runtest_makereport(item, call):
             skip_sum += 1
             module_case[test_file][test_method] = "skip"
     print("Run %d cases, Current Status: Pass - %d, Fail - %d, Skip - %d" % (total_sum, pass_sum, fail_sum, skip_sum))
-    current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
+    # current_result = {"Total": total_sum, "Pass": pass_sum, "Fail": fail_sum, "Skip": skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": module_case}
+    # with open(stat_file, "w") as f:
+    #     json.dump(current_result, f)
+
+
+def pytest_sessionfinish(session, exitstatus):
+    global start_time
+    stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
+    session_pass_sum = session_fail_sum = session_skip_sum = 0
+    session_module_case = {}
+    reporter = session.config.pluginmanager.get_plugin('terminalreporter')
+    expect_types = ["passed", "failed", "skipped"]
+    alias = {"passed": "pass", "failed": "fail", "skipped": "skip"}
+    actual_types = reporter.stats.keys()
+    for rt in expect_types:
+        if rt in actual_types:
+            for item in reporter.stats[rt]:
+                test_file = item.nodeid.split("tests/")[-1].split("::")[0].split(".")[0]
+                test_method = item.nodeid.split("::")[-1]
+                test_result = item.outcome
+                if test_result == "passed":
+                    session_pass_sum += 1
+                elif test_result == "failed":
+                    session_fail_sum += 1
+                elif test_result == "skipped":
+                    session_skip_sum += 1
+                if test_file not in session_module_case.keys():
+                    session_module_case[test_file] = {test_method: alias[test_result]}
+                else:
+                    session_module_case[test_file][test_method] = alias[test_result]
+    session_total_sum = session_pass_sum + session_fail_sum + session_skip_sum
+    current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": session_module_case}
     with open(stat_file, "w") as f:
         json.dump(current_result, f)
 

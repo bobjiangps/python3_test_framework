@@ -45,8 +45,9 @@ Todo List:
 - activemq or else
 - data driven --> Done
 - link to jira and testlink
-- multiple process
+- multiple process --> Done
 - distributed
+- history storage
 - web UI page to run test / show statistics by many kinds of types(module, time, etc)/show trend/give warning prompt  --> implement in another project
 
 
