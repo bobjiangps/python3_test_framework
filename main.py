@@ -1,9 +1,7 @@
 from common.application import Application
+from common.report.storage import Storage
 
 
-def run_tests():
-    Application().run()
-     
- 
 if __name__ == "__main__":
-    run_tests()
+    Application().run()
+    Storage().run()

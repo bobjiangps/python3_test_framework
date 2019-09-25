@@ -6,6 +6,12 @@ email_sender: {
     send_report: false
 }
 
+storage: {
+    dbname: automation_history,
+    port: 3306,
+    charset: utf8
+}
+
 rerun: {
     rerun_times: 1,
     rerun_delay: 2,
