@@ -11,6 +11,7 @@ import json
 total_sum = pass_sum = fail_sum = skip_sum = 0
 module_case = {}
 start_time = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f")
+browser_name = browser_version = mobile_platform_name = mobile_platform_version = "unknown"
 
 
 #@pytest.hookimpl(hookwrapper=True, tryfirst=True)
@@ -24,6 +25,10 @@ def pytest_runtest_makereport(item, call):
     global skip_sum
     global module_case
     global start_time
+    global browser_name
+    global browser_version
+    global mobile_platform_name
+    global mobile_platform_version
     outcome = yield
     rep = outcome.get_result()
     test_file = item.function.__module__.split(".")[-1]
@@ -39,6 +44,18 @@ def pytest_runtest_makereport(item, call):
         module_case[test_file][test_method] = "skip"
     if rep.when == "call":
         print("%s: Case Duration: %ss ...%s" % (rep.nodeid.split("::")[-1], str(round(rep.duration, 2)), rep.outcome))
+        config = LoadConfig.load_config()
+        if config["report"]["ui_test"]:
+            if config["report"]["app_test"]:
+                driver = AppiumHelper.get_current_driver()
+                cap = driver.capabilities
+                mobile_platform_name = cap["platformName"]
+                mobile_platform_version = cap["platformVersion"]
+            elif not config["report"]["win_test"]:
+                driver = SeleniumHelper.get_current_driver()
+                cap = driver.capabilities
+                browser_name = cap["browserName"]
+                browser_version = cap["browserVersion"]
         test_method = rep.nodeid.split("::")[-1]
         if rep.passed:
             if test_method not in module_case[test_file]:
@@ -85,6 +102,10 @@ def pytest_runtest_makereport(item, call):
 
 def pytest_sessionfinish(session, exitstatus):
     global start_time
+    global browser_name
+    global browser_version
+    global mobile_platform_name
+    global mobile_platform_version
     stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
     session_pass_sum = session_fail_sum = session_skip_sum = 0
     session_module_case = {}
@@ -110,6 +131,14 @@ def pytest_sessionfinish(session, exitstatus):
                     session_module_case[test_file][test_method] = alias[test_result]
     session_total_sum = session_pass_sum + session_fail_sum + session_skip_sum
     current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": session_module_case}
+    config = LoadConfig.load_config()
+    if config["report"]["ui_test"]:
+        if config["report"]["app_test"]:
+            current_result["mobile_platform_name"] = mobile_platform_name
+            current_result["mobile_platform_version"] = mobile_platform_version
+        elif not config["report"]["win_test"]:
+            current_result["browser_name"] = browser_name
+            current_result["browser_version"] = browser_version
     with open(stat_file, "w") as f:
         json.dump(current_result, f)
 

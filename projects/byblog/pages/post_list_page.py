@@ -66,7 +66,7 @@ class PostListPage(CommonComponent):
             self.log.info("post%d has view count: %s" % (index, view_count))
             if view_count_temp:
                 self.log.info("check view count between %d and %d" % (int(view_count), int(view_count_temp)))
-                if view_count > view_count_temp:
+                if int(view_count) > int(view_count_temp):
                     check_result = False
                     break
                 else:

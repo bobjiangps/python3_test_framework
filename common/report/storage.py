@@ -27,8 +27,14 @@ class Storage:
             self._stat = json.load(f)
         print(self._config)
         print(self._stat)
-        self.store_test_type(store_db)
-        self.store_platform_info(store_db)
+        test_type = self.get_test_type()
+        test_type_id = self.store_test_type(store_db)
+        if test_type == "Mobile":
+            device_id = self.store_device_info(store_db)
+            mobile_os_id = self.store_mobile_os_info(store_db)
+        elif test_type == "Web":
+            browser_id = self.store_browser_info(store_db)
+        platform_id = self.store_platform_info(store_db)
         print("Record data complete...")
 
     def _load_config(self):
@@ -57,8 +63,55 @@ class Storage:
             print("test type '%s' already exist in db" % test_type)
         else:
             add_test_type_sql = "INSERT INTO `test_type` VALUES (NULL, '%s')" % test_type
-            db.execute_sql(add_test_type_sql)
+            db.execute_sql(add_test_type_sql, commit=True)
             print("add new test type '%s' in db" % test_type)
+        return db.get_all_results_from_database(test_type_exist_sql)[-1]["id"]
+
+    def store_browser_info(self, db):
+        alias = {
+            "Chrome": "chrome",
+            "Firefox": "firefox",
+            "Safari": "Safari",
+            "IE": "internet explorer",
+            "Edge": "MicrosoftEdge",
+            "MobileBrowser": "chrome"
+        }
+        browser_name = self._config["browser"]
+        browser_version = self._stat["browser_version"]
+        browser_exist_sql = "select * from browser where name='%s' and version='%s'" % (browser_name, browser_version)
+        browser_exist = True if len(db.get_all_results_from_database(browser_exist_sql)) > 0 else False
+        if browser_exist:
+            print("browser '%s - %s' already exist in db" % (browser_name, browser_version))
+        else:
+            add_browser_sql = "INSERT INTO `browser` VALUES (NULL, '%s', '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (browser_name, alias[browser_name], browser_version)
+            db.execute_sql(add_browser_sql, commit=True)
+            print("add new browser '%s - %s' in db" % (browser_name, browser_version))
+        return db.get_all_results_from_database(browser_exist_sql)[-1]["id"]
+
+    def store_mobile_os_info(self, db):
+        mobile_os_name = self._config["mobile"]
+        mobile_os_version = self._stat["mobile_platform_version"]
+        mobile_os_exist_sql = "select * from mobile_os where name='%s' and version='%s'" % (mobile_os_name, mobile_os_version)
+        mobile_os_exist = True if len(db.get_all_results_from_database(mobile_os_exist_sql)) > 0 else False
+        if mobile_os_exist:
+            print("mobile os '%s - %s' already exist in db" % (mobile_os_name, mobile_os_version))
+        else:
+            add_mobile_os_sql = "INSERT INTO `mobile_os` VALUES (NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (mobile_os_name, mobile_os_version)
+            db.execute_sql(add_mobile_os_sql, commit=True)
+            print("add new mobile os '%s - %s' in db" % (mobile_os_name, mobile_os_version))
+        return db.get_all_results_from_database(mobile_os_exist_sql)[-1]["id"]
+
+    def store_device_info(self, db):
+        device = self._config["device"]
+        device_exist_sql = "select * from device where name='%s'" % device
+        device_exist = True if len(db.get_all_results_from_database(device_exist_sql)) > 0 else False
+        if device_exist:
+            print("device '%s' already exist in db" % device)
+        else:
+            add_device_sql = "INSERT INTO `device` VALUES (NULL, '%s', CURRENT_TIME(), CURRENT_TIME())" % device
+            db.execute_sql(add_device_sql, commit=True)
+            print("add new device '%s' in db" % device)
+        return db.get_all_results_from_database(device_exist_sql)[-1]["id"]
 
     @staticmethod
     def store_platform_info(db):
@@ -77,5 +130,6 @@ class Storage:
             print("platform '%s - %s' already exist in db" % (platform_name, platform_version))
         else:
             add_platform_sql = "INSERT INTO `platform_os` VALUES (NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (platform_name, platform_version)
-            db.execute_sql(add_platform_sql)
+            db.execute_sql(add_platform_sql, commit=True)
             print("add platform '%s - %s' in db" % (platform_name, platform_version))
+        return db.get_all_results_from_database(platform_exist_sql)[-1]["id"]
