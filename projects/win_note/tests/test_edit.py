@@ -4,7 +4,7 @@ from .win_test_case import NoteWinTestCase
 class TestEdit(NoteWinTestCase):
 
     def test_save_values(self):
-        """Case-1: notepad is able to input value and save value"""
+        """WNote-1: notepad is able to input value and save value"""
         with self.precondition():
             file_name = "save_as.txt"
             self.edit_page.remove_file_if_exists_in_test_data(file_name)

@@ -7,7 +7,7 @@ class TestPostComment(RestTestCase):
 
     @pytest.mark.parametrize(("post_id", "comment_mark", "expect_result"), TestData.load_test_case_data("test_post_comment"))
     def test_post_comment_amount_0(self, post_id, comment_mark, expect_result):
-        """post comment amount"""
+        """RA-1: post comment amount 0"""
         with self.precondition():
             self.log.info("post id is %d" % post_id)
             self.log.info("comment_mark is %s" % comment_mark)
@@ -24,7 +24,7 @@ class TestPostComment(RestTestCase):
 
     @pytest.mark.parametrize(("post_id", "comment_mark", "expect_result"), [[3, "c", 500], [7, "b", 500]])
     def test_post_comment_amount_1(self, post_id, comment_mark, expect_result):
-        """post comment amount"""
+        """RA-2: post comment amount 1"""
         with self.precondition():
             self.log.info("post id is %d" % post_id)
             self.log.info("comment_mark is %s" % comment_mark)
@@ -42,7 +42,7 @@ class TestPostComment(RestTestCase):
 
     @pytest.mark.parametrize("post_id", [6, 99])
     def test_post_comment_amount_2(self, post_id):
-        """post comment amount"""
+        """RA-3: post comment amount 2"""
         with self.precondition():
             self.log.info("post id is %d" % post_id)
             comments_of_post = self.post_comment_api.get_comments_of_post(post_id=post_id)

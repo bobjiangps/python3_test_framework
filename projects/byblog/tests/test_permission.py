@@ -4,7 +4,7 @@ from .web_test_case import BlogWebTestCase
 class TestPermission(BlogWebTestCase):
 
     def test_sort_posts_only_available_for_logged_in_user(self):
-        """Case-3: only user who have logged in can see the posts view dropdown in post list page"""
+        """ByBlog-3: only user who have logged in can see the posts view dropdown in post list page"""
         with self.precondition():
             user_1 = self.get_project_config_data()["users"]["Users_1"]
             account = user_1["account"]

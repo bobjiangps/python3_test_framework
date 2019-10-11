@@ -5,7 +5,7 @@ class TestMapRoute(MapMobileTestCase):
     """test route functions""" 
 
     def test_route_by_car(self):
-        """test route by car"""
+        """MMap-2: test route by car"""
         with self.precondition():
             self.main_page.start_route()
             destination = u"环球中心停车场"

@@ -5,7 +5,7 @@ class TestFavorite(MapMobileTestCase):
     """For favorite functions"""
 
     def test_favorite_count(self):
-        """test favorite count"""
+        """MMAP-1: test favorite count"""
         with self.precondition():
             self.main_page.go_to_personal_page()
              

@@ -4,7 +4,7 @@ from .rest_test_case import RestTestCase
 class TestPosts(RestTestCase):
 
     def test_posts_amount(self):
-        """posts amount"""
+        """RA-4: posts amount"""
         with self.precondition():
             all_posts = self.posts_api.get_all_posts()
 
@@ -18,7 +18,7 @@ class TestPosts(RestTestCase):
             self.log.info("add cleanup part or not is up to you")
 
     def test_create_new_post(self):
-        """create new post and check new amount"""
+        """RA-5: create new post and check new amount"""
         with self.precondition():
             all_posts_before = len(self.posts_api.get_all_posts())
 
