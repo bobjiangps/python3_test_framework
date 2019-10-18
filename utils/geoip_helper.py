@@ -23,7 +23,11 @@ class GeoIpHelper:
             api_key = 'at_IW99hSbVb4uxQq1SbaoIanDbulTbU'
             api_url = 'https://geo.ipify.org/api/v1?'
             url = api_url + 'apiKey=' + api_key + '&ipAddress=' + ip
-            location = loads(urlopen(url).read().decode('utf8'))["location"]
+            temp_region = loads(urlopen(url).read().decode('utf8'))["location"]
+            try:
+                location = ",".join([temp_region["country"], temp_region["city"]])
+            except [KeyError, ValueError]:
+                location = temp_region
         except URLError:
             location = "network error"
         return location
