@@ -35,6 +35,7 @@ class Storage:
         elif test_type == "Web":
             browser_id = self.store_browser_info(store_db)
         platform_id = self.store_platform_info(store_db)
+        project_id = self.store_project_info(store_db)
         print("Record data complete...")
 
     def _load_config(self):
@@ -133,3 +134,15 @@ class Storage:
             db.execute_sql(add_platform_sql, commit=True)
             print("add platform '%s - %s' in db" % (platform_name, platform_version))
         return db.get_all_results_from_database(platform_exist_sql)[-1]["id"]
+
+    def store_project_info(self, db):
+        project = self._config["project"]
+        project_exist_sql = "select * from project where name='%s'" % project
+        project_exist = True if len(db.get_all_results_from_database(project_exist_sql)) > 0 else False
+        if project_exist:
+            print("project '%s' already exist in db" % project)
+        else:
+            add_project_sql = "INSERT INTO `project` VALUES (NULL, '%s', CURRENT_TIME(), CURRENT_TIME())" % project
+            db.execute_sql(add_project_sql, commit=True)
+            print("add new project '%s' in db" % project)
+        return db.get_all_results_from_database(project_exist_sql)[-1]["id"]
