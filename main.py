@@ -3,5 +3,6 @@ from common.report.storage import Storage
 
 
 if __name__ == "__main__":
-    Application().run()
-    Storage().run()
+    new_round = Application()
+    new_round.run()
+    Storage(new_round.start_time).run()

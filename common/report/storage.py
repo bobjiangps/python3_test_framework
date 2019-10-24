@@ -4,16 +4,18 @@ from utils.geoip_helper import GeoIpHelper
 import os
 import json
 import platform
+import time
+import datetime
 
 
 class Storage:
 
-    def __init__(self):
+    def __init__(self, round_start_time):
         self._config = None
         self._stat = None
+        self.round_start_time = round_start_time
 
     def run(self):
-        print("Start to record test execution data")
         self._load_config()
         db_info = self._config["storage"]
         # db_info["host"] = "120.78.133.207"
@@ -27,16 +29,23 @@ class Storage:
             self._stat = json.load(f)
         print(self._config)
         print(self._stat)
-        test_type = self.get_test_type()
-        test_type_id = self.store_test_type(store_db)
-        if test_type == "Mobile":
-            device_id = self.store_device_info(store_db)
-            mobile_os_id = self.store_mobile_os_info(store_db)
-        elif test_type == "Web":
-            browser_id = self.store_browser_info(store_db)
-        platform_id = self.store_platform_info(store_db)
-        project_id = self.store_project_info(store_db)
-        print("Record data complete...")
+        if self.round_start_time >= datetime.datetime.strptime(self._stat["End_Time"], "%Y-%m-%d-%H:%M:%S.%f"):
+            print("No result!! Please check if your skip all cases...")
+        else:
+            print("Start to record test execution data")
+            test_type = self.get_test_type()
+            test_type_id = self.store_test_type(store_db)
+            if test_type == "Mobile":
+                device_id = self.store_device_info(store_db)
+                mobile_os_id = self.store_mobile_os_info(store_db)
+            elif test_type == "Web":
+                browser_id = self.store_browser_info(store_db)
+            platform_id = self.store_platform_info(store_db)
+            project_id = self.store_project_info(store_db)
+            environment_id = self.store_environment_info(store_db)
+            suite_id = self.store_test_script_case_suite_info(store_db)
+            # suite_id = self.store_test_script_case_suite_info(store_db, "debug_suite")
+            print("Record data complete...")
 
     def _load_config(self):
         self._config = LoadConfig.load_config()
@@ -146,3 +155,65 @@ class Storage:
             db.execute_sql(add_project_sql, commit=True)
             print("add new project '%s' in db" % project)
         return db.get_all_results_from_database(project_exist_sql)[-1]["id"]
+
+    def store_environment_info(self, db):
+        environment = self._config["environment"]
+        environment_exist_sql = "select * from test_environment where name='%s'" % environment
+        environment_exist = True if len(db.get_all_results_from_database(environment_exist_sql)) > 0 else False
+        if environment_exist:
+            print("environment '%s' already exist in db" % environment)
+        else:
+            add_environment_sql = "INSERT INTO `test_environment` VALUES (NULL, '%s')" % environment
+            db.execute_sql(add_environment_sql, commit=True)
+            print("add new test environment '%s' in db" % environment)
+        return db.get_all_results_from_database(environment_exist_sql)[-1]["id"]
+
+    def store_test_script_case_suite_info(self, db, test_suite_name=None):
+        if not test_suite_name:
+            test_suite_name = "Suite%s" % time.strftime("%Y%m%d%H%M%S", time.localtime())
+        suite_exist_sql = "select * from test_suite where name = '%s'" % test_suite_name
+        suite_exist = True if len(db.get_all_results_from_database(suite_exist_sql)) > 0 else False
+        if suite_exist:
+            print("suite '%s' already exist in db" % test_suite_name)
+        else:
+            add_suite_sql = "INSERT INTO `test_suite` VALUES (NULL, '%s', CURRENT_TIME(), CURRENT_TIME())" % test_suite_name
+            db.execute_sql(add_suite_sql, commit=True)
+            print("add new test suite '%s' in db" % test_suite_name)
+        test_suite_id = db.get_all_results_from_database(suite_exist_sql)[-1]["id"]
+
+        scripts = self._stat["Cases"].keys()
+        for s in scripts:
+            script_exist_sql = "select * from test_script where name = '%s'" % s
+            script_exist = True if len(db.get_all_results_from_database(script_exist_sql)) > 0 else False
+            if not script_exist:
+                add_script_sql = "INSERT INTO `test_script` VALUES (NULL, '%s', CURRENT_TIME(), CURRENT_TIME())" % s
+                db.execute_sql(add_script_sql, commit=True)
+                print("add new script '%s' in db" % s)
+            test_script_id = db.get_all_results_from_database(script_exist_sql)[-1]["id"]
+
+            script_functions = self._stat["Cases"][s].keys()
+            for f in script_functions:
+                function_exist_sql = "select * from test_function where name = '%s'" % f
+                function_exist = True if len(db.get_all_results_from_database(function_exist_sql)) > 0 else False
+                if not function_exist:
+                    add_function_sql = "INSERT INTO `test_function` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (f, test_script_id)
+                    db.execute_sql(add_function_sql, commit=True)
+                    print("add new function '%s' in db" % f)
+                test_function_id = db.get_all_results_from_database(function_exist_sql)[-1]["id"]
+
+                case_name = self._stat["Cases"][s][f]
+                case_exist_sql = "select * from test_case where name = '%s'" % case_name
+                case_exist = True if len(db.get_all_results_from_database(case_exist_sql)) > 0 else False
+                if not case_exist:
+                    add_case_sql = "INSERT INTO `test_case` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (case_name, test_function_id)
+                    db.execute_sql(add_case_sql, commit=True)
+                    print("add new case '%s' in db" % case_name)
+                test_case_id = db.get_all_results_from_database(case_exist_sql)[-1]["id"]
+
+                case_suite_exist_sql = "select * from case_suite where test_suite_id = %s and test_case_id = %s" % (test_suite_id, test_case_id)
+                case_suite_exist = True if len(db.get_all_results_from_database(case_suite_exist_sql)) > 0 else False
+                if not case_suite_exist:
+                    add_case_suite_sql = "INSERT INTO `case_suite` VALUES (NULL, %s, %s, CURRENT_TIME(), CURRENT_TIME())" % (test_suite_id, test_case_id)
+                    db.execute_sql(add_case_suite_sql, commit=True)
+                    print("add new case suite relation '%s - %s' in db" % (test_suite_id, test_case_id))
+        return test_suite_id
