@@ -14,6 +14,16 @@ class Storage:
         self._config = None
         self._stat = None
         self.round_start_time = round_start_time
+        self.test_type = None
+        self.test_type_id = None
+        self.device_id = None
+        self.mobile_os_id = None
+        self.browser_id = None
+        self.platform_id = None
+        self.project_id = None
+        self.environment_id = None
+        self.suite_id = None
+        self.round_id = None
 
     def run(self):
         self._load_config()
@@ -27,24 +37,27 @@ class Storage:
         stat_file = os.path.join(report_folder_path, "stat.json")
         with open(stat_file, "r") as f:
             self._stat = json.load(f)
-        print(self._config)
-        print(self._stat)
+        # print(self._config)
+        # print(self._stat)
         if self.round_start_time >= datetime.datetime.strptime(self._stat["End_Time"], "%Y-%m-%d-%H:%M:%S.%f"):
             print("No result!! Please check if your skip all cases...")
         else:
             print("Start to record test execution data")
-            test_type = self.get_test_type()
-            test_type_id = self.store_test_type(store_db)
-            if test_type == "Mobile":
-                device_id = self.store_device_info(store_db)
-                mobile_os_id = self.store_mobile_os_info(store_db)
-            elif test_type == "Web":
-                browser_id = self.store_browser_info(store_db)
-            platform_id = self.store_platform_info(store_db)
-            project_id = self.store_project_info(store_db)
-            environment_id = self.store_environment_info(store_db)
-            suite_id = self.store_test_script_case_suite_info(store_db)
-            # suite_id = self.store_test_script_case_suite_info(store_db, "debug_suite")
+            self.test_type = self.get_test_type()
+            self.test_type_id = self.store_test_type(store_db)
+            if self.test_type == "Mobile":
+                self.device_id = self.store_device_info(store_db)
+                self.mobile_os_id = self.store_mobile_os_info(store_db)
+            elif self.test_type == "Web":
+                self.browser_id = self.store_browser_info(store_db)
+            self.platform_id = self.store_platform_info(store_db)
+            self.project_id = self.store_project_info(store_db)
+            self.environment_id = self.store_environment_info(store_db)
+            self.suite_id = self.store_test_script_case_suite_info(store_db)
+            # self.suite_id = self.store_test_script_case_suite_info(store_db, "debug_suite")
+            self.round_id = self.store_test_round_info(store_db)
+            # self.round_id = self.store_test_round_info(store_db, "debug_round")
+            self.store_case_result_info(store_db)
             print("Record data complete...")
 
     def _load_config(self):
@@ -215,5 +228,65 @@ class Storage:
                 if not case_suite_exist:
                     add_case_suite_sql = "INSERT INTO `case_suite` VALUES (NULL, %s, %s, CURRENT_TIME(), CURRENT_TIME())" % (test_suite_id, test_case_id)
                     db.execute_sql(add_case_suite_sql, commit=True)
-                    print("add new case suite relation '%s - %s' in db" % (test_suite_id, test_case_id))
+                    # print("add new case suite relation '%s - %s' in db" % (test_suite_id, test_case_id))
+        print("add new case suite relation in db")
         return test_suite_id
+
+    def store_test_round_info(self, db, test_round_name=None):
+        if not test_round_name:
+            test_round_name = "Round%s" % time.strftime("%Y%m%d%H%M%S", time.localtime())
+        round_exist_sql = "select * from test_round where name = '%s'" % test_round_name
+        round_exist = True if len(db.get_all_results_from_database(round_exist_sql)) > 0 else False
+        if round_exist:
+            print("round '%s' already exist in db" % test_round_name)
+            test_round_name += time.strftime("%Y%m%d%H%M%S", time.localtime())
+            print("change to a new round name '%s'" % test_round_name)
+        ip = GeoIpHelper.get_ip()
+        location = GeoIpHelper.get_location(ip)
+        if self.test_type == "Mobile":
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, NULL, %s, %s, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.device_id, self.mobile_os_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+        elif self.test_type == "Web":
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, %s, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.browser_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+        else:
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, NULL, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+        db.execute_sql(add_round_sql, commit=True)
+        print("add new test round '%s' in db" % test_round_name)
+        return db.get_all_results_from_database("select * from test_round where name = '%s'" % test_round_name)[-1]["id"]
+
+    def store_case_result_info(self, db):
+        details = self._stat["Details"]
+        failures = self._stat["Failures"]
+        for s in details.keys():
+            for f in details[s].keys():
+                result = details[s][f]
+                data_driven = None
+                f_split = f.split("[")
+                function_name = f_split[0]
+                if len(f_split) > 1:
+                    data_driven = f_split[1].split("]")[0]
+                test_case_id_sql = "SELECT tc.id FROM `test_case` as tc " \
+                                   "left join `test_function` as tf on tc.test_function_id = tf.id " \
+                                   "left join `test_script` as ts on tf.script_id = ts.id " \
+                                   "where tf.name='%s' and ts.name='%s'" % (function_name, s)
+                test_case_id = db.get_all_results_from_database(test_case_id_sql)[-1]["id"]
+                if result == "fail":
+                    error_message = failures[s][f]["error_message"]
+                    if "screenshot" in failures[s][f].keys():
+                        screenshot = failures[s][f]["screenshot"]
+                        if data_driven:
+                            add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', '%s', NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), screenshot, result, data_driven)
+                        else:
+                            add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', '%s', NULL, '%s', NULL, CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), screenshot, result)
+                            print(add_case_result_sql)
+                    else:
+                        if data_driven:
+                            add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', NULL, NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), result, data_driven)
+                        else:
+                            add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', NULL, NULL, '%s', NULL, CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), result)
+                else:
+                    if data_driven:
+                        add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, NULL, NULL, NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, result, data_driven)
+                    else:
+                        add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, NULL, NULL, NULL, '%s', NULL, CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, result)
+                db.execute_sql(add_case_result_sql, commit=True)
+        print("add new test case result in db")

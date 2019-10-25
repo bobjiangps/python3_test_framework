@@ -10,6 +10,7 @@ import json
 
 total_sum = pass_sum = fail_sum = skip_sum = 0
 module_case = {}
+failures = {}
 start_time = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f")
 browser_name = browser_version = mobile_platform_name = mobile_platform_version = "unknown"
 
@@ -24,6 +25,7 @@ def pytest_runtest_makereport(item, call):
     global fail_sum
     global skip_sum
     global module_case
+    global failures
     global start_time
     global browser_name
     global browser_version
@@ -34,6 +36,8 @@ def pytest_runtest_makereport(item, call):
     test_file = item.function.__module__.split(".")[-1]
     if test_file not in module_case.keys():
         module_case[test_file] = {}
+    if test_file not in failures.keys():
+        failures[test_file] = {}
     rep.description = str(item.function.__doc__)
     setattr(item, "rep_" + rep.when, rep)
     if rep.when == "setup" and rep.skipped:
@@ -65,11 +69,14 @@ def pytest_runtest_makereport(item, call):
                 pass_sum += 1
                 fail_sum -= 1
             module_case[test_file][test_method] = "pass"
+            if test_method in failures[test_file]:
+                del failures[test_file][test_method]
         elif rep.failed:
             if test_method not in module_case[test_file]:
                 total_sum += 1
                 fail_sum += 1
             module_case[test_file][test_method] = "fail"
+            failures[test_file][test_method] = {"error_message": rep.longreprtext}
             config = LoadConfig.load_config()
             if config["report"]["ui_test"]:
                 screen_folder_path = os.path.join(os.getcwd(), "projects", config["project"], "test_reports", "screenshots")
@@ -85,6 +92,7 @@ def pytest_runtest_makereport(item, call):
                     Win32Helper.capture_screen(screenshot_file_path)
                 else:
                     driver.save_screenshot(screenshot_file_path)
+                failures[test_file][test_method]["screenshot"] = screenshot_file_path.split(os.getcwd())[-1]
                 html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % screenshot_file_path
                 extra = getattr(rep, 'extra', [])
@@ -106,6 +114,7 @@ def pytest_sessionfinish(session, exitstatus):
     global browser_version
     global mobile_platform_name
     global mobile_platform_version
+    global failures
     stat_file = os.path.join(os.getcwd(), "projects", LoadConfig.load_config()["project"], "test_reports", "stat.json")
     session_pass_sum = session_fail_sum = session_skip_sum = 0
     session_module_case = {}
@@ -136,7 +145,7 @@ def pytest_sessionfinish(session, exitstatus):
                     if unique_test_method not in session_case_names[test_file]:
                         session_case_names[test_file][unique_test_method] = test_case_name
     session_total_sum = session_pass_sum + session_fail_sum + session_skip_sum
-    current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": session_module_case, "Cases": session_case_names}
+    current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": session_module_case, "Cases": session_case_names, "Failures": failures}
     config = LoadConfig.load_config()
     if config["report"]["ui_test"]:
         if config["report"]["app_test"]:
