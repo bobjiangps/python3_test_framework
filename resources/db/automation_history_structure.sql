@@ -243,6 +243,7 @@ CREATE TABLE `test_case_result` (
   `screenshot` varchar(500) DEFAULT NULL,
   `video` varchar(500) DEFAULT NULL,
   `result` varchar(100) NOT NULL,
+  `data_driven` varchar(1000) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -326,7 +327,7 @@ CREATE TABLE `test_round` (
   `test_environment_id` int(11) NOT NULL,
   `test_type_id` int(11) NOT NULL,
   `ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `location` varchar(1000) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `location` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -425,4 +426,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-25 17:11:44
+-- Dump completed on 2019-10-25 17:09:01
