@@ -28,8 +28,8 @@ class Storage:
     def run(self):
         self._load_config()
         db_info = self._config["storage"]
-        # db_info["host"] = "120.78.133.207"
-        db_info["host"] = "127.0.0.1"
+        db_info["host"] = "120.78.133.207"
+        # db_info["host"] = "127.0.0.1"
         db_info["username"] = "automation"
         db_info["password"] = "Run_Auto666"
         store_db = MysqlHelper(db_info)
