@@ -6,6 +6,7 @@ import json
 import platform
 import time
 import datetime
+import base64
 
 
 class Storage:
@@ -28,10 +29,10 @@ class Storage:
     def run(self):
         self._load_config()
         db_info = self._config["storage"]
-        db_info["host"] = "120.78.133.207"
+        db_info["host"] = base64.b64decode(b'MTIwLjc4LjEzMy4yMDc=').decode()
         # db_info["host"] = "127.0.0.1"
-        db_info["username"] = "automation"
-        db_info["password"] = "Run_Auto666"
+        db_info["username"] = base64.b64decode(b'YXV0b21hdGlvbg==').decode()
+        db_info["password"] = base64.b64decode(b'UnVuX0F1dG82NjY=').decode()
         store_db = MysqlHelper(db_info)
         report_folder_path = os.path.join(os.getcwd(), "projects", self._config["project"], "test_reports")
         stat_file = os.path.join(report_folder_path, "stat.json")
