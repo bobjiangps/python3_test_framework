@@ -319,6 +319,7 @@ DROP TABLE IF EXISTS `test_round`;
 CREATE TABLE `test_round` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `project_id` int(11) NOT NULL,
   `test_suite_id` int(11) NOT NULL,
   `browser_id` int(11) DEFAULT NULL,
   `device_id` int(11) DEFAULT NULL,
@@ -353,6 +354,7 @@ DROP TABLE IF EXISTS `test_script`;
 CREATE TABLE `test_script` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `project_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
