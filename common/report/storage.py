@@ -199,7 +199,7 @@ class Storage:
             script_exist_sql = "select * from test_script where name = '%s'" % s
             script_exist = True if len(db.get_all_results_from_database(script_exist_sql)) > 0 else False
             if not script_exist:
-                add_script_sql = "INSERT INTO `test_script` VALUES (NULL, '%s', CURRENT_TIME(), CURRENT_TIME())" % s
+                add_script_sql = "INSERT INTO `test_script` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (s, self.project_id)
                 db.execute_sql(add_script_sql, commit=True)
                 print("add new script '%s' in db" % s)
             test_script_id = db.get_all_results_from_database(script_exist_sql)[-1]["id"]
@@ -244,11 +244,11 @@ class Storage:
         ip = GeoIpHelper.get_ip()
         location = GeoIpHelper.get_location(ip)
         if self.test_type == "Mobile":
-            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, NULL, %s, %s, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.device_id, self.mobile_os_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, %s, NULL, %s, %s, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.project_id, self.suite_id, self.device_id, self.mobile_os_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
         elif self.test_type == "Web":
-            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, %s, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.browser_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, %s, %s, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.project_id, self.suite_id, self.browser_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
         else:
-            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, NULL, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.suite_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
+            add_round_sql = "INSERT INTO `test_round` VALUES (NULL, '%s', %s, %s, NULL, NULL, NULL, %s, %s, %s, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_round_name, self.project_id, self.suite_id, self.platform_id, self.environment_id, self.test_type_id, ip, location)
         db.execute_sql(add_round_sql, commit=True)
         print("add new test round '%s' in db" % test_round_name)
         return db.get_all_results_from_database("select * from test_round where name = '%s'" % test_round_name)[-1]["id"]
