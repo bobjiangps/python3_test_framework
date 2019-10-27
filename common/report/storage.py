@@ -197,7 +197,7 @@ class Storage:
 
         scripts = self._stat["Cases"].keys()
         for s in scripts:
-            script_exist_sql = "select * from test_script where name = '%s'" % s
+            script_exist_sql = "select * from test_script where name = '%s' and project_id = %s" % (s, self.project_id)
             script_exist = True if len(db.get_all_results_from_database(script_exist_sql)) > 0 else False
             if not script_exist:
                 add_script_sql = "INSERT INTO `test_script` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (s, self.project_id)
@@ -207,7 +207,7 @@ class Storage:
 
             script_functions = self._stat["Cases"][s].keys()
             for f in script_functions:
-                function_exist_sql = "select * from test_function where name = '%s'" % f
+                function_exist_sql = "select * from test_function where name = '%s' and script_id = %s" % (f, test_script_id)
                 function_exist = True if len(db.get_all_results_from_database(function_exist_sql)) > 0 else False
                 if not function_exist:
                     add_function_sql = "INSERT INTO `test_function` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (f, test_script_id)
@@ -216,7 +216,7 @@ class Storage:
                 test_function_id = db.get_all_results_from_database(function_exist_sql)[-1]["id"]
 
                 case_name = self._stat["Cases"][s][f]
-                case_exist_sql = "select * from test_case where name = '%s'" % case_name
+                case_exist_sql = "select * from test_case where name = '%s' and test_function_id = %s" % (case_name, test_function_id)
                 case_exist = True if len(db.get_all_results_from_database(case_exist_sql)) > 0 else False
                 if not case_exist:
                     add_case_sql = "INSERT INTO `test_case` VALUES (NULL, '%s', %s, CURRENT_TIME(), CURRENT_TIME())" % (case_name, test_function_id)
