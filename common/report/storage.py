@@ -278,7 +278,6 @@ class Storage:
                             add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', '%s', NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), screenshot, result, data_driven)
                         else:
                             add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', '%s', NULL, '%s', NULL, CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), screenshot, result)
-                            print(add_case_result_sql)
                     else:
                         if data_driven:
                             add_case_result_sql = "INSERT INTO `test_case_result` VALUES (NULL, %s, %s, '%s', NULL, NULL, '%s', '%s', CURRENT_TIME(), CURRENT_TIME())" % (test_case_id, self.round_id, error_message.replace("'", '"'), result, data_driven)
