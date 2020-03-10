@@ -52,7 +52,7 @@ class PostListPage(CommonComponent):
         self.element("post_view_dropdown").wait_presence()
 
     def post_view_dropdown_should_arrange_posts_order_by_view_count(self):
-        self.element("post_view_dropdown").select_by_text("按阅读量")
+        self.element("post_view_dropdown").select_by_text("按阅读量排序")
         self.behavior.wait_page_load()
         all_blog_posts = self.element("all_blog_post").all()
         self.log.info("check %d blog posts in new order by view count" % len(all_blog_posts))
