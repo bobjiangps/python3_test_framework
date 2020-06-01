@@ -75,21 +75,22 @@ class WebBehaviors(WebDriverWait):
             message = "Unable to wait the element disappear by {0}: '{1}' in the page '{2}' during timeout '{3}'".format(by, value, self._driver.current_url, self.timeout)
         except WebDriverException:
             message = "Unable to wait the element disappear by {0}: '{1}' during timeout '{2}'".format(by, value, self.timeout)
-        wait_time = 0
-        while wait_time < self.timeout:
-            elements = self.find_elements(locator, *args)
-            if len(elements) == 0:
-                self.log.info("the element disappear by {0}: '{1}' after wait {2}s".format(by, value, wait_time))
-                break
-            else:
-                time.sleep(0.5)
-                wait_time += 0.5
-                continue
-        if wait_time >= self.timeout:
-            self.log.info(message)
-            return False
-        else:
-            return True
+        # wait_time = 0
+        # while wait_time < self.timeout:
+        #     elements = self.find_elements(locator, *args)
+        #     if len(elements) == 0:
+        #         self.log.info("the element disappear by {0}: '{1}' after wait {2}s".format(by, value, wait_time))
+        #         break
+        #     else:
+        #         time.sleep(0.5)
+        #         wait_time += 0.5
+        #         continue
+        # if wait_time >= self.timeout:
+        #     self.log.info(message)
+        #     return False
+        # else:
+        #     return True
+        return self.until_not(EC.presence_of_element_located((by, value)), message)
 
     def wait_until_frame_to_be_available_and_switch_to_it(self, locator, *args):
         by, value = self.format_locator(locator, *args)
