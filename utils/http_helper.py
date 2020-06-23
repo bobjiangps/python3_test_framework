@@ -4,6 +4,16 @@ import requests
 class HttpHelper:
 
     @classmethod
+    def execute(cls, method, url, data=None, headers={}, **kwargs):
+        default_headers = {"Content-type": "application/json; charset=UTF-8"}
+        headers = dict(default_headers, **headers)
+        if data:
+            result = requests.request(method, url, data=data, headers=headers, **kwargs)
+        else:
+            result = requests.request(method, url, headers=headers, **kwargs)
+        return result
+
+    @classmethod
     def get_response_by_url(cls, url, data=None, headers={}):
         default_headers = {"Content-type": "application/json; charset=UTF-8"}
         headers = dict(default_headers, **headers)
@@ -31,5 +41,5 @@ class HttpHelper:
     def delete_to_url(cls, url, headers={}):
         default_headers = {"Content-type": "application/json; charset=UTF-8"}
         headers = dict(default_headers, **headers)
-        result = requests.post(url, headers=headers)
+        result = requests.delete(url, headers=headers)
         return result
