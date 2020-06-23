@@ -4,13 +4,10 @@ import requests
 class HttpHelper:
 
     @classmethod
-    def execute(cls, method, url, data=None, headers={}, **kwargs):
+    def execute(cls, method, url, headers={}, **kwargs):
         default_headers = {"Content-type": "application/json; charset=UTF-8"}
         headers = dict(default_headers, **headers)
-        if data:
-            result = requests.request(method, url, data=data, headers=headers, **kwargs)
-        else:
-            result = requests.request(method, url, headers=headers, **kwargs)
+        result = requests.request(method, url, headers=headers, **kwargs)
         return result
 
     @classmethod
