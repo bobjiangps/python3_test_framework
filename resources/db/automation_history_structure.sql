@@ -371,6 +371,36 @@ LOCK TABLES `test_script` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `test_script_brief`
+--
+
+DROP TABLE IF EXISTS `test_script_brief`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_script_brief` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `script_id` int(11) NOT NULL,
+  `version` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `maintainer` varchar(100) DEFAULT NULL,
+  `file_created` date NOT NULL,
+  `file_updated` date NOT NULL,
+  `tag` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_script_brief`
+--
+
+LOCK TABLES `test_script_brief` WRITE;
+/*!40000 ALTER TABLE `test_script_brief` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_script_brief` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `test_suite`
 --
 
