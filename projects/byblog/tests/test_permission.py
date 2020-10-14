@@ -2,6 +2,15 @@ from .web_test_case import BlogWebTestCase
 
 
 class TestPermission(BlogWebTestCase):
+    """
+    Author: Bob
+    Maintainer: Bob
+    Version: 1.1
+    Status: Completed
+    File_created_time: 2019-10-27
+    File_updated_time: 2019-10-27
+    Tag: Web, Blog, Permission
+    """
 
     def test_sort_posts_only_available_for_logged_in_user(self):
         """ByBlog-3: only user who have logged in can see the posts view dropdown in post list page"""

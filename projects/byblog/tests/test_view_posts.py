@@ -2,6 +2,15 @@ from .web_test_case import BlogWebTestCase
 
 
 class TestViewPosts(BlogWebTestCase):
+    """
+    Author: Bob
+    Maintainer: Bob
+    Version: 1.1
+    Status: Completed
+    File_created_time: 2019-10-27
+    File_updated_time: 2019-10-27
+    Tag: Web, Blog, Posts
+    """
 
     def test_view_posts_in_search_result(self):
         """ByBlog-1: user is able to search posts and view the search result"""

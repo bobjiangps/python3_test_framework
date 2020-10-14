@@ -4,6 +4,15 @@ import pytest
 
 
 class TestPostComment(RestTestCase):
+    """
+    Author: Bob
+    Maintainer: Bob
+    Version: 1.1
+    Status: Completed
+    File_created_time: 2019-10-25
+    File_updated_time: 2019-10-25
+    Tag: API, Comment
+    """
 
     @pytest.mark.parametrize(("post_id", "comment_mark", "expect_result"), TestData.load_test_case_data("test_post_comment"))
     def test_post_comment_amount_0(self, post_id, comment_mark, expect_result):

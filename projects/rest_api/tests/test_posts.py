@@ -2,6 +2,15 @@ from .rest_test_case import RestTestCase
 
 
 class TestPosts(RestTestCase):
+    """
+    Author: Bob
+    Maintainer: Bob
+    Version: 1.1
+    Status: Completed
+    File_created_time: 2019-10-25
+    File_updated_time: 2019-10-25
+    Tag: API, Posts
+    """
 
     def test_posts_amount(self):
         """RA-4: posts amount"""

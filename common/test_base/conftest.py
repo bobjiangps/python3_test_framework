@@ -6,6 +6,8 @@ import pytest
 import os
 import datetime
 import json
+import ast
+import yaml
 
 
 total_sum = pass_sum = fail_sum = skip_sum = 0
@@ -119,6 +121,7 @@ def pytest_sessionfinish(session, exitstatus):
     session_pass_sum = session_fail_sum = session_skip_sum = 0
     session_module_case = {}
     session_case_names = {}
+    session_class_doc = {}
     reporter = session.config.pluginmanager.get_plugin('terminalreporter')
     expect_types = ["passed", "failed", "skipped"]
     alias = {"passed": "pass", "failed": "fail", "skipped": "skip"}
@@ -127,6 +130,14 @@ def pytest_sessionfinish(session, exitstatus):
         if rt in actual_types:
             for item in reporter.stats[rt]:
                 test_file = item.nodeid.split("tests/")[-1].split("::")[0].split(".")[0]
+                test_file_path, test_class_name, _ = item.nodeid.split("::")
+                if test_class_name not in session_class_doc.keys():
+                    with open(os.path.join(os.getcwd(), test_file_path)) as fd:
+                        tree = ast.parse(fd.read())
+                        for node in ast.walk(tree):
+                            if isinstance(node, ast.ClassDef) and node.name == test_class_name:
+                                docstring = ast.get_docstring(node)
+                                session_class_doc[test_file] = yaml.load(docstring, Loader=yaml.BaseLoader)
                 test_method = item.nodeid.split("::")[-1]
                 test_result = item.outcome
                 test_case_name = item.description
@@ -145,7 +156,7 @@ def pytest_sessionfinish(session, exitstatus):
                     if unique_test_method not in session_case_names[test_file]:
                         session_case_names[test_file][unique_test_method] = test_case_name
     session_total_sum = session_pass_sum + session_fail_sum + session_skip_sum
-    current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Details": session_module_case, "Cases": session_case_names, "Failures": failures}
+    current_result = {"Total": session_total_sum, "Pass": session_pass_sum, "Fail": session_fail_sum, "Skip": session_skip_sum, "Start_Time": start_time, "End_Time": datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S.%f"), "Brief":session_class_doc, "Details": session_module_case, "Cases": session_case_names, "Failures": failures}
     config = LoadConfig.load_config()
     if config["report"]["ui_test"]:
         if config["report"]["app_test"]:
