@@ -96,3 +96,16 @@ class TestData:
             for case in case_data.values():
                 test_data.append(list(case.values()))
         return test_data
+
+    @classmethod
+    def load_test_case_data_by_section(cls, file_name, section_name):
+        all_config = LoadConfig.load_config()
+        test_data = []
+        test_data_path = os.path.join(os.getcwd(), "projects", all_config["project"], "test_data", file_name + ".yaml")
+        if os.path.exists(test_data_path):
+            case_data = YamlHelper.load_yaml(test_data_path)
+            if isinstance(case_data[section_name], list):
+                test_data = case_data[section_name]
+            elif isinstance(case_data[section_name], dict):
+                test_data.append(case_data[section_name])
+        return test_data
