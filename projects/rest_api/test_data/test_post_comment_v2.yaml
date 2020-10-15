@@ -1,0 +1,34 @@
+RA-6:
+  - comment_data:
+      post_id: 1
+    expectation:
+      status_code: 200
+      response_body:
+        - postId: 1
+          id : 1
+          name: "et fugit eligendi deleniti quidem qui sint nihil autem"
+          email: "Presley.Mueller@myrl.com"
+  - comment_data:
+      post_id: 2
+    expectation:
+      status_code: 200
+      response_body:
+        - postId: 2
+          id : 6
+          name: "et fugit eligendi deleniti quidem qui sint nihil autem"
+          email: "Presley.Mueller@myrl.com"
+          body: "doloribus at sed quis culpa deserunt consectetur qui praesentium\naccusamus fugiat dicta\nvoluptatem rerum ut voluptate autem\nvoluptatem repellendus aspernatur dolorem in"
+        - postId: 2
+          id : 7
+          name: "repellat consequatur praesentium vel minus molestias voluptatum"
+          email: "Presley.Mueller@myrl.com"
+          body: "doloribus at sed quis culpa deserunt consectetur qui praesentium\naccusamus fugiat dicta\nvoluptatem rerum ut voluptate autem\nvoluptatem repellendus aspernatur dolorem in"
+
+RA-7:
+  comment_data:
+    post_id: 1
+  expectation:
+    status_code: 200
+    response_body:
+      postId: 11
+      comment : aaa

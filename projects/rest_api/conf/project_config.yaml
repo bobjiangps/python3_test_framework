@@ -19,6 +19,7 @@ env: {
         api_list: {
             posts: posts,
             post_comment: posts/<param>/comments
+            post_comment_v2: posts/%s/comments
         }
     },
 }
