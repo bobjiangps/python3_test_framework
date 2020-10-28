@@ -33,7 +33,7 @@ pytest-xdist==1.29.0
 python-dateutil==2.8.0
 pywin32==224
 pywinauto==0.6.7
-PyYAML==4.2b1
+PyYAML==5.3.1
 requests==2.21.0
 selenium==3.141.0
 six==1.12.0

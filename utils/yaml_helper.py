@@ -6,7 +6,7 @@ class YamlHelper:
     @classmethod
     def load_yaml(cls, file_path):
         rf = open(file_path, "rb")
-        ret = yaml.load(rf)
+        ret = yaml.load(rf, Loader=yaml.SafeLoader)
         rf.close()
         return ret
 
