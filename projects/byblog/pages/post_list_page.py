@@ -20,7 +20,8 @@ class PostListPage(CommonComponent):
         self.element("page_jump_button").wait_clickable()
 
     def get_post_amount_on_current_page(self):
-        all_blog_posts = self.behavior.find_elements(self.element_info("all_blog_post"))
+        # all_blog_posts = self.behavior.find_elements(self.element_info("all_blog_post"))
+        all_blog_posts = self.elements("all_blog_post")
         return len(all_blog_posts)
 
     # assertions below
@@ -31,13 +32,13 @@ class PostListPage(CommonComponent):
 
     def title_or_content_should_contains_search_keyword_in_search_result(self, search_keyword):
         # all_blog_posts = self.behavior.find_elements(self.element_info("all_blog_post"))
-        all_blog_posts = self.element("all_blog_post").all()
+        all_blog_posts = self.element("searched_all_blog_post").all()
         self.log.info("check %d blog posts in search result" % len(all_blog_posts))
         check_result = False
         for index in range(len(all_blog_posts)):
             index += 1
-            title = self.element("blog_post_title", index).get_element_text()
-            content = self.element("blog_post_preview_content", index).get_element_text()
+            title = self.element("searched_blog_post_title", index).get_element_text()
+            content = self.element("searched_blog_post_preview_content", index).get_element_text()
             self.log.info("post%d has title: %s" % (index, title))
             self.log.info("post%d has preview content: %s" % (index, content))
             if search_keyword in title or search_keyword in content:

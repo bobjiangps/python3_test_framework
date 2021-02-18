@@ -49,16 +49,28 @@ next_page_button: {
 all_blog_post: {
     type: area,
     by: xpath,
+    value: "//div[@class='content container-fluid']//article[@class='post-preview']"
+}
+
+searched_all_blog_post: {
+    type: area,
+    by: xpath,
     value: "//div[@class='content container-fluid']//div[@class='post-preview']"
 }
 
 blog_post: {
     type: area,
     by: xpath,
-    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]"
+    value: "//div[@class='content container-fluid']//article[@class='post-preview'][{0}]"
 }
 
 blog_post_title: {
+    type: text,
+    by: xpath,
+    value: "//div[@class='content container-fluid']//article[@class='post-preview'][{0}]/h3"
+}
+
+searched_blog_post_title: {
     type: text,
     by: xpath,
     value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h3"
@@ -67,13 +79,19 @@ blog_post_title: {
 blog_post_preview_content: {
     type: text,
     by: xpath,
+    value: "//div[@class='content container-fluid']//article[@class='post-preview'][{0}]/h6[@class='post-subtitle']"
+}
+
+searched_blog_post_preview_content: {
+    type: text,
+    by: xpath,
     value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]/h6[@class='post-subtitle']"
 }
 
 blog_post_view_count: {
     type: text,
     by: xpath,
-    value: "//div[@class='content container-fluid']//div[@class='post-preview'][{0}]//span[@class='view-count']"
+    value: "//div[@class='content container-fluid']//article[@class='post-preview'][{0}]//span[@class='view-count']"
 }
 
 post_view_dropdown: {

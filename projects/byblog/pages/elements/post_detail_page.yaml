@@ -25,5 +25,5 @@ logout_link: {
 blog_post_title: {
     type: text,
     by: xpath,
-    value: "//div[@class='post_detail']/h3[2]"
+    value: "//article[@class='post_detail']/h3[2]"
 }

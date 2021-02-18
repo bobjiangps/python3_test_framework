@@ -46,6 +46,9 @@ class PageBase:
         else:
             self.log.info("%s is not a valid element type..." % self._elements[name]["type"])
 
+    def elements(self, name, *args):
+        return self.behavior.find_elements(self._elements[name], *args)
+
     def frame(self, name, *args):
         if self._elements[name]["type"].lower().find("frame") >= 0:
             return Frame(self.behavior, self._elements[name], *args)
