@@ -15,7 +15,7 @@ numpy==1.16.4
 opencv-contrib-python==3.4.2.16
 opencv-python==3.4.2.16
 pluggy==0.9.0
-py==1.7.0
+py==1.10.0
 PyMySQL==0.9.3
 pyparsing==2.4.1.1
 PyQt5==5.13.0
